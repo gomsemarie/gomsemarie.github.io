@@ -9,6 +9,7 @@ type DataProps = {
   };
 };
 
+// test
 const IndexRoute = ({ data: { site } }: PageProps<DataProps>) => {
   return (
     <main>
