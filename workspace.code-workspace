@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "name": "devbears.github.io",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "search.exclude": {
+      "**/.yarn": true,
+      "**/.pnp.*": true
+    },
+    "window.title": "Dev Bears Blog",
+    "typescript.tsdk": ".yarn/sdks/typescript/lib",
+    "typescript.enablePromptUseWorkspaceTsdk": true
+  }
+}
