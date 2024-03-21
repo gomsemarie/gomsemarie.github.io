@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkdevbears_github_io=self.webpackChunkdevbears_github_io||[]).push([[245],{2099:function(e,t,a){a.r(t);var l=a(3270);t.default=e=>{let{data:{site:t}}=e;return l.createElement("main",null,l.createElement("h1",null,t.siteMetadata.title))}}}]);
+//# sourceMappingURL=component---src-pages-index-tsx-10dd2ecb531f1eea6d13.js.map
