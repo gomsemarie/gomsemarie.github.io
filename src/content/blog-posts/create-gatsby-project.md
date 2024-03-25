@@ -1,8 +1,8 @@
 ---
-title: My Markdown Page
-date: "2023-07-25T22:12:03.284Z"
+slug: "my-first-blog-post"
+date: "2022-11-24"
+title: "My first blog post"
 description: This is an example of a Markdown page.
-slug: create-gatsby-project
 ---
 
 # My Markdown Page
