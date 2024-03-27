@@ -21,5 +21,5 @@ export type Markdown<T> = {
 
 export type AllMarkdown<T> = {
   projects: MarkdownNodes<T>;
-  blogPosts: MarkdownNodes<T>;
+  blogPost: MarkdownNodes<T>;
 };

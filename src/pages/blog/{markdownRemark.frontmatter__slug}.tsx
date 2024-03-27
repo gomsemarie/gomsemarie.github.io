@@ -25,10 +25,7 @@ export const BlogPostPage: React.FC<{ data: Markdown<Page> }> = ({ data }) => {
 
 export const pageQuery = graphql`
   query ($id: String!) {
-    blogPost: markdownRemark(
-      id: { eq: $id }
-      fileAbsolutePath: { regex: "/blog-posts/" }
-    ) {
+    blogPost: markdownRemark(id: { eq: $id }) {
       html
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
