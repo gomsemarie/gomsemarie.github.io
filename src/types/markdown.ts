@@ -3,6 +3,7 @@ export type Page = {
   title: string;
   author?: string;
   category?: string;
+  date?: string;
 };
 
 export type MarkdownRemark<T> = {

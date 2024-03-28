@@ -1,5 +1,6 @@
 import * as React from "react";
 import { graphql, PageProps } from "gatsby";
+import "prismjs/themes/prism-tomorrow.css";
 
 type DataProps = {
   site: {
