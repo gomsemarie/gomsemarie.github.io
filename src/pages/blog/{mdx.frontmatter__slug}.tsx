@@ -1,22 +1,41 @@
 import { PageProps, graphql } from "gatsby";
 import { NeatPostTemplate } from "../../templates";
 import React from "react";
+import { MDXProvider } from "@mdx-js/react";
+
+function Text({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      style={{
+        backgroundColor: "red",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function BlogPostPage({
   data,
   children,
 }: PageProps<Queries.PostDetailQuery>) {
-  return <NeatPostTemplate data={data}>{children}</NeatPostTemplate>;
+  const shortcodes = { Text };
+
+  return (
+    <MDXProvider components={shortcodes}>
+      <NeatPostTemplate data={data}>{children}</NeatPostTemplate>
+    </MDXProvider>
+  );
 }
 
 export const query = graphql`
   query PostDetail($frontmatter__slug: String) {
     mdx(frontmatter: { slug: { eq: $frontmatter__slug } }) {
       frontmatter {
-        author
-        date
         slug
+        date
         title
+        description
       }
     }
   }
