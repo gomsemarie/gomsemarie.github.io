@@ -1,5 +1,5 @@
 import { PageProps, graphql } from "gatsby";
-import { NeatPostTemplate } from "../../templates";
+import { NeatPostTemplate } from "@_templates";
 import React from "react";
 import { MDXProvider } from "@mdx-js/react";
 
@@ -22,9 +22,11 @@ export default function BlogPostPage({
   const shortcodes = { Text };
 
   return (
-    <MDXProvider components={shortcodes}>
-      <NeatPostTemplate data={data}>{children}</NeatPostTemplate>
-    </MDXProvider>
+    <main data-page="blog-post-page">
+      <MDXProvider components={shortcodes}>
+        <NeatPostTemplate data={data}>{children}</NeatPostTemplate>
+      </MDXProvider>
+    </main>
   );
 }
 

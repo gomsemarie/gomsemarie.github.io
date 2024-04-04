@@ -6166,6 +6166,7 @@ __metadata:
     babel-plugin-styled-components: "npm:^2.1.4"
     gatsby: "npm:^5.13.3"
     gatsby-plugin-image: "npm:^3.13.1"
+    gatsby-plugin-layout: "npm:^4.13.1"
     gatsby-plugin-manifest: "npm:^5.13.1"
     gatsby-plugin-mdx: "npm:^5.13.1"
     gatsby-plugin-page-creator: "npm:^5.13.1"
@@ -6173,6 +6174,7 @@ __metadata:
     gatsby-plugin-sharp: "npm:^5.13.1"
     gatsby-plugin-sitemap: "npm:^6.13.1"
     gatsby-plugin-styled-components: "npm:^6.13.1"
+    gatsby-plugin-tsconfig-paths: "npm:^1.0.6"
     gatsby-remark-copy-linked-files: "npm:^6.13.1"
     gatsby-remark-external-links: "npm:^0.0.4"
     gatsby-remark-images: "npm:^7.13.1"
@@ -6185,6 +6187,7 @@ __metadata:
     prismjs: "npm:^1.29.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    sanitize.css: "npm:^13.0.0"
     sass: "npm:^1.72.0"
     styled-components: "npm:^6.1.8"
     typescript: "npm:^5.3.3"
@@ -6502,7 +6505,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^5.15.0, enhanced-resolve@npm:^5.16.0":
+"enhanced-resolve@npm:^5.15.0, enhanced-resolve@npm:^5.16.0, enhanced-resolve@npm:^5.7.0":
   version: 5.16.0
   resolution: "enhanced-resolve@npm:5.16.0"
   dependencies:
@@ -8062,6 +8065,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gatsby-plugin-layout@npm:^4.13.1":
+  version: 4.13.1
+  resolution: "gatsby-plugin-layout@npm:4.13.1"
+  dependencies:
+    "@babel/runtime": "npm:^7.20.13"
+  peerDependencies:
+    gatsby: ^5.0.0-next
+  checksum: 10c0/d673510c1ef0fe557c3502d742def08db58d86639f41943eeca37400ea449811185c2d7c0ca0f4d656faf07ff8ec0a5e1084cb3d01e052ffb169e3e9cc02bcd0
+  languageName: node
+  linkType: hard
+
 "gatsby-plugin-manifest@npm:^5.13.1":
   version: 5.13.1
   resolution: "gatsby-plugin-manifest@npm:5.13.1"
@@ -8196,6 +8210,18 @@ __metadata:
     react-dom: ^18.0.0 || ^0.0.0
     styled-components: ">=2.0.0"
   checksum: 10c0/bae865a773c8ed4dd110f981dc2c89e32c58e90b96711449cc0a2cfd104d975cd94a4d954e00e6dd7188fec59d4b51cda8998a02f59e1c359a8118d052c35555
+  languageName: node
+  linkType: hard
+
+"gatsby-plugin-tsconfig-paths@npm:^1.0.6":
+  version: 1.0.6
+  resolution: "gatsby-plugin-tsconfig-paths@npm:1.0.6"
+  dependencies:
+    lodash: "npm:4.17.21"
+    tsconfig-paths-webpack-plugin: "npm:^3.2.0"
+  peerDependencies:
+    gatsby: ~2.x.x || ~3.x.x || ~4.x.x || ~5.x.x
+  checksum: 10c0/6ae3b82546580314b80afc1afaf5cf7865a9d3af77c026325f6ec50a1e7cd6f410c8f2c1f52674e2b0c71a29b627de311f2d67b52a2020e99dedfd43a6db9510
   languageName: node
   linkType: hard
 
@@ -10812,7 +10838,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.10, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:~4.17.0":
+"lodash@npm:4.17.21, lodash@npm:^4.17.10, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:~4.17.0":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 10c0/d8cbea072bb08655bb4c989da418994b073a608dffa608b09ac04b43a791b12aeae7cd7ad919aa4c925f33b48490b5cfe6c1f71d827956071dae2e7bb3a6b74c
@@ -14663,6 +14689,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"sanitize.css@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "sanitize.css@npm:13.0.0"
+  checksum: 10c0/0c1eb61ff26d8f764593772c9f2af68ef5490cd9c7199ff387138412e8e658a0ee715bf176e0a2569872fc9c277f9342cf1235a9274da7a63aaaf0043747260d
+  languageName: node
+  linkType: hard
+
 "sass-loader@npm:^10.4.1":
   version: 10.5.2
   resolution: "sass-loader@npm:10.5.2"
@@ -15968,7 +16001,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tsconfig-paths@npm:^3.15.0":
+"tsconfig-paths-webpack-plugin@npm:^3.2.0":
+  version: 3.5.2
+  resolution: "tsconfig-paths-webpack-plugin@npm:3.5.2"
+  dependencies:
+    chalk: "npm:^4.1.0"
+    enhanced-resolve: "npm:^5.7.0"
+    tsconfig-paths: "npm:^3.9.0"
+  checksum: 10c0/8b964284cfc58b5d3c4b13c31d7032d6774076d0af78f215644abd10da5b2c1b47eb91f9c084e709c84a70918fbc1cdb8730eba489c3f9be8039bf1e8daebcd4
+  languageName: node
+  linkType: hard
+
+"tsconfig-paths@npm:^3.15.0, tsconfig-paths@npm:^3.9.0":
   version: 3.15.0
   resolution: "tsconfig-paths@npm:3.15.0"
   dependencies:

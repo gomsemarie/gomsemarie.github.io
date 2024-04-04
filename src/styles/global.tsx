@@ -1,6 +1,11 @@
 import { createGlobalStyle } from "styled-components";
-import MapleStoryBold from "../assets/fonts/MapleStoryBold.woff2";
-import MapleStoryLight from "../assets/fonts/MapleStoryLight.woff2";
+import MapleStoryBold from "@_assets/fonts/MapleStoryBold.woff2";
+import MapleStoryLight from "@_assets/fonts/MapleStoryLight.woff2";
+
+import "prismjs/themes/prism-tomorrow.css";
+import "sanitize.css";
+import "sanitize.css/forms.css";
+import "sanitize.css/typography.css";
 
 const GlobalStyle = createGlobalStyle`
   @font-face {

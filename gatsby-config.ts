@@ -11,9 +11,16 @@ const config: GatsbyConfig = {
   // Learn more at: https://gatsby.dev/graphql-typegen
   graphqlTypegen: true,
   plugins: [
+    "gatsby-plugin-tsconfig-paths",
     "gatsby-plugin-sass",
     "gatsby-plugin-image",
     "gatsby-plugin-sitemap",
+    {
+      resolve: "gatsby-plugin-layout",
+      options: {
+        component: "src/layouts/global-layout/index.tsx",
+      },
+    },
     {
       resolve: "gatsby-plugin-manifest",
       options: {
