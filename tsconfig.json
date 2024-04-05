@@ -27,7 +27,13 @@
       "@_styles/*": ["src/styles/*"],
       "@_templates/*": ["src/templates/*"],
       "@_types/*": ["src/types"]
-    }
+    },
+    "plugins": [
+      {
+        "name": "@styled/typescript-styled-plugin",
+        "tags": ["styled", "css", "sty", "styler"]
+      }
+    ]
   },
   "include": [
     "./src/**/*",
