@@ -1,7 +1,8 @@
-import { PageProps, graphql } from "gatsby";
+import { PageProps, graphql, useStaticQuery } from "gatsby";
 import { NeatPostTemplate } from "@_templates";
 import React from "react";
 import { MDXProvider } from "@mdx-js/react";
+import { SEOComponent } from "@_components";
 
 function Text({ children }: { children: React.ReactNode }) {
   return (
@@ -16,9 +17,9 @@ function Text({ children }: { children: React.ReactNode }) {
 }
 
 export default function BlogPostPage({
-  data,
   children,
 }: PageProps<Queries.PostDetailQuery>) {
+  const data: Queries.PostDetailQuery = useStaticQuery(query);
   const shortcodes = { Text };
 
   return (
@@ -27,6 +28,17 @@ export default function BlogPostPage({
         <NeatPostTemplate data={data}>{children}</NeatPostTemplate>
       </MDXProvider>
     </main>
+  );
+}
+
+export function Head() {
+  const data: Queries.PostDetailQuery = useStaticQuery(query);
+
+  return (
+    <SEOComponent
+      title={data.mdx?.frontmatter?.title ?? ""}
+      description={data.mdx?.frontmatter?.description ?? ""}
+    />
   );
 }
 

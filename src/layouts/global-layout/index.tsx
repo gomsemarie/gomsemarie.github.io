@@ -1,6 +1,7 @@
 import React from "react";
 import { GlobalStyle } from "@_styles";
 import { LayoutDiv } from "./style";
+import { SEOComponent } from "@_components";
 
 interface GlobalLayoutProps {
   children: React.ReactNode;
@@ -10,6 +11,10 @@ function GlobalLayout({ children }: GlobalLayoutProps) {
   return (
     <>
       <GlobalStyle />
+      <script
+        src="https://kit.fontawesome.com/ddb7bb7cca.js"
+        crossOrigin="anonymous"
+      ></script>
       <LayoutDiv data-layout="default-layout">
         <div>sdsdsddsdsdsdsasdsds</div>
         <div>{children}</div>

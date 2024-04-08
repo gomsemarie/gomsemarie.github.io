@@ -38,7 +38,7 @@ const GlobalStyle = styled.createGlobalStyle`
   }
 
   // Prism - Code block custom style
-  .gatsby-highlight {
+  /* .gatsby-highlight {
     &::before {
       content: "Code Block";
       background: var(--code-block-mac-color);
@@ -48,7 +48,7 @@ const GlobalStyle = styled.createGlobalStyle`
       top: 0;
       width: 100%;
     }
-  }
+  } */
 
   // Prism - Code block - line numbers custom style
   .gatsby-highlight pre[class*="language-"].line-numbers {

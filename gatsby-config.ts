@@ -1,10 +1,19 @@
 import type { GatsbyConfig } from "gatsby";
 import path from "path";
+import dotenv from "dotenv";
+
+dotenv.config({
+  debug: true,
+  override: true,
+  // path: `.env.${process.env.NODE_ENV}`,
+});
 
 const config: GatsbyConfig = {
   siteMetadata: {
-    title: `Dev Bears blog`,
-    siteUrl: `https://devbears.github.io`,
+    title: process.env.SITE_TITLE,
+    description: process.env.SITE_DESCRIPTION,
+    author: process.env.SITE_AUTHOR,
+    siteUrl: process.env.SITE_URL,
   },
   // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
   // If you use VSCode you can also use the GraphQL plugin
@@ -16,15 +25,21 @@ const config: GatsbyConfig = {
     "gatsby-plugin-image",
     "gatsby-plugin-sitemap",
     {
-      resolve: "gatsby-plugin-layout",
+      resolve: `gatsby-plugin-manifest`,
       options: {
-        component: "src/layouts/global-layout/index.tsx",
-      },
-    },
-    {
-      resolve: "gatsby-plugin-manifest",
-      options: {
-        icon: "src/assets/images/icon.png",
+        name: `devbears blog`,
+        short_name: `devbears blog`,
+        start_url: `/`,
+        background_color: `#f7f0eb`,
+        theme_color: `#a2466c`,
+        display: `standalone`,
+        icon: "src/assets/images/gom-ori.jpeg",
+        cache_busting_mode: "none",
+        icon_options: {
+          // For all the options available,
+          // please see the section "Additional Resources" below.
+          purpose: `any maskable`,
+        },
       },
     },
     "gatsby-plugin-sharp",
@@ -33,12 +48,22 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-plugin-mdx",
       options: {
-        defaultLayouts: {
-          default: path.resolve("./src/templates/neat-post-template/index.tsx"),
-        },
+        // defaultLayouts: {
+        //   default: path.resolve("./src/templates/neat-post-template/index.tsx"),
+        // },
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
           "gatsby-remark-copy-linked-files",
+          {
+            resolve: "gatsby-remark-code-buttons",
+            options: {
+              buttonContainerClass: "custom-button-container",
+              buttonClass: "custom-button",
+              buttonText: "",
+              svgIconClass: "customSvgIcon",
+              svgIcon: "customSvgIcon",
+            },
+          },
           {
             resolve: "gatsby-remark-external-links",
             options: {

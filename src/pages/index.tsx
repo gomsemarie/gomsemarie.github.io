@@ -1,5 +1,6 @@
 import * as React from "react";
 import { graphql, PageProps } from "gatsby";
+import { SEOComponent } from "@_components";
 
 type DataProps = {
   site: {
@@ -17,6 +18,10 @@ const IndexRoute = ({ data: { site } }: PageProps<DataProps>) => {
     </main>
   );
 };
+
+export function Head() {
+  return <SEOComponent />;
+}
 
 export default IndexRoute;
 
