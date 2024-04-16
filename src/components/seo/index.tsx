@@ -1,4 +1,4 @@
-import { useSiteMetadata } from "@_hooks/use-site-metadata";
+import { useSiteMetadata } from "@_hooks";
 import React from "react";
 
 interface SEOComponentProsp {

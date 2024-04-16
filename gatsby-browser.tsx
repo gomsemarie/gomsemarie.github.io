@@ -1,6 +1,13 @@
 import React from "react";
 import { GlobalLayout } from "@_layouts";
 
+import "prismjs/themes/prism-tomorrow.css"; // Prism - Theme
+import "prismjs/plugins/line-numbers/prism-line-numbers.css"; // Prism - Line numbers style
+// import "prismjs/plugins/command-line/prism-command-line.css"; // Prism - Command line style
+import "sanitize.css";
+import "sanitize.css/forms.css";
+import "sanitize.css/typography.css";
+
 export const onRouteUpdate = ({
   location,
   prevLocation,

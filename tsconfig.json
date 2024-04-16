@@ -15,6 +15,7 @@
       "@_containers": ["src/containers"],
       "@_components": ["src/components"],
       "@_contents": ["src/contents"],
+      "@_hooks": ["src/hooks"],
       "@_layouts": ["src/layouts"],
       "@_styles": ["src/styles"],
       "@_templates": ["src/templates"],

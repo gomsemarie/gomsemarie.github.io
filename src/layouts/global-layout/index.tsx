@@ -1,13 +1,15 @@
-import React from "react";
+import React, { createRef } from "react";
 import { GlobalStyle } from "@_styles";
-import { LayoutDiv } from "./style";
-import { SEOComponent } from "@_components";
+import { LayoutDiv, SideBarDiv } from "./style";
+import { usePostList } from "@_hooks";
 
 interface GlobalLayoutProps {
   children: React.ReactNode;
 }
 
 function GlobalLayout({ children }: GlobalLayoutProps) {
+  const data = usePostList();
+
   return (
     <>
       <GlobalStyle />
@@ -16,8 +18,10 @@ function GlobalLayout({ children }: GlobalLayoutProps) {
         crossOrigin="anonymous"
       ></script>
       <LayoutDiv data-layout="default-layout">
-        <div>sdsdsddsdsdsdsasdsds</div>
-        <div>{children}</div>
+        <aside className="side-bar-area">
+          <SideBar />
+        </aside>
+        <div className="contents-area">{children}</div>
       </LayoutDiv>
     </>
   );
@@ -26,19 +30,21 @@ function GlobalLayout({ children }: GlobalLayoutProps) {
 export default GlobalLayout;
 
 function Header() {
-  return <header data-container="header"></header>;
+  return <div data-container="header"></div>;
 }
 
 function Navigation() {
-  return <nav data-container="navigation"></nav>;
+  return <div data-container="navigation"></div>;
 }
 
 function SideBar() {
-  return <aside data-container="side-bar"></aside>;
+  const githubProfileUrl = process.env.GATSBY_GITHUB_PROFILE_URL;
+
+  return <SideBarDiv data-container="side-bar">Side Bar</SideBarDiv>;
 }
 
 function Footer() {
-  return <footer data-container="footer"></footer>;
+  return <div data-container="footer"></div>;
 }
 
 // parameter (query string) /collection?id=adsa

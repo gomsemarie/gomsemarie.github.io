@@ -1,13 +1,24 @@
 import { makeVariantStyleModule } from "@_types";
 import { css } from "styled-components";
 
-type BreakpointsType = "xxl" | "xl" | "lg" | "md" | "sm";
-const breakpoints: Record<BreakpointsType, number> = {
-  xxl: 1400,
-  xl: 1200,
-  lg: 992,
-  md: 768,
-  sm: 576,
+type BreakpointsType =
+  | "xxxl"
+  | "xxl"
+  | "xl"
+  | "lg"
+  | "md"
+  | "sm"
+  | "xs"
+  | "xxs";
+export const breakpoints: Record<BreakpointsType, number> = {
+  xxxl: 1920,
+  xxl: 1440,
+  xl: 1024,
+  lg: 768,
+  md: 425,
+  sm: 375,
+  xs: 320,
+  xxs: 280,
 };
 
 export const media = makeVariantStyleModule(

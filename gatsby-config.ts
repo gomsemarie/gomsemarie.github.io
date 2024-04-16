@@ -55,13 +55,27 @@ const config: GatsbyConfig = {
         gatsbyRemarkPlugins: [
           "gatsby-remark-copy-linked-files",
           {
+            resolve: `gatsby-remark-autolink-headers`,
+            options: {
+              className: `anchor-header`,
+              maintainCase: false,
+              removeAccents: true,
+              elements: [`h1`, `h2`, `h3`, `h4`],
+            },
+          },
+          {
             resolve: "gatsby-remark-code-buttons",
             options: {
-              buttonContainerClass: "custom-button-container",
-              buttonClass: "custom-button",
+              buttonContainerClass: "code-button-container",
+              buttonClass: "code-button",
               buttonText: "",
-              svgIconClass: "customSvgIcon",
-              svgIcon: "customSvgIcon",
+              svgIconClass: "code-copy-icon",
+              svgIcon: `<i class="fa-regular fa-clipboard"></i>`,
+              // tooltipText: `customTooltipText`,
+              toasterClass: `code-button-toaster`,
+              toasterTextClass: `code-button-toaster-text`,
+              toasterText: "copied to clipboard",
+              toasterDuration: 5000,
             },
           },
           {
