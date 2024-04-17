@@ -12,6 +12,17 @@ const DesignSystem = {
       </em>
     );
   },
+  Text: function ({ children }: { children: React.ReactNode }) {
+    return (
+      <div
+        style={{
+          backgroundColor: "red",
+        }}
+      >
+        {children}
+      </div>
+    );
+  },
 };
 
 export default DesignSystem;

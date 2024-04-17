@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 
 dotenv.config({
   debug: true,
-  override: true,
   // path: `.env.${process.env.NODE_ENV}`,
 });
 
@@ -44,7 +43,7 @@ const config: GatsbyConfig = {
     },
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
-    "gatsby-transformer-remark",
+    // "gatsby-transformer-remark",
     {
       resolve: "gatsby-plugin-mdx",
       options: {
@@ -198,10 +197,10 @@ const config: GatsbyConfig = {
       },
       __key: "pages",
     },
-    {
-      resolve: "gatsby-plugin-page-creator",
-      options: { path: `${__dirname}/src/contents/tech-posts/` },
-    },
+    // {
+    //   resolve: "gatsby-plugin-page-creator",
+    //   options: { path: `${__dirname}/src/contents/tech-posts/` },
+    // },
   ],
 };
 

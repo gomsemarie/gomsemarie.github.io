@@ -9,6 +9,7 @@ import React, {
 import { TocDiv, TocElementUl, TocIconDiv } from "./style";
 import classNames from "classnames";
 import { useLocation } from "@reach/router";
+import { isBrowser } from "@_utils";
 
 export interface TocItem {
   url: string;
@@ -17,7 +18,7 @@ export interface TocItem {
 }
 interface TocProps {
   toc?: TocItem;
-  anchorHolder: HTMLCollectionOf<Element>;
+  anchorHolder?: HTMLCollectionOf<Element>;
 }
 
 export default function Toc(props: TocProps) {
@@ -61,9 +62,10 @@ export default function Toc(props: TocProps) {
 
   useEffect(() => {
     scrollHandler();
-    document.addEventListener("scroll", scrollHandler);
+    isBrowser() && document.addEventListener("scroll", scrollHandler);
+
     return () => {
-      document.removeEventListener("scroll", scrollHandler);
+      isBrowser() && document.removeEventListener("scroll", scrollHandler);
     };
   });
 

@@ -20,6 +20,7 @@
       "@_styles": ["src/styles"],
       "@_templates": ["src/templates"],
       "@_types": ["src/types"],
+      "@_utils": ["src/utils"],
       "@_assets/*": ["src/assets/*"],
       "@_containers/*": ["src/containers/*"],
       "@_components/*": ["src/components/*"],
@@ -28,7 +29,8 @@
       "@_layouts/*": ["src/layouts/*"],
       "@_styles/*": ["src/styles/*"],
       "@_templates/*": ["src/templates/*"],
-      "@_types/*": ["src/types"]
+      "@_types/*": ["src/types/*"],
+      "@_utils/*": ["src/utils/*"]
     },
     "plugins": [
       {

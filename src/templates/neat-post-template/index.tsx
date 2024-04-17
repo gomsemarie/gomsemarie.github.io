@@ -3,6 +3,7 @@ import { Link, PageProps } from "gatsby";
 import React from "react";
 import { TemplateDiv } from "./style";
 import { Toc, TocItem } from "@_components";
+import { isBrowser } from "@_utils";
 
 interface NeatPostTemplateProps {
   data: Queries.PostDetailQuery;
@@ -14,7 +15,9 @@ export default function NeatPostTemplate({
   children,
 }: NeatPostTemplateProps) {
   const toc = data.mdx?.tableOfContents as TocItem | undefined;
-  const anchorHolder = document.getElementsByClassName("anchor-header");
+  const anchorHolder = isBrowser()
+    ? document.getElementsByClassName("anchor-header")
+    : undefined;
 
   return (
     <TemplateDiv data-template="neat-post">

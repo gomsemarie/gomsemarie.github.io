@@ -1,34 +1,25 @@
-import { Link, PageProps, graphql, useStaticQuery } from "gatsby";
+import { PageProps, graphql } from "gatsby";
 import { NeatPostTemplate } from "@_templates";
 import React from "react";
 import { MDXProvider } from "@mdx-js/react";
 import { SEOComponent } from "@_components";
-import { PageMain } from "./style";
 import DesignSystem from "@_components/design-system";
+import styled from "styled-components";
 
-function Text({ children }: { children: React.ReactNode }) {
-  return (
-    <div
-      style={{
-        backgroundColor: "red",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+export const PageMain = styled.main``;
 
-export default function BlogPostPage({
+export default function BlogPage({
+  data,
   children,
 }: PageProps<Queries.PostDetailQuery>) {
-  const data: Queries.PostDetailQuery = useStaticQuery(query);
-  const table = data.mdx?.tableOfContents;
-  const shortcodes = { Text };
+  // const table = data.mdx?.tableOfContents;
+  const shortcodes = { Text: DesignSystem.Text };
 
   return (
     <NeatPostTemplate data={data}>
       <PageMain data-page="blog-post-page">
         <MDXProvider
+          disableParentContext
           components={{
             ...shortcodes,
             // em: DesignSystem.Em,
@@ -41,9 +32,7 @@ export default function BlogPostPage({
   );
 }
 
-export function Head() {
-  const data: Queries.PostDetailQuery = useStaticQuery(query);
-
+export function Head({ data }: PageProps<Queries.PostDetailQuery>) {
   return (
     <SEOComponent
       title={data.mdx?.frontmatter?.title ?? ""}
@@ -60,6 +49,7 @@ export const query = graphql`
         date
         title
         description
+        tags
       }
       excerpt(pruneLength: 250)
       tableOfContents
