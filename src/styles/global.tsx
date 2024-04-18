@@ -1,6 +1,11 @@
 import { createGlobalStyle, css } from "styled-components";
-import MapleStoryBold from "@_assets/fonts/MapleStoryBold.woff2";
 import MapleStoryLight from "@_assets/fonts/MapleStoryLight.woff2";
+import MapleStoryBold from "@_assets/fonts/MapleStoryBold.woff2";
+import NanumGothic from "@_assets/fonts/NanumGothic.woff2";
+import NanumGothicLight from "@_assets/fonts/NanumGothicLight.woff2";
+import NanumGothicBold from "@_assets/fonts/NanumGothicBold.woff2";
+import NanumGothicExtraBold from "@_assets/fonts/NanumGothicExtraBold.woff2";
+
 import { media } from "./media";
 import { lighten } from "polished";
 // import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader";
@@ -89,21 +94,49 @@ const CodeButtonStyle = css`
 
 const styled = { createGlobalStyle }; // Prettier 적용되도록
 const GlobalStyle = styled.createGlobalStyle`
+  // Maple Story Font
+  @font-face {
+    font-family: "MapleStoryLight";
+    src: local("MapleStoryLight"), local("MapleStoryLight");
+    font-style: normal;
+    font-weight: lighter;
+    src: url(${MapleStoryLight}) format("woff2");
+  }
   @font-face {
     font-family: "MapleStoryBold";
     src: local("MapleStoryBold"), local("MapleStoryBold");
     font-style: normal;
     src: url(${MapleStoryBold}) format("woff2");
   }
+
+  // Nanum Gothic Font
   @font-face {
-    font-family: "MapleStoryLight";
-    src: local("MapleStoryLight"), local("MapleStoryLight");
+    font-family: "NanumGothic";
+    src: local("NanumGothic"), local("NanumGothic");
     font-style: normal;
-    src: url(${MapleStoryLight}) format("woff2");
+    src: url(${NanumGothic}) format("woff2");
+  }
+  @font-face {
+    font-family: "NanumGothicLight";
+    src: local("NanumGothicLight"), local("NanumGothicLight");
+    font-style: normal;
+    src: url(${NanumGothicLight}) format("woff2");
+  }
+  @font-face {
+    font-family: "NanumGothicBold";
+    src: local("NanumGothicBold"), local("NanumGothicBold");
+    font-style: normal;
+    src: url(${NanumGothicBold}) format("woff2");
+  }
+  @font-face {
+    font-family: "NanumGothicExtraBold";
+    src: local("NanumGothicExtraBold"), local("NanumGothicExtraBold");
+    font-style: normal;
+    src: url(${NanumGothicExtraBold}) format("woff2");
   }
 
   body {
-    font-family: "MapleStoryLight", sans-serif;
+    font-family: "NanumGothic", sans-serif;
     font-size: 16px;
   }
 

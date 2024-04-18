@@ -1,8 +1,8 @@
 import { graphql, useStaticQuery } from "gatsby";
 
-const query = graphql`
+export const postListQuery = graphql`
   query PostList {
-    allMdx {
+    allMdx(limit: 2000) {
       nodes {
         frontmatter {
           slug
@@ -17,8 +17,6 @@ const query = graphql`
 `;
 
 export const usePostList = () => {
-  const data: Queries.PostListQuery = useStaticQuery(query);
-
-  return data.allMdx.nodes;
+  const data: Queries.PostListQuery = useStaticQuery(postListQuery);
+  return data;
 };
-export { query as postListQuery };

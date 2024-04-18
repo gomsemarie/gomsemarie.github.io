@@ -28,6 +28,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@mdx-js/react", "virtual:c0c3508d61a0ebd4c924e0b9bfa34c8c482fd5ecf4c5c5bccfa4c4d49059bd9942c8b007b43f343b953f0ccd5260935daabc58904ae38097925b056447639ffc#npm:3.0.1"],\
           ["@reach/router", "virtual:c0c3508d61a0ebd4c924e0b9bfa34c8c482fd5ecf4c5c5bccfa4c4d49059bd9942c8b007b43f343b953f0ccd5260935daabc58904ae38097925b056447639ffc#npm:1.3.4"],\
+          ["@types/lodash", "npm:4.17.0"],\
           ["@types/node", "npm:20.11.30"],\
           ["@types/prismjs", "npm:1.26.3"],\
           ["@types/reach__router", "npm:1.3.15"],\
@@ -58,6 +59,7 @@ const RAW_RUNTIME_STATE =
           ["gatsby-transformer-remark", "virtual:c0c3508d61a0ebd4c924e0b9bfa34c8c482fd5ecf4c5c5bccfa4c4d49059bd9942c8b007b43f343b953f0ccd5260935daabc58904ae38097925b056447639ffc#npm:6.13.1"],\
           ["gatsby-transformer-sharp", "virtual:c0c3508d61a0ebd4c924e0b9bfa34c8c482fd5ecf4c5c5bccfa4c4d49059bd9942c8b007b43f343b953f0ccd5260935daabc58904ae38097925b056447639ffc#npm:5.13.1"],\
           ["gh-pages", "npm:6.1.1"],\
+          ["lodash", "npm:4.17.21"],\
           ["polished", "npm:4.3.1"],\
           ["prismjs", "npm:1.29.0"],\
           ["react", "npm:18.2.0"],\
@@ -8792,6 +8794,7 @@ const RAW_RUNTIME_STATE =
           ["devbears.github.io", "workspace:."],\
           ["@mdx-js/react", "virtual:c0c3508d61a0ebd4c924e0b9bfa34c8c482fd5ecf4c5c5bccfa4c4d49059bd9942c8b007b43f343b953f0ccd5260935daabc58904ae38097925b056447639ffc#npm:3.0.1"],\
           ["@reach/router", "virtual:c0c3508d61a0ebd4c924e0b9bfa34c8c482fd5ecf4c5c5bccfa4c4d49059bd9942c8b007b43f343b953f0ccd5260935daabc58904ae38097925b056447639ffc#npm:1.3.4"],\
+          ["@types/lodash", "npm:4.17.0"],\
           ["@types/node", "npm:20.11.30"],\
           ["@types/prismjs", "npm:1.26.3"],\
           ["@types/reach__router", "npm:1.3.15"],\
@@ -8822,6 +8825,7 @@ const RAW_RUNTIME_STATE =
           ["gatsby-transformer-remark", "virtual:c0c3508d61a0ebd4c924e0b9bfa34c8c482fd5ecf4c5c5bccfa4c4d49059bd9942c8b007b43f343b953f0ccd5260935daabc58904ae38097925b056447639ffc#npm:6.13.1"],\
           ["gatsby-transformer-sharp", "virtual:c0c3508d61a0ebd4c924e0b9bfa34c8c482fd5ecf4c5c5bccfa4c4d49059bd9942c8b007b43f343b953f0ccd5260935daabc58904ae38097925b056447639ffc#npm:5.13.1"],\
           ["gh-pages", "npm:6.1.1"],\
+          ["lodash", "npm:4.17.21"],\
           ["polished", "npm:4.3.1"],\
           ["prismjs", "npm:1.29.0"],\
           ["react", "npm:18.2.0"],\
