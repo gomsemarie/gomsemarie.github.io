@@ -185,7 +185,7 @@ const config: GatsbyConfig = {
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        name: "blog",
+        name: "tech-posts",
         path: `${__dirname}/src/contents/tech-posts/`,
       },
     },
