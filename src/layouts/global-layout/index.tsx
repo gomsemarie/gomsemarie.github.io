@@ -1,7 +1,8 @@
 import React, { createRef, useEffect, useState } from "react";
 import { GlobalStyle } from "@_styles";
 import { LayoutDiv, SideBarDiv } from "./style";
-import { usePostMenu } from "@_hooks/query/use-post-menu";
+import { usePostCategories } from "@_hooks/query/use-post-categories";
+import _ from "lodash";
 
 interface GlobalLayoutProps {
   children: React.ReactNode;
@@ -43,27 +44,31 @@ function SideBar() {
 
 type MenuItem = {
   name: string;
+  slug: string;
   items: Record<string, MenuItem> | undefined;
   count: number;
 };
 
 function PostNavigator() {
-  const data = usePostMenu();
+  const data = usePostCategories();
   const group = data.allMdx.group;
   const [menuList, setMenuList] = useState<Record<string, MenuItem>>({});
 
   const makeMenuList = () => {
     const menuList: Record<string, MenuItem> = {};
-    group.map((menu) => {
-      const splited = menu.fieldValue?.split('/');
+    group.map((category) => {
+      const splited = category.fieldValue?.split('/');
 
       if (splited !== undefined) {
         let nowLoc = menuList;
+        let slug = '';
 
         splited.map((name, index) => {
+          slug = _.kebabCase(`${slug !== '' ? `${slug}/` : ''}${name}`);
           nowLoc[name] = {
             ...nowLoc[name],
             name,
+            slug,
             count: (nowLoc[name]?.count ?? 0) + 1, 
           };
 

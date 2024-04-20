@@ -25,7 +25,7 @@ export default function TagTemplate({
   }, []);
 
   return (
-    <TemplateDiv data-page="tags-page">
+    <TemplateDiv data-page="tag-page">
       <h1>{tagHeader}</h1>
 
       <div>
@@ -87,7 +87,7 @@ export const query = graphql`
             title
             description
             tags
-            menu
+            category
           }
         }
       }

@@ -1,16 +1,16 @@
 import { graphql, useStaticQuery } from "gatsby";
 
 export const postMenuQuery = graphql`
-  query PostMenu {
+  query PostCategories {
     allMdx(limit: 2000) {
-      group(field: { frontmatter: { menu: SELECT } }) {
+      group(field: { frontmatter: { category: SELECT } }) {
         fieldValue
       }
     }
   }
 `;
 
-export const usePostMenu = () => {
+export const usePostCategories = () => {
   const data: Queries.PostTagsQuery = useStaticQuery(postMenuQuery);
   return data;
 };

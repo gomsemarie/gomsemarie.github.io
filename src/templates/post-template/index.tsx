@@ -53,11 +53,11 @@ export const query = graphql`
     mdx(frontmatter: { slug: { eq: $slug } }) {
       frontmatter {
         slug
-        date
+        date(formatString: "MMMM DD, YYYY")
         title
         description
         tags
-        menu
+        category
       }
       excerpt(pruneLength: 250)
       tableOfContents

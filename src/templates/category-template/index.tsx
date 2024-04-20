@@ -4,14 +4,15 @@ import { MDXProvider } from "@mdx-js/react";
 import { SEOComponent } from "@_components";
 import DesignSystem from "@_components/design-system";
 import styled from "styled-components";
+import { TemplateDiv } from "./style";
 
 export const PageMain = styled.main``;
 
-export default function TagsPage({
+export default function CategortTemplate({
   pageContext,
   data,
-}: PageProps<Queries.PostListByTagQuery>) {
-  const context = pageContext;
+}: PageProps<Queries.PostListByCategoryQuery>) {
+  const { category } = pageContext as { category: string | null };
   console.log("data: ", data);
   const { edges, totalCount } = data.allMdx;
   const tagHeader = `${totalCount} post${
@@ -19,18 +20,18 @@ export default function TagsPage({
   } tagged with "${"aaaa"}"`;
 
   useEffect(() => {
-    console.log("context: ", context);
+    console.log("category: ", category);
     console.log("data: ", data);
   }, []);
 
   return (
-    <PageMain data-page="tags-page">
+    <TemplateDiv data-page="category-page">
       <h1>{tagHeader}</h1>
 
       <div>
         {edges.map(({ node }) => {
           const { excerpt } = node;
-          const { slug, title, date, tags } = node.frontmatter ?? {};
+          const { slug, title, date, tags, category } = node.frontmatter ?? {};
 
           return (
             <div key={slug}>
@@ -39,6 +40,7 @@ export default function TagsPage({
               </Link>
 
               <p>
+                {category}
                 {date}
                 <span> ● Tag: </span>
                 {tags?.map((tag) => (
@@ -56,7 +58,7 @@ export default function TagsPage({
           );
         })}
       </div>
-    </PageMain>
+    </TemplateDiv>
   );
 }
 
@@ -70,11 +72,11 @@ export default function TagsPage({
 // }
 
 export const query = graphql`
-  query PostListByTag($tag: String) {
+  query PostListByCategory($category: String) {
     allMdx(
       limit: 2000
       sort: { frontmatter: { date: DESC } }
-      filter: { frontmatter: { tags: { in: [$tag] } } }
+      filter: { frontmatter: { category: { eq: $category } } }
     ) {
       totalCount
       edges {

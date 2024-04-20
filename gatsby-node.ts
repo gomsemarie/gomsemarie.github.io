@@ -10,6 +10,39 @@ export const createPages: GatsbyNode["createPages"] = async ({
   const { createPage } = actions;
 
   /**-----------------------------------------------------------------------------------------------------------------------------------------
+   * /categories/:category
+   *------------------------------------------------------------------------------------------------------------------------------------------*/
+  const categoryResult = await graphql<Queries.CategoriesNodeQuery>(`
+    query CategoriesNode {
+      allMdx(limit: 2000) {
+        group(field: { frontmatter: { category: SELECT } }) {
+          fieldValue
+        }
+      }
+    }
+  `);
+
+  if (categoryResult.errors) {
+    reporter.panicOnBuild("Error loading Tags result", categoryResult.errors);
+  }
+
+  const categoryTemplate = path.resolve("src/templates/category-template/index.tsx");
+  const categories = categoryResult.data?.allMdx.group;
+
+  categories?.forEach((category) => {
+    const fieldValue = category.fieldValue;
+
+    fieldValue != null &&
+      createPage({
+        path: `/categories/${_.kebabCase(fieldValue)}/`,
+        component: categoryTemplate,
+        context: {
+          category: category.fieldValue,
+        },
+      });
+  });
+
+  /**-----------------------------------------------------------------------------------------------------------------------------------------
    * /tags/:tag
    *------------------------------------------------------------------------------------------------------------------------------------------*/
   const tagsResult = await graphql<Queries.TagsNodeQuery>(`
