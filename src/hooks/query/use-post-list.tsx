@@ -10,6 +10,7 @@ export const postListQuery = graphql`
           title
           description
           tags
+          menu
         }
       }
     }

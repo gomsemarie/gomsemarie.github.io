@@ -27,12 +27,12 @@ export default function PostTemplate({
       }}
     >
       <PageMain data-page="post">
+        <div className="toc-area">
+          <Toc.Icon toc={toc} anchorHolder={anchorHolder} />
+        </div>
         <div className="contents-area">
           <h1>{data.mdx?.frontmatter?.title}</h1>
           {children}
-        </div>
-        <div className="toc-area">
-          <Toc.Icon toc={toc} anchorHolder={anchorHolder} />
         </div>
       </PageMain>
     </MDXProvider>
@@ -57,6 +57,7 @@ export const query = graphql`
         title
         description
         tags
+        menu
       }
       excerpt(pruneLength: 250)
       tableOfContents

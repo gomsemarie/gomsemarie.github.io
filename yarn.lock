@@ -6240,6 +6240,7 @@ __metadata:
     prismjs: "npm:^1.29.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
+    react-gist: "npm:^1.2.4"
     sanitize.css: "npm:^13.0.0"
     sass: "npm:^1.72.0"
     styled-components: "npm:^6.1.8"
@@ -14049,6 +14050,15 @@ __metadata:
   version: 6.0.11
   resolution: "react-error-overlay@npm:6.0.11"
   checksum: 10c0/8fc93942976e0c704274aec87dbc8e21f62a2cc78d1c93f9bcfff9f7494b00c60f7a2f0bd48d832bcd3190627c0255a1df907373f61f820371373a65ec4b2d64
+  languageName: node
+  linkType: hard
+
+"react-gist@npm:^1.2.4":
+  version: 1.2.4
+  resolution: "react-gist@npm:1.2.4"
+  peerDependencies:
+    react: 0.14.x || ^15.0.0-rc || ^16.0.0-rc || ^17.0.0-rc
+  checksum: 10c0/65f326f5137220e3b8fa4b4829e150be6bbe3f2537eb3b8a83a5830c1ce6da3977a5892165b7a962aee49e137c61ced507377867b84ffdb57e7d18fc6576d479
   languageName: node
   linkType: hard
 

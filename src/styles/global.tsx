@@ -114,25 +114,25 @@ const GlobalStyle = styled.createGlobalStyle`
     font-family: "NanumGothic";
     src: local("NanumGothic"), local("NanumGothic");
     font-style: normal;
-    src: url(${NanumGothic}) format("woff2");
+    src: url(${NanumGothic}) format("font-woff2");
   }
   @font-face {
     font-family: "NanumGothicLight";
     src: local("NanumGothicLight"), local("NanumGothicLight");
     font-style: normal;
-    src: url(${NanumGothicLight}) format("woff2");
+    src: url(${NanumGothicLight}) format("font-woff2");
   }
   @font-face {
     font-family: "NanumGothicBold";
     src: local("NanumGothicBold"), local("NanumGothicBold");
     font-style: normal;
-    src: url(${NanumGothicBold}) format("woff2");
+    src: url(${NanumGothicBold}) format("font-woff2");
   }
   @font-face {
     font-family: "NanumGothicExtraBold";
     src: local("NanumGothicExtraBold"), local("NanumGothicExtraBold");
     font-style: normal;
-    src: url(${NanumGothicExtraBold}) format("woff2");
+    src: url(${NanumGothicExtraBold}) format("font-woff2");
   }
 
   body {

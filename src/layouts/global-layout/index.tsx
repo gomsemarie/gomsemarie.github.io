@@ -1,15 +1,13 @@
-import React, { createRef } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import { GlobalStyle } from "@_styles";
 import { LayoutDiv, SideBarDiv } from "./style";
-import { usePostList } from "@_hooks";
+import { usePostMenu } from "@_hooks/query/use-post-menu";
 
 interface GlobalLayoutProps {
   children: React.ReactNode;
 }
 
 function GlobalLayout({ children }: GlobalLayoutProps) {
-  const data = usePostList();
-
   return (
     <>
       <GlobalStyle />
@@ -40,7 +38,59 @@ function Navigation() {
 function SideBar() {
   const githubProfileUrl = process.env.GATSBY_GITHUB_PROFILE_URL;
 
-  return <SideBarDiv data-container="side-bar">Side Bar</SideBarDiv>;
+  return <SideBarDiv data-container="side-bar"><PostNavigator /></SideBarDiv>;
+}
+
+type MenuItem = {
+  name: string;
+  items: Record<string, MenuItem> | undefined;
+  count: number;
+};
+
+function PostNavigator() {
+  const data = usePostMenu();
+  const group = data.allMdx.group;
+  const [menuList, setMenuList] = useState<Record<string, MenuItem>>({});
+
+  const makeMenuList = () => {
+    const menuList: Record<string, MenuItem> = {};
+    group.map((menu) => {
+      const splited = menu.fieldValue?.split('/');
+
+      if (splited !== undefined) {
+        let nowLoc = menuList;
+
+        splited.map((name, index) => {
+          nowLoc[name] = {
+            ...nowLoc[name],
+            name,
+            count: (nowLoc[name]?.count ?? 0) + 1, 
+          };
+
+          if (index + 1 !== splited.length) {
+            nowLoc[name].items = {
+              ...nowLoc[name].items,
+            };
+            nowLoc = nowLoc[name].items!;
+          }
+        });
+      }
+    });
+
+    return menuList;
+  }
+
+  useEffect(() => {
+    setMenuList(makeMenuList())
+  }, [data])
+
+  useEffect(() => {
+    console.log(menuList);
+  }, [menuList])
+
+  return <nav data-component="post-navigator">
+    
+  </nav>
 }
 
 function Footer() {

@@ -87,6 +87,7 @@ export const query = graphql`
             title
             description
             tags
+            menu
           }
         }
       }

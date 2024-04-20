@@ -2,6 +2,7 @@ import { Link } from "gatsby";
 import React, {
   forwardRef,
   useEffect,
+  useId,
   useImperativeHandle,
   useRef,
   useState,
@@ -114,12 +115,14 @@ Toc.Icon = forwardRef<TocIconRef, TocIconProps>((props, ref) => {
 });
 
 Toc.TocElement = function (props: TocProps) {
+  const id = useId();
+
   const { toc } = props;
   return (
     <TocElementUl data-component="toc-element">
       {toc?.items &&
         toc.items.map((item) => (
-          <li key={item.title}>
+          <li key={`${id}-${item.title}`}>
             <Link to={item.url}>{item.title}</Link>
             {item.items && <Toc.TocElement {...props} toc={item} />}
           </li>

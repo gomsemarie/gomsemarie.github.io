@@ -10,7 +10,7 @@ export const postTagsQuery = graphql`
   }
 `;
 
-export const usePost = () => {
+export const usePostTags = () => {
   const data: Queries.PostTagsQuery = useStaticQuery(postTagsQuery);
   return data;
 };
