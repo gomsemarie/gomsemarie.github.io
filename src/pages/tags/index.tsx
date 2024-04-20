@@ -34,7 +34,7 @@ export default function TagsPage({
 
           return (
             <div key={slug}>
-              <Link to={`/blog${slug}`}>
+              <Link to={`/posts/${slug}`}>
                 <h3>{title}</h3>
               </Link>
 
