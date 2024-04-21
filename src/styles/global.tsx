@@ -136,7 +136,7 @@ const GlobalStyle = styled.createGlobalStyle`
   }
 
   body {
-    font-family: "NanumGothic", sans-serif;
+    font-family: NanumGothic, sans-serif;
     font-size: 16px;
   }
 

@@ -10,6 +10,8 @@ import "sanitize.css/forms.css";
 import "sanitize.css/typography.css";
 import { MDXProvider } from "@mdx-js/react";
 import DesignSystem from "@_components/design-system";
+import { ThemeProvider } from "styled-components";
+import { lightTheme } from "@_styles";
 
 export const onRouteUpdate: GatsbyBrowser["onRouteUpdate"] = ({
   location,
@@ -28,7 +30,7 @@ export const wrapRootElement: GatsbyBrowser["wrapRootElement"] = ({
         src="https://kit.fontawesome.com/ddb7bb7cca.js"
         crossOrigin="anonymous"
       ></script>
-      {element}
+      <ThemeProvider theme={lightTheme}>{element}</ThemeProvider>
     </>
   );
 };

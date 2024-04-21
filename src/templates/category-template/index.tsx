@@ -5,6 +5,7 @@ import { SEOComponent } from "@_components";
 import DesignSystem from "@_components/design-system";
 import styled from "styled-components";
 import { TemplateDiv } from "./style";
+import _ from "lodash";
 
 export const PageMain = styled.main``;
 
@@ -35,7 +36,11 @@ export default function CategortTemplate({
 
           return (
             <div key={slug}>
-              <Link to={`/blog${slug}`}>
+              <Link
+                to={`/${process.env.GATSBY_POSTS_PATH}/${_.kebabCase(
+                  slug ?? ""
+                )}`}
+              >
                 <h3>{title}</h3>
               </Link>
 
@@ -45,8 +50,10 @@ export default function CategortTemplate({
                 <span> ● Tag: </span>
                 {tags?.map((tag) => (
                   <Link
-                    key={tag?.toLowerCase()}
-                    to={`/tags/${tag?.toLowerCase()}`}
+                    key={_.kebabCase(tag ?? "")}
+                    to={`/${process.env.GATSBY_TAGS_PATH}/${_.kebabCase(
+                      tag ?? ""
+                    )}`}
                   >
                     {tag}
                   </Link>

@@ -6244,6 +6244,7 @@ __metadata:
     sanitize.css: "npm:^13.0.0"
     sass: "npm:^1.72.0"
     styled-components: "npm:^6.1.8"
+    styled-tools: "npm:^1.7.2"
     typescript: "npm:^5.3.3"
   languageName: unknown
   linkType: soft
@@ -15781,6 +15782,13 @@ __metadata:
     react: ">= 16.8.0"
     react-dom: ">= 16.8.0"
   checksum: 10c0/fafe4b9198d5d7980c2358821d1a89f86200d55c8eec03670cf12cf43b8a05a77eafaf0872cd85821f68238308e0f5c9d9aa43a62e6987c65b70baa2c3277ab8
+  languageName: node
+  linkType: hard
+
+"styled-tools@npm:^1.7.2":
+  version: 1.7.2
+  resolution: "styled-tools@npm:1.7.2"
+  checksum: 10c0/486a6ecbefec4cb46d9ca533ef8b5767a7e811e9af6c0047337a7fe41732fbb50a614942d7c28f28b6c6e38490f602b7929dce45cf417c9eb755702324b0c891
   languageName: node
   linkType: hard
 

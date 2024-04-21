@@ -68,6 +68,7 @@ const RAW_RUNTIME_STATE =
           ["sanitize.css", "npm:13.0.0"],\
           ["sass", "npm:1.72.0"],\
           ["styled-components", "virtual:c0c3508d61a0ebd4c924e0b9bfa34c8c482fd5ecf4c5c5bccfa4c4d49059bd9942c8b007b43f343b953f0ccd5260935daabc58904ae38097925b056447639ffc#npm:6.1.8"],\
+          ["styled-tools", "npm:1.7.2"],\
           ["typescript", "patch:typescript@npm%3A5.4.3#optional!builtin<compat/typescript>::version=5.4.3&hash=5adc0c"]\
         ],\
         "linkType": "SOFT"\
@@ -8835,6 +8836,7 @@ const RAW_RUNTIME_STATE =
           ["sanitize.css", "npm:13.0.0"],\
           ["sass", "npm:1.72.0"],\
           ["styled-components", "virtual:c0c3508d61a0ebd4c924e0b9bfa34c8c482fd5ecf4c5c5bccfa4c4d49059bd9942c8b007b43f343b953f0ccd5260935daabc58904ae38097925b056447639ffc#npm:6.1.8"],\
+          ["styled-tools", "npm:1.7.2"],\
           ["typescript", "patch:typescript@npm%3A5.4.3#optional!builtin<compat/typescript>::version=5.4.3&hash=5adc0c"]\
         ],\
         "linkType": "SOFT"\
@@ -20353,6 +20355,15 @@ const RAW_RUNTIME_STATE =
           "@types/react",\
           "react-dom",\
           "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["styled-tools", [\
+      ["npm:1.7.2", {\
+        "packageLocation": "../../../../C:/Users/LacoLico/AppData/Local/Yarn/Berry/cache/styled-tools-npm-1.7.2-97a33384f1-10c0.zip/node_modules/styled-tools/",\
+        "packageDependencies": [\
+          ["styled-tools", "npm:1.7.2"]\
         ],\
         "linkType": "HARD"\
       }]\

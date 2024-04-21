@@ -26,7 +26,9 @@ export const createPages: GatsbyNode["createPages"] = async ({
     reporter.panicOnBuild("Error loading Tags result", categoryResult.errors);
   }
 
-  const categoryTemplate = path.resolve("src/templates/category-template/index.tsx");
+  const categoryTemplate = path.resolve(
+    "src/templates/category-template/index.tsx"
+  );
   const categories = categoryResult.data?.allMdx.group;
 
   categories?.forEach((category) => {
@@ -34,7 +36,9 @@ export const createPages: GatsbyNode["createPages"] = async ({
 
     fieldValue != null &&
       createPage({
-        path: `/categories/${_.kebabCase(fieldValue)}/`,
+        path: `/${process.env.GATSBY_CATEGORIES_PATH}/${_.kebabCase(
+          fieldValue
+        )}/`,
         component: categoryTemplate,
         context: {
           category: category.fieldValue,
@@ -67,7 +71,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
 
     fieldValue != null &&
       createPage({
-        path: `/tags/${_.kebabCase(fieldValue)}/`,
+        path: `/${process.env.GATSBY_TAGS_PATH}/${_.kebabCase(fieldValue)}/`,
         component: tagTemplate,
         context: {
           tag: tag.fieldValue,
@@ -106,7 +110,9 @@ export const createPages: GatsbyNode["createPages"] = async ({
       createPage({
         // As mentioned above you could also query something else like frontmatter.title above and use a helper function
         // like slugify to create a slug
-        path: `/posts/${node.frontmatter?.slug}`,
+        path: `/${process.env.GATSBY_POSTS_PATH}/${_.kebabCase(
+          node.frontmatter?.slug ?? ""
+        )}/`,
         // Provide the path to the MDX content file so webpack can pick it up and transform it into JSX
         component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
         // You can use the values in this context in

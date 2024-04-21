@@ -51,7 +51,8 @@
     "react-gist": "^1.2.4",
     "sanitize.css": "^13.0.0",
     "sass": "^1.72.0",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "styled-tools": "^1.7.2"
   },
   "devDependencies": {
     "@types/node": "^20.11.19",
