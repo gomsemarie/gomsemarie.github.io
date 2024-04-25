@@ -4,6 +4,7 @@ import styled from "styled-components";
 export const PageMain = styled.main`
   width: 100%;
   position: relative;
+  padding: 40px;
 
   & > .contents-area {
     margin: 0 auto;

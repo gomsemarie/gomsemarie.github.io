@@ -1,7 +1,6 @@
 import React from "react";
 import { GlobalLayout } from "@_layouts";
 import type { GatsbyBrowser } from "gatsby";
-import ReactDOM from "react-dom/client";
 
 import "prismjs/themes/prism-tomorrow.css"; // Prism - Theme
 import "prismjs/plugins/line-numbers/prism-line-numbers.css"; // Prism - Line numbers style
@@ -9,10 +8,8 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.css"; // Prism - Line nu
 import "sanitize.css";
 import "sanitize.css/forms.css";
 import "sanitize.css/typography.css";
-import { MDXProvider } from "@mdx-js/react";
-import DesignSystem from "@_components/design-system";
 import { ThemeProvider } from "styled-components";
-import { lightTheme } from "@_styles";
+import { GlobalStyle, lightTheme } from "@_styles";
 
 export const onRouteUpdate: GatsbyBrowser["onRouteUpdate"] = ({
   location,
@@ -44,10 +41,10 @@ export const wrapPageElement: GatsbyBrowser["wrapPageElement"] = ({
   return <GlobalLayout {...props}>{element}</GlobalLayout>;
 };
 
-export const replaceHydrateFunction: GatsbyBrowser["replaceHydrateFunction"] =
-  (): any => {
-    return (element: any, container: any) => {
-      const root = ReactDOM.createRoot(container);
-      root.render(element);
-    };
-  };
+// export const replaceHydrateFunction: GatsbyBrowser["replaceHydrateFunction"] =
+//   (): any => {
+//     return (element: any, container: any) => {
+//       const root = ReactDOM.createRoot(container);
+//       root.render(element);
+//     };
+//   };

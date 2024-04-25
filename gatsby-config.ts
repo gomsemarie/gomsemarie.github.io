@@ -1,5 +1,4 @@
 import type { GatsbyConfig } from "gatsby";
-import path from "path";
 import dotenv from "dotenv";
 
 dotenv.config({
@@ -14,15 +13,14 @@ const config: GatsbyConfig = {
     author: process.env.SITE_AUTHOR,
     siteUrl: process.env.SITE_URL,
   },
-  // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
-  // If you use VSCode you can also use the GraphQL plugin
-  // Learn more at: https://gatsby.dev/graphql-typegen
-  graphqlTypegen: true,
+  graphqlTypegen: true, // graphql typegen을 사용하기 위한 설정, "query 명칭"을 부여하면 해당 명칭으로 type 자동 생성(Queries.명칭Query)
   plugins: [
-    "gatsby-plugin-tsconfig-paths",
-    "gatsby-plugin-sass",
-    "gatsby-plugin-image",
-    "gatsby-plugin-sitemap",
+    `gatsby-plugin-robots-txt`, // Robots.txt 자동 생성을 위한 플러그인
+    `gatsby-plugin-advanced-sitemap`, // sitemap 깔끔한 UI로 보여주는 플러그인
+    `gatsby-plugin-sitemap`, // 사이트맵 생성을 위한 플러그인
+    `gatsby-plugin-tsconfig-paths`, // tsconfig.json의 paths를 Gatsby에서 적용되도록 해주는 플러그인
+    `gatsby-plugin-sass`, // SCSS 사용을 위한 플러그인
+    `gatsby-plugin-image`, // gatsby build, serve시 sitemap을 생성해주는 플러그인
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -32,8 +30,8 @@ const config: GatsbyConfig = {
         background_color: `#f7f0eb`,
         theme_color: `#a2466c`,
         display: `standalone`,
-        icon: "src/assets/images/gom-ori.jpeg",
-        cache_busting_mode: "none",
+        icon: `src/assets/images/gom-ori.jpeg`,
+        cache_busting_mode: `none`,
         icon_options: {
           // For all the options available,
           // please see the section "Additional Resources" below.
@@ -41,18 +39,19 @@ const config: GatsbyConfig = {
         },
       },
     },
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
+    `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
     // "gatsby-transformer-remark",
     {
-      resolve: "gatsby-plugin-mdx",
+      resolve: `gatsby-plugin-mdx`,
       options: {
         // defaultLayouts: {
         //   default: path.resolve("./src/templates/neat-post-template/index.tsx"),
         // },
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
-          "gatsby-remark-copy-linked-files",
+          `gatsby-remark-gifs`,
+          `gatsby-remark-copy-linked-files`,
           {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
@@ -63,35 +62,35 @@ const config: GatsbyConfig = {
             },
           },
           {
-            resolve: "gatsby-remark-code-buttons",
+            resolve: `gatsby-remark-code-buttons`,
             options: {
-              buttonContainerClass: "code-button-container",
-              buttonClass: "code-button",
-              buttonText: "",
-              svgIconClass: "code-copy-icon",
+              buttonContainerClass: `code-button-container`,
+              buttonClass: `code-button`,
+              buttonText: ``,
+              svgIconClass: `code-copy-icon`,
               svgIcon: `<i class="fa-regular fa-clipboard"></i>`,
               // tooltipText: `customTooltipText`,
               toasterClass: `code-button-toaster`,
               toasterTextClass: `code-button-toaster-text`,
-              toasterText: "copied to clipboard",
+              toasterText: `copied to clipboard`,
               toasterDuration: 5000,
             },
           },
           {
-            resolve: "gatsby-remark-external-links",
+            resolve: `gatsby-remark-external-links`,
             options: {
-              target: "_self",
-              rel: "nofollow",
+              target: `_self`,
+              rel: `nofollow`,
             },
           },
           {
-            resolve: "gatsby-remark-smartypants",
+            resolve: `gatsby-remark-smartypants`,
             options: {
-              dashes: "oldschool",
+              dashes: `oldschool`,
             },
           },
           {
-            resolve: "gatsby-remark-images",
+            resolve: `gatsby-remark-images`,
             options: {
               // It's important to specify the maxWidth (in pixels) of
               // the content container as this plugin uses this as the
@@ -110,7 +109,7 @@ const config: GatsbyConfig = {
               // you may use this to prevent Prism from re-processing syntax.
               // This is an uncommon use-case though;
               // If you're unsure, it's best to use the default value.
-              classPrefix: "language-",
+              classPrefix: `language-`,
               // This is used to allow setting a language for inline code
               // (i.e. single backticks) by creating a separator.
               // This separator is a string and will do no white-space
@@ -140,8 +139,8 @@ const config: GatsbyConfig = {
               // existing language" below.
               languageExtensions: [
                 {
-                  language: "superscript",
-                  extend: "javascript",
+                  language: `superscript`,
+                  extend: `javascript`,
                   definition: {
                     superscript_types: /(SuperType)/,
                   },
@@ -155,8 +154,8 @@ const config: GatsbyConfig = {
               // Customize the prompt used in shell output
               // Values below are default
               prompt: {
-                user: "root",
-                host: "localhost",
+                user: `root`,
+                host: `localhost`,
                 global: false,
               },
               // By default the HTML entities <>&'" are escaped.
@@ -175,27 +174,27 @@ const config: GatsbyConfig = {
       },
     },
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: `gatsby-source-filesystem`,
       options: {
-        name: "images",
+        name: `images`,
         path: `${__dirname}/src/assets/images/`,
       },
-      __key: "images",
+      __key: `images`,
     },
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: `gatsby-source-filesystem`,
       options: {
-        name: "tech-posts",
+        name: `tech-posts`,
         path: `${__dirname}/src/contents/tech-posts/`,
       },
     },
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: `gatsby-source-filesystem`,
       options: {
-        name: "pages",
+        name: `pages`,
         path: `${__dirname}/src/pages/`,
       },
-      __key: "pages",
+      __key: `pages`,
     },
     // {
     //   resolve: "gatsby-plugin-page-creator",

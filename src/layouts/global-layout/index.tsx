@@ -1,7 +1,8 @@
 import React from "react";
-import { GlobalStyle } from "@_styles";
+
 import { LayoutDiv, SideBarDiv } from "./style";
 import { PostNavigator } from "./containers";
+import { GlobalStyle } from "@_styles";
 
 interface GlobalLayoutProps {
   children: React.ReactNode;
@@ -11,10 +12,6 @@ function GlobalLayout({ children }: GlobalLayoutProps) {
   return (
     <>
       <GlobalStyle />
-      <script
-        src="https://kit.fontawesome.com/ddb7bb7cca.js"
-        crossOrigin="anonymous"
-      ></script>
       <LayoutDiv data-layout="default-layout">
         <aside className="side-bar-area">
           <SideBar />
