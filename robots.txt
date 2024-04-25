@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Sitemap: https://devbears.github.io/sitemap-index.xml
+Host: https://devbears.github.io
