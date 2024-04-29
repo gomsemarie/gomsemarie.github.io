@@ -1,10 +1,10 @@
-import { boxShadow } from "@_styles";
+import { boxShadow, breakpoints } from "@_styles";
 import styled from "styled-components";
 
 export const LayoutDiv = styled.div`
   width: 100vw;
   display: grid;
-  grid-template-columns: 250px auto;
+  grid-template-columns: 250px minmax(${breakpoints.xs}px, 1fr);
   grid-template-areas: "sideBar contents";
 
   & > .side-bar-area {
