@@ -45,6 +45,7 @@
     "./gatsby-config.ts",
     "./gatsby-node.ts",
     "./gatsby-ssr.tsx",
-    "./plugins/**/*"
+    "./plugins/**/*",
+    "**/*.d.ts"
   ]
 }

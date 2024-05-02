@@ -14,7 +14,6 @@ export default function CategortTemplate({
   data,
 }: PageProps<Queries.PostListByCategoryQuery>) {
   const { category } = pageContext as { category: string | null };
-  console.log("data: ", data);
   const { edges, totalCount } = data.allMdx;
   const tagHeader = `${totalCount} post${
     totalCount === 1 ? "" : "s"

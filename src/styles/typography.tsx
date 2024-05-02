@@ -1,8 +1,14 @@
 export const typography = {
   fonts: {
     body: "NanumGothic, sans-serif",
-    heading: "MapleStoryBold, serif",
-    mono: "MapleStoryLight, monospace",
+    heading: "MapleStoryBold, sans-serif",
+    mono: "MapleStoryLight, sans-serif",
+    mapleLight: "MapleStoryLight, sans-serif",
+    mapleBold: "MapleStoryBold, sans-serif",
+    nanumGothic: "NanumGothic, sans-serif",
+    nanumGothicLight: "NanumGothicLight, sans-serif",
+    nanumGothicBold: "NanumGothicBold, sans-serif",
+    nanumGothicExtraBold: "NanumGothicExtraBold, sans-serif",
   },
   fontSizes: {
     // 1rem = 16px

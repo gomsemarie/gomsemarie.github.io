@@ -9,7 +9,7 @@ import "sanitize.css";
 import "sanitize.css/forms.css";
 import "sanitize.css/typography.css";
 import { ThemeProvider } from "styled-components";
-import { GlobalStyle, lightTheme } from "@_styles";
+import { lightTheme } from "@_styles";
 
 export const onRouteUpdate: GatsbyBrowser["onRouteUpdate"] = ({
   location,

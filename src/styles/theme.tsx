@@ -1,9 +1,54 @@
-import { ThemeWithPalette } from "styled-tools";
+import { TupleIndices } from "@_types";
+import { ThemeWithPalette, palette } from "styled-tools";
 
-export const darkTheme: ThemeWithPalette = {
+export const myPalette: MyPalette = ((a, b, c) =>
+  palette(a, b, c)) as MyPalette;
+
+type PaletteKey = keyof (typeof lightThemeType)["palette"];
+type PaletteTone<KEY extends PaletteKey> = TupleIndices<
+  (typeof lightThemeType)["palette"][KEY]
+>;
+
+interface MyPalette {
+  (tone?: number): <Props, Theme extends ThemeWithPalette>(
+    props: Props & {
+      theme: Theme;
+      palette?: keyof Theme["palette"];
+      tone?: number;
+    }
+  ) => string;
+
+  (tone: number, defaultValue: string): <Props, Theme extends ThemeWithPalette>(
+    props: Props & { theme: Partial<Theme>; palette?: keyof Theme["palette"] }
+  ) => string;
+
+  <KEY extends PaletteKey, TONE extends PaletteTone<KEY>>(
+    key: KEY,
+    tone?: TONE
+  ): <Props, Theme extends ThemeWithPalette>(
+    props: Props & { theme: Theme; tone?: TONE }
+  ) => string;
+
+  <KEY extends PaletteKey, TONE extends PaletteTone<KEY>>(
+    key: KEY,
+    defaultValue?: string
+  ): <Props, Theme extends ThemeWithPalette>(
+    props: Props & { theme: Theme; tone?: TONE }
+  ) => string;
+
+  <KEY extends PaletteKey, TONE extends PaletteTone<KEY>>(
+    key: KEY,
+    tone: TONE,
+    defaultValue?: string
+  ): <Props, Theme extends ThemeWithPalette>(
+    props: Props & { theme: Theme }
+  ) => string;
+}
+
+const darkThemeType = {
   palette: {},
 };
-export const lightTheme: ThemeWithPalette = {
+const lightThemeType = {
   palette: {
     black: ["#000000"],
     white: ["#FFFFFF"],
@@ -128,4 +173,6 @@ export const lightTheme: ThemeWithPalette = {
       "#521B41",
     ],
   },
-};
+} as const;
+export const lightTheme: ThemeWithPalette = lightThemeType;
+export const dartTheme: ThemeWithPalette = darkThemeType;
