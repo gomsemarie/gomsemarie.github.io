@@ -1,6 +1,6 @@
 import React from "react";
 
-import { LayoutDiv, SideBarDiv } from "./style";
+import { GlobalFooter, GlobalHeader, LayoutDiv } from "./style";
 import { PostNavigator } from "./containers";
 import { GlobalStyle } from "@_styles";
 
@@ -13,10 +13,9 @@ function GlobalLayout({ children }: GlobalLayoutProps) {
     <>
       <GlobalStyle />
       <LayoutDiv data-layout="default-layout">
-        <aside className="side-bar-area">
-          <SideBar />
-        </aside>
+        <Header />
         <div className="contents-area">{children}</div>
+        <Footer />
       </LayoutDiv>
     </>
   );
@@ -25,25 +24,13 @@ function GlobalLayout({ children }: GlobalLayoutProps) {
 export default GlobalLayout;
 
 function Header() {
-  return <div data-container="header"></div>;
-}
-
-function Navigation() {
-  return <div data-container="navigation"></div>;
-}
-
-function SideBar() {
   const githubProfileUrl = process.env.GATSBY_GITHUB_PROFILE_URL;
 
-  return (
-    <SideBarDiv data-container="side-bar">
-      <PostNavigator />
-    </SideBarDiv>
-  );
+  return <GlobalHeader>{/* <PostNavigator /> */}</GlobalHeader>;
 }
 
 function Footer() {
-  return <div data-container="footer"></div>;
+  return <GlobalFooter></GlobalFooter>;
 }
 
 // parameter (query string) /collection?id=adsa

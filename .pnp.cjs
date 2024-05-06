@@ -68,6 +68,7 @@ const RAW_RUNTIME_STATE =
           ["gatsby-transformer-sharp", "virtual:c0c3508d61a0ebd4c924e0b9bfa34c8c482fd5ecf4c5c5bccfa4c4d49059bd9942c8b007b43f343b953f0ccd5260935daabc58904ae38097925b056447639ffc#npm:5.13.1"],\
           ["gh-pages", "npm:6.1.1"],\
           ["lodash", "npm:4.17.21"],\
+          ["moment", "npm:2.30.1"],\
           ["polished", "npm:4.3.1"],\
           ["prismjs", "npm:1.29.0"],\
           ["react", "npm:18.2.0"],\
@@ -8977,6 +8978,7 @@ const RAW_RUNTIME_STATE =
           ["gatsby-transformer-sharp", "virtual:c0c3508d61a0ebd4c924e0b9bfa34c8c482fd5ecf4c5c5bccfa4c4d49059bd9942c8b007b43f343b953f0ccd5260935daabc58904ae38097925b056447639ffc#npm:5.13.1"],\
           ["gh-pages", "npm:6.1.1"],\
           ["lodash", "npm:4.17.21"],\
+          ["moment", "npm:2.30.1"],\
           ["polished", "npm:4.3.1"],\
           ["prismjs", "npm:1.29.0"],\
           ["react", "npm:18.2.0"],\
