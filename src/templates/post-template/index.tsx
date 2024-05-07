@@ -1,5 +1,5 @@
 import { Link, PageProps, graphql } from "gatsby";
-import React, { useId } from "react";
+import React, { useEffect, useId } from "react";
 import { ContentsArticle, PageMain, TagSpan } from "./style";
 import { SEOComponent, Toc, TocItem } from "@_components";
 import { isBrowser } from "@_utils";
@@ -12,7 +12,7 @@ export default function PostTemplate({
   pageContext,
   data,
   children,
-}: PageProps<Queries.PostDetailQuery>) {
+}: PageProps<Queries.PostDetailQuery, Queries.PostDetailQuery>) {
   const id = useId();
   const toc = data.mdx?.tableOfContents as TocItem | undefined;
   const anchorHolder = isBrowser()
@@ -26,6 +26,10 @@ export default function PostTemplate({
   const title = info?.title ?? "";
   const desc = info?.description ?? "";
   const date = moment(info?.date, "MMMM DD, YYYY");
+
+  useEffect(() => {
+    console.log("Page data changed", info);
+  }, [data]);
 
   return (
     <MDXProvider

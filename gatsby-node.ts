@@ -117,7 +117,7 @@ export const createPages: GatsbyNode["createPages"] = async ({
         component: `${postTemplate}?__contentFilePath=${node.internal.contentFilePath}`,
         // You can use the values in this context in
         // our page layout component
-        context: { id: node.id },
+        context: { id: node.id, slug: node.frontmatter?.slug },
       });
   });
 };
