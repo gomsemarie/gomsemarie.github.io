@@ -1,6 +1,6 @@
 import { Link, PageProps, graphql } from "gatsby";
 import React, { useId } from "react";
-import { PageMain, TagSpan } from "./style";
+import { ContentsArticle, PageMain, TagSpan } from "./style";
 import { SEOComponent, Toc, TocItem } from "@_components";
 import { isBrowser } from "@_utils";
 import DesignSystem from "@_components/design-system";
@@ -25,7 +25,7 @@ export default function PostTemplate({
   const tags = info?.tags ?? [];
   const title = info?.title ?? "";
   const desc = info?.description ?? "";
-  const date = moment(info?.date);
+  const date = moment(info?.date, "MMMM DD, YYYY");
 
   return (
     <MDXProvider
@@ -36,26 +36,30 @@ export default function PostTemplate({
       }}
     >
       <PageMain data-page="post">
-        <div className="toc-area">
-          <Toc.Icon toc={toc} anchorHolder={anchorHolder} />
-        </div>
-        <div className="title-area">
-          <div className="tag-box">
-            {tags.map((tag, index) => (
-              <Tag key={`${id}-tag-${index}`} name={tag} />
-            ))}
-          </div>
-          <div className="title-box">
-            <p>{title}</p>
-          </div>
-          <div className="desc-box">
-            <p>{desc}</p>
-          </div>
-          <div className="date-box">
-            <p>{date.format("yyyy.MM.DD")}</p>
-          </div>
-        </div>
-        <div className="contents-area">{children}</div>
+        <ContentsArticle>
+          <section className="title-area">
+            <div className="tag-box">
+              {tags.map((tag, index) => (
+                <Tag key={`${id}-tag-${index}`} name={tag} />
+              ))}
+            </div>
+            <div className="title-box">
+              <p>{title}</p>
+            </div>
+            <div className="desc-box">
+              <p>{desc}</p>
+            </div>
+            <div className="date-box">
+              <p>{date.format("yyyy.MM.DD")}</p>
+            </div>
+          </section>
+          <section className="contents-area">{children}</section>
+          <section className="toc-area">
+            <div className="toc-box">
+              <Toc toc={toc} anchorHolder={anchorHolder} />
+            </div>
+          </section>
+        </ContentsArticle>
       </PageMain>
     </MDXProvider>
   );

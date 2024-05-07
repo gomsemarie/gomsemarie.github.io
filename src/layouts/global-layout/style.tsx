@@ -1,4 +1,4 @@
-import { boxShadow, breakpoints, myPalette } from "@_styles";
+import { boxShadow, breakpoints, myPalette, spacing } from "@_styles";
 import styled from "styled-components";
 
 export const LayoutDiv = styled.div`
@@ -20,14 +20,25 @@ export const LayoutDiv = styled.div`
 `;
 
 export const GlobalHeader = styled.header`
-  z-index: 10;
+  /* z-index: 10;
   position: sticky;
-  top: 0;
+  top: 0; */
   width: 100%;
   height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 0 ${spacing.space[32]};
 
   background-color: ${myPalette("white")};
   border-bottom: 1px solid ${myPalette("gray", 3)};
+
+  & > .icon-area {
+    margin-left: auto;
+
+    & > .menu-icon {
+      cursor: pointer;
+    }
+  }
 `;
 
 export const GlobalFooter = styled.footer``;

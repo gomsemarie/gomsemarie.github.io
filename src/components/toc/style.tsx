@@ -4,6 +4,8 @@ import styled from "styled-components";
 export const TocDiv = styled.div``;
 
 export const TocIconDiv = styled.div`
+  display: inline-block;
+
   & > button.open-button {
     border: 0;
     padding: 10px;

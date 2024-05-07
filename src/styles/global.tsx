@@ -13,6 +13,11 @@ import { lighten } from "polished";
 
 // Code Button - Code Block 헤더, 복사 버튼 디자인
 const headerHeight = 36;
+
+const AnchorStyle = css`
+  .anchor-header.before {
+  }
+`;
 const CodeButtonStyle = css`
   // 헤더 디자인
   span:has(.gatsby-code-button-container) {
@@ -182,6 +187,7 @@ const GlobalStyle = styled.createGlobalStyle`
   }
 
   ${CodeButtonStyle}
+  ${AnchorStyle}
 `;
 
 export default GlobalStyle;

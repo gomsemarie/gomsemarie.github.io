@@ -2,12 +2,14 @@ import React from "react";
 import { GlobalLayout } from "@_layouts";
 import type { GatsbyBrowser } from "gatsby";
 
-import "prismjs/themes/prism-tomorrow.css"; // Prism - Theme
-import "prismjs/plugins/line-numbers/prism-line-numbers.css"; // Prism - Line numbers style
-// import "prismjs/plugins/command-line/prism-command-line.css"; // Prism - Command line style
 import "sanitize.css";
 import "sanitize.css/forms.css";
 import "sanitize.css/typography.css";
+
+import "prismjs/themes/prism-tomorrow.css"; // Prism - Theme
+import "prismjs/plugins/line-numbers/prism-line-numbers.css"; // Prism - Line numbers style
+// import "prismjs/plugins/command-line/prism-command-line.css"; // Prism - Command line style
+
 import { ThemeProvider } from "styled-components";
 import { lightTheme } from "@_styles";
 

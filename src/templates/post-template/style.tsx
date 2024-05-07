@@ -1,5 +1,6 @@
 import {
   breakpoints,
+  media,
   myPalette,
   spacing,
   textEllipsisCss,
@@ -7,15 +8,20 @@ import {
 } from "@_styles";
 import styled from "styled-components";
 
+const tocWidth = 300;
+
 export const PageMain = styled.main`
   width: 100%;
   position: relative;
-  padding: 40px;
+  padding: ${spacing.space[40]};
+`;
+
+export const ContentsArticle = styled.article`
+  position: relative;
+  max-width: ${breakpoints.lg}px;
+  margin: 0 auto;
 
   & > .title-area {
-    margin: 0 auto;
-    max-width: ${breakpoints.lg}px;
-
     & > .tag-box {
       display: flex;
       justify-content: center;
@@ -23,7 +29,7 @@ export const PageMain = styled.main`
       flex-wrap: wrap;
 
       & > span {
-        font-family: ${typography.fonts.mapleBold};
+        font-family: ${typography.fonts.nanumGothicBold};
         font-size: ${typography.fontSizes.xs};
         color: ${myPalette("blue", 6)};
 
@@ -80,15 +86,24 @@ export const PageMain = styled.main`
   }
 
   & > .contents-area {
-    margin: 0 auto;
-    max-width: ${breakpoints.lg}px;
   }
 
   & > .toc-area {
-    z-index: 10;
-    position: fixed;
-    top: 10%;
-    right: 0;
+    width: ${tocWidth}px;
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 100%;
+
+    & > .toc-box {
+      position: sticky;
+      top: ${spacing.space[160]};
+      padding: ${spacing.space[20]};
+    }
+
+    @media (max-width: ${breakpoints.lg + 2 * tocWidth}px) {
+      display: none;
+    }
   }
 `;
 
