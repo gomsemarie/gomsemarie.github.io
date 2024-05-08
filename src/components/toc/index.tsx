@@ -123,7 +123,26 @@ Toc.TocElement = function (props: TocProps) {
       {toc?.items &&
         toc.items.map((item) => (
           <li key={`${id}-${item.title}`}>
-            <Link to={item.url}>{item.title}</Link>
+            <Link
+              // onClick={(e) => {
+              //   e.preventDefault();
+              //   const target = document.querySelector(item.url);
+              //   if (target) {
+              //     const headerOffset = 100;
+              //     const ePos = target.getBoundingClientRect().top;
+              //     const offsetPos = ePos + window.scrollY - headerOffset;
+              //     console.log("Offset Pos: ", offsetPos);
+
+              //     window.scrollTo({
+              //       top: offsetPos,
+              //       behavior: "smooth",
+              //     });
+              //   }
+              // }}
+              to={item.url}
+            >
+              {item.title}
+            </Link>
             {item.items && <Toc.TocElement {...props} toc={item} />}
           </li>
         ))}

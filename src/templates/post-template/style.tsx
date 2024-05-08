@@ -1,11 +1,4 @@
-import {
-  breakpoints,
-  media,
-  myPalette,
-  spacing,
-  textEllipsisCss,
-  typography,
-} from "@_styles";
+import { breakpoints, myPalette, spacing, typography } from "@_styles";
 import styled from "styled-components";
 
 const tocWidth = 300;
@@ -31,7 +24,7 @@ export const ContentsArticle = styled.article`
       & > span {
         font-family: ${typography.fonts.nanumGothicBold};
         font-size: ${typography.fontSizes.xs};
-        color: ${myPalette("blue", 6)};
+        color: ${myPalette("primary", 6)};
 
         &:not(:last-child)::after {
           content: ",";
@@ -96,13 +89,26 @@ export const ContentsArticle = styled.article`
     left: 100%;
 
     & > .toc-box {
+      margin-top: ${spacing.space[64]};
       position: sticky;
-      top: ${spacing.space[160]};
-      padding: ${spacing.space[20]};
+      top: ${spacing.space[64]};
+      margin-left: ${spacing.space[40]};
+    }
+    & > .toc-icon-box {
+      position: fixed;
+      right: ${spacing.space[8]};
+      display: none;
     }
 
     @media (max-width: ${breakpoints.lg + 2 * tocWidth}px) {
-      display: none;
+      width: 0;
+      & > .toc-box {
+        display: none;
+      }
+
+      & > .toc-icon-box {
+        display: block;
+      }
     }
   }
 `;

@@ -50,6 +50,32 @@ const darkThemeType = {
 };
 const lightThemeType = {
   palette: {
+    primary: [
+      // blue
+      "#EBF8FF",
+      "#BEE3F8",
+      "#90CDF4",
+      "#63B3ED",
+      "#4299E1",
+      "#3182CE",
+      "#2B6CB0",
+      "#2C5282",
+      "#2A4365",
+      "#1A365D",
+    ],
+    secondary: [
+      // cyan
+      "#EDFDFD",
+      "#C4F1F9",
+      "#9DECF9",
+      "#76E4F7",
+      "#0BC5EA",
+      "#00B5D8",
+      "#00A3C4",
+      "#0987A0",
+      "#086F83",
+      "#065666",
+    ],
     black: ["#000000"],
     white: ["#FFFFFF"],
     gray: [

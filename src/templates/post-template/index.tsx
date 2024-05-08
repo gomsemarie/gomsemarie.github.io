@@ -7,6 +7,8 @@ import DesignSystem from "@_components/design-system";
 import { MDXProvider } from "@mdx-js/react";
 import _ from "lodash";
 import moment from "moment";
+import { useScreen } from "usehooks-ts";
+import { breakpoints } from "@_styles";
 
 export default function PostTemplate({
   pageContext,
@@ -14,6 +16,10 @@ export default function PostTemplate({
   children,
 }: PageProps<Queries.PostDetailQuery, Queries.PostDetailQuery>) {
   const id = useId();
+  // const { width, height } = useScreen({
+  //   debounceDelay: 100,
+  // });
+
   const toc = data.mdx?.tableOfContents as TocItem | undefined;
   const anchorHolder = isBrowser()
     ? document.getElementsByClassName("anchor-header")
@@ -27,16 +33,17 @@ export default function PostTemplate({
   const desc = info?.description ?? "";
   const date = moment(info?.date, "MMMM DD, YYYY");
 
-  useEffect(() => {
-    console.log("Page data changed", info);
-  }, [data]);
-
   return (
     <MDXProvider
       disableParentContext
       components={{
         ...shortcodes,
-        // em: DesignSystem.Em,
+        h1: DesignSystem.H1,
+        h2: DesignSystem.H2,
+        h3: DesignSystem.H3,
+        h4: DesignSystem.H4,
+        em: DesignSystem.Em,
+        hr: DesignSystem.Hr,
       }}
     >
       <PageMain data-page="post">
@@ -61,6 +68,9 @@ export default function PostTemplate({
           <section className="toc-area">
             <div className="toc-box">
               <Toc toc={toc} anchorHolder={anchorHolder} />
+            </div>
+            <div className="toc-icon-box">
+              <Toc.Icon toc={toc} anchorHolder={anchorHolder} />
             </div>
           </section>
         </ContentsArticle>

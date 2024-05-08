@@ -92,17 +92,17 @@ export const PostNavigatorLi = styled(ClearedLi)`
   &:hover,
   &.active {
     & > .title-box {
-      background-color: ${myPalette("purple", 0)};
+      background-color: ${myPalette("primary")};
 
       & > .icon-box {
-        background-color: ${myPalette("purple", 1)};
+        background-color: ${myPalette("primary", 1)};
 
         & > svg {
-          fill: ${myPalette("purple", 5)};
+          fill: ${myPalette("primary", 5)};
         }
       }
       & > p {
-        color: ${myPalette("purple", 5)};
+        color: ${myPalette("primary", 5)};
       }
     }
   }

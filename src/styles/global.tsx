@@ -8,20 +8,26 @@ import NanumGothicExtraBold from "@_assets/fonts/NanumGothicExtraBold.woff2";
 
 import { media } from "./media";
 import { lighten } from "polished";
+import { myPalette } from "./theme";
 // import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader";
 // deckDeckGoHighlightElement();
 
 // Code Button - Code Block 헤더, 복사 버튼 디자인
 const headerHeight = 36;
 
-const AnchorStyle = css`
+const anchorCss = css`
   .anchor-header.before {
+    display: inline-block;
+    & > span {
+      & > svg {
+      }
+    }
   }
 `;
-const CodeButtonStyle = css`
+const codeButtonCss = css`
   // 헤더 디자인
   span:has(.gatsby-code-button-container) {
-    background-color: #1e1e1e;
+    background-color: ${myPalette("gray", 9)};
     position: relative;
     display: flex;
     align-items: center;
@@ -140,10 +146,23 @@ const GlobalStyle = styled.createGlobalStyle`
     src: url(${NanumGothicExtraBold}) format("font-woff2");
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     font-family: NanumGothic, sans-serif;
     font-size: 16px;
     overflow: hidden scroll;
+  }
+
+  ::-moz-selection {
+    background: ${myPalette("secondary", 1)};
+    color: ${myPalette("black")};
+  }
+  ::selection {
+    background: ${myPalette("secondary", 1)};
+    color: ${myPalette("black")};
   }
 
   // Prism - Copy button custom style
@@ -186,8 +205,8 @@ const GlobalStyle = styled.createGlobalStyle`
     `}
   }
 
-  ${CodeButtonStyle}
-  ${AnchorStyle}
+  ${codeButtonCss}
+  ${anchorCss}
 `;
 
 export default GlobalStyle;

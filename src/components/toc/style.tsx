@@ -1,4 +1,10 @@
-import { boxShadow, buttonShadow } from "@_styles";
+import {
+  boxShadow,
+  buttonShadow,
+  myPalette,
+  spacing,
+  typography,
+} from "@_styles";
 import styled from "styled-components";
 
 export const TocDiv = styled.div``;
@@ -17,7 +23,7 @@ export const TocIconDiv = styled.div`
 
   & > .toc-box {
     position: relative;
-    padding: 10px;
+    padding: ${spacing.space[32]};
     /* left: 100%;
     opacity: 0; */
     background-color: white;
@@ -44,17 +50,35 @@ export const TocIconDiv = styled.div`
 export const TocElementUl = styled.ul`
   list-style: none;
   margin: 0;
-  padding-left: 10px;
-  font-weight: normal;
+  padding-left: ${spacing.space[16]};
 
   & > li {
     & > a {
+      display: inline-block;
+      padding-left: ${spacing.space[8]};
+      margin-bottom: ${spacing.space[8]};
+
       text-decoration: none;
-      color: black;
+      font-family: ${typography.fonts.nanumGothic};
+      font-size: ${typography.fontSizes.md};
+      color: ${myPalette("black")};
 
       &.selected {
-        color: brown !important;
+        color: ${myPalette("primary", 6)} !important;
       }
     }
+  }
+
+  &:has(ul) {
+    & > li {
+      & > a {
+        border-left: ${spacing.space[4]} solid ${myPalette("primary", 6)};
+        font-family: ${typography.fonts.nanumGothicBold};
+      }
+    }
+  }
+
+  &:first-child {
+    padding-left: 0;
   }
 `;
