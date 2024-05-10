@@ -25,7 +25,7 @@ export default function PostTemplate({
     ? document.getElementsByClassName("anchor-header")
     : undefined;
 
-  const shortcodes = { Text: DesignSystem.Text };
+  const shortcodes = { Tip: DesignSystem.Tip };
 
   const info = data.mdx?.frontmatter;
   const tags = info?.tags ?? [];

@@ -9,22 +9,89 @@ import NanumGothicExtraBold from "@_assets/fonts/NanumGothicExtraBold.woff2";
 import { media } from "./media";
 import { lighten } from "polished";
 import { myPalette } from "./theme";
-// import { defineCustomElements as deckDeckGoHighlightElement } from "@deckdeckgo/highlight-code/dist/loader";
-// deckDeckGoHighlightElement();
 
-// Code Button - Code Block 헤더, 복사 버튼 디자인
 const headerHeight = 36;
 
-const anchorCss = css`
-  .anchor-header.before {
-    display: inline-block;
-    & > span {
-      & > svg {
-      }
-    }
+const globalFontCss = css`
+  // Maple Story Font
+  @font-face {
+    font-family: "MapleStoryLight";
+    src: local("MapleStoryLight"), local("MapleStoryLight");
+    font-style: normal;
+    font-weight: lighter;
+    src: url(${MapleStoryLight}) format("woff2");
+  }
+  @font-face {
+    font-family: "MapleStoryBold";
+    src: local("MapleStoryBold"), local("MapleStoryBold");
+    font-style: normal;
+    src: url(${MapleStoryBold}) format("woff2");
+  }
+
+  // Nanum Gothic Font
+  @font-face {
+    font-family: "NanumGothic";
+    src: local("NanumGothic"), local("NanumGothic");
+    font-style: normal;
+    src: url(${NanumGothic}) format("font-woff2");
+  }
+  @font-face {
+    font-family: "NanumGothicLight";
+    src: local("NanumGothicLight"), local("NanumGothicLight");
+    font-style: normal;
+    src: url(${NanumGothicLight}) format("font-woff2");
+  }
+  @font-face {
+    font-family: "NanumGothicBold";
+    src: local("NanumGothicBold"), local("NanumGothicBold");
+    font-style: normal;
+    src: url(${NanumGothicBold}) format("font-woff2");
+  }
+  @font-face {
+    font-family: "NanumGothicExtraBold";
+    src: local("NanumGothicExtraBold"), local("NanumGothicExtraBold");
+    font-style: normal;
+    src: url(${NanumGothicExtraBold}) format("font-woff2");
+  }
+
+  body {
+    font-family: NanumGothic, sans-serif;
   }
 `;
-const codeButtonCss = css`
+
+const globalSelectionCss = css`
+  ::-moz-selection {
+    background: ${myPalette("secondary", 1)};
+    color: ${myPalette("black")};
+  }
+  ::selection {
+    background: ${myPalette("secondary", 1)};
+    color: ${myPalette("black")};
+  }
+`;
+
+const globalCodeBlockCss = css`
+  // 라인 번호 디자인
+  .gatsby-highlight pre[class*="language-"].line-numbers {
+    padding: 1rem;
+    padding-left: 3.8rem;
+
+    & > span {
+      padding: 1rem 0;
+      padding-left: 1rem;
+      border: none;
+    }
+
+    ${media.sm.styler`
+    padding-left: 1em;
+
+    & > span {
+      display: none;
+
+    }
+    `}
+  }
+
   // 헤더 디자인
   span:has(.gatsby-code-button-container) {
     background-color: ${myPalette("gray", 9)};
@@ -103,110 +170,31 @@ const codeButtonCss = css`
   }
 `;
 
+const globalAnchorCss = css`
+  .anchor-header.before {
+    display: inline-block;
+    & > span {
+      & > svg {
+      }
+    }
+  }
+`;
+
 const styled = { createGlobalStyle }; // Prettier 적용되도록
 const GlobalStyle = styled.createGlobalStyle`
-  // Maple Story Font
-  @font-face {
-    font-family: "MapleStoryLight";
-    src: local("MapleStoryLight"), local("MapleStoryLight");
-    font-style: normal;
-    font-weight: lighter;
-    src: url(${MapleStoryLight}) format("woff2");
-  }
-  @font-face {
-    font-family: "MapleStoryBold";
-    src: local("MapleStoryBold"), local("MapleStoryBold");
-    font-style: normal;
-    src: url(${MapleStoryBold}) format("woff2");
-  }
-
-  // Nanum Gothic Font
-  @font-face {
-    font-family: "NanumGothic";
-    src: local("NanumGothic"), local("NanumGothic");
-    font-style: normal;
-    src: url(${NanumGothic}) format("font-woff2");
-  }
-  @font-face {
-    font-family: "NanumGothicLight";
-    src: local("NanumGothicLight"), local("NanumGothicLight");
-    font-style: normal;
-    src: url(${NanumGothicLight}) format("font-woff2");
-  }
-  @font-face {
-    font-family: "NanumGothicBold";
-    src: local("NanumGothicBold"), local("NanumGothicBold");
-    font-style: normal;
-    src: url(${NanumGothicBold}) format("font-woff2");
-  }
-  @font-face {
-    font-family: "NanumGothicExtraBold";
-    src: local("NanumGothicExtraBold"), local("NanumGothicExtraBold");
-    font-style: normal;
-    src: url(${NanumGothicExtraBold}) format("font-woff2");
-  }
+  ${globalFontCss}
+  ${globalSelectionCss}
+  ${globalCodeBlockCss}
+  ${globalAnchorCss}
 
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    font-family: NanumGothic, sans-serif;
     font-size: 16px;
     overflow: hidden scroll;
   }
-
-  ::-moz-selection {
-    background: ${myPalette("secondary", 1)};
-    color: ${myPalette("black")};
-  }
-  ::selection {
-    background: ${myPalette("secondary", 1)};
-    color: ${myPalette("black")};
-  }
-
-  // Prism - Copy button custom style
-  .gatsby-remark-prismjs-copy-button-container {
-    left: 0;
-    padding-right: 8px;
-  }
-
-  // Prism - Code block custom style
-  /* .gatsby-highlight {
-    &::before {
-      content: "Code Block";
-      background: var(--code-block-mac-color);
-      border-radius: 5px 5px 0 0;
-      height: 40px;
-      left: 0;
-      top: 0;
-      width: 100%;
-    }
-  } */
-
-  // Prism - Code block - line numbers custom style
-  .gatsby-highlight pre[class*="language-"].line-numbers {
-    padding: 1rem;
-    padding-left: 3.8rem;
-
-    & > span {
-      padding: 1rem 0;
-      padding-left: 1rem;
-      border: none;
-    }
-
-    ${media.sm.styler`
-    padding-left: 1em;
-
-    & > span {
-      display: none;
-
-    }
-    `}
-  }
-
-  ${codeButtonCss}
-  ${anchorCss}
 `;
 
 export default GlobalStyle;

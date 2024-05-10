@@ -67,3 +67,37 @@ export const StyledHr = styled.hr`
     height: 24px;
   }
 `;
+
+export const StyledTip = styled.div`
+  border-radius: ${spacing.space[8]};
+  overflow: hidden;
+  margin: ${spacing.space[16]} 0;
+
+  & p {
+    margin: 0;
+  }
+
+  & > .title-area {
+    display: flex;
+    align-items: center;
+    gap: ${spacing.space[8]};
+    padding: ${spacing.space[8]} ${spacing.space[16]};
+    background-color: ${myPalette("orange", 1)};
+
+    & > p {
+      font-family: ${typography.fonts.mapleBold};
+      font-size: ${typography.fontSizes["md"]};
+      color: ${myPalette("gray", 8)};
+    }
+  }
+  & > .content-area {
+    padding: ${spacing.space[16]};
+    background-color: ${myPalette("orange")};
+
+    & > p {
+      font-family: ${typography.fonts.mapleLight};
+      font-size: ${typography.fontSizes["md"]};
+      color: ${myPalette("gray", 6)};
+    }
+  }
+`;

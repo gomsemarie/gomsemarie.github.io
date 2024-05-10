@@ -7,7 +7,12 @@ import {
   StyledH3,
   StyledH4,
   StyledHr,
+  StyledTip,
 } from "./style";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { myPalette } from "@_styles";
+import { useTheme } from "styled-components";
 
 const DesignSystem = {
   H1: function (
@@ -57,15 +62,29 @@ const DesignSystem = {
   ): ReactNode {
     return <StyledHr {...props} />;
   },
-  Text: function ({ children }: { children: React.ReactNode }) {
+  Tip: function ({
+    title = "",
+    children,
+  }: {
+    title?: string;
+    children: React.ReactNode;
+  }) {
+    const theme = useTheme();
     return (
-      <div
-        style={{
-          backgroundColor: "red",
-        }}
-      >
-        {children}
-      </div>
+      <StyledTip>
+        <div className="title-area">
+          <FontAwesomeIcon
+            icon={faLightbulb}
+            size="xl"
+            color={myPalette("orange", 3)({ theme })}
+          />
+          <p>Tip</p>
+          <p>{title}</p>
+        </div>
+        <div className="content-area">
+          <p>{children}</p>
+        </div>
+      </StyledTip>
     );
   },
 };
