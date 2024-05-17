@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkdevbears_github_io=self.webpackChunkdevbears_github_io||[]).push([[245],{2099:function(e,t,n){n.r(t),n.d(t,{Head:function(){return l}});var a=n(3270),u=n(7299);function l(){return a.createElement(u.Tx,null)}t.default=e=>{let{data:{site:t}}=e;return a.createElement("main",null,a.createElement("h1",null,t.siteMetadata.title))}}}]);
+//# sourceMappingURL=component---src-pages-index-tsx-e71c927cdadae528f94a.js.map
