@@ -32,7 +32,6 @@ export default GlobalLayout;
 function Header() {
   const theme = useTheme();
   const menuModalController = useRef<ModalRef>(null);
-  const githubProfileUrl = process.env.GATSBY_GITHUB_PROFILE_URL;
 
   const handleOnClickMenuIcon = () => {
     menuModalController.current?.openModal();

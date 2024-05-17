@@ -6,3 +6,12 @@ export const textEllipsisCss = css`
   text-overflow: ellipsis;
   word-break: break-all;
 `;
+
+export const textEllipsis2Css = css`
+  ${textEllipsisCss}
+
+  white-space: pre-wrap;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+`;

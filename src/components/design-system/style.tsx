@@ -7,11 +7,27 @@ const headingCss = css`
 `;
 
 export const StyledH1 = styled.h1`
+  display: grid;
+  grid-template-columns: minmax(50px, max-content) auto;
   position: relative;
-  overflow: hidden;
   line-height: 2;
 
-  &::before {
+  & > hr {
+    margin: 0;
+  }
+
+  & > hr.highlight {
+    height: 2px;
+    border: 0;
+    background: ${myPalette("primary", 6)};
+  }
+  & > hr:last-child {
+    height: 2px;
+    border: 0;
+    background: ${myPalette("gray", 2)};
+  }
+
+  /* &::before {
     content: "";
     border-bottom: 2px solid ${myPalette("primary", 6)};
     position: absolute;
@@ -26,13 +42,22 @@ export const StyledH1 = styled.h1`
     bottom: 0;
     width: 100%;
     z-index: 1;
-  }
+  } */
 
   ${headingCss}
 `;
 export const StyledH2 = styled.h2`
-  padding-left: ${spacing.space[16]};
-  border-left: ${spacing.space[8]} solid ${myPalette("primary", 6)};
+  display: grid;
+  grid-template-columns: max-content auto;
+  gap: ${spacing.space[16]};
+
+  & > .line {
+    border-radius: ${spacing.space[4]};
+    display: inline-block;
+    width: ${spacing.space[8]};
+    height: 100%;
+    background-color: ${myPalette("primary", 6)};
+  }
 
   ${headingCss}
 `;
@@ -45,8 +70,8 @@ export const StyledH4 = styled.h4`
 export const StyledEm = styled.em`
   font-style: normal;
   font-family: ${typography.fonts.mapleLight};
-  color: ${myPalette("primary", 8)};
-  background-color: ${myPalette("secondary", 1)};
+  color: ${myPalette("secondary", 5)};
+  /* background-color: ${myPalette("secondary", 1)}; */
 `;
 
 const hrHeight = spacing.space[4];
@@ -100,4 +125,11 @@ export const StyledTip = styled.div`
       color: ${myPalette("gray", 6)};
     }
   }
+`;
+
+export const StyledBlockquote = styled.blockquote`
+  /* margin: 0; */
+  padding: ${spacing.space[16]};
+  border-left: 4px solid ${myPalette("primary", 6)};
+  background-color: ${myPalette("primary", 0)};
 `;

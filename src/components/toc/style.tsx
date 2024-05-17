@@ -1,6 +1,6 @@
 import {
-  boxShadow,
-  buttonShadow,
+  boxShadowCss,
+  buttonShadowCss,
   myPalette,
   spacing,
   typography,
@@ -18,7 +18,7 @@ export const TocIconDiv = styled.div`
     border-radius: 6px;
     cursor: pointer;
 
-    ${buttonShadow}
+    ${buttonShadowCss}
   }
 
   & > .toc-box {
@@ -29,7 +29,7 @@ export const TocIconDiv = styled.div`
     background-color: white;
     border-radius: 10px;
     transition: all 0.2s;
-    ${boxShadow}
+    ${boxShadowCss}
 
     /* &.open {
       left: -100%;

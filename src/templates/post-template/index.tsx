@@ -44,6 +44,7 @@ export default function PostTemplate({
         h4: DesignSystem.H4,
         em: DesignSystem.Em,
         hr: DesignSystem.Hr,
+        blockquote: DesignSystem.Blockquote,
       }}
     >
       <PageMain data-page="post">

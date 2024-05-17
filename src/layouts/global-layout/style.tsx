@@ -1,4 +1,4 @@
-import { boxShadow, breakpoints, myPalette, spacing } from "@_styles";
+import { breakpoints, myPalette, spacing } from "@_styles";
 import styled from "styled-components";
 
 export const LayoutDiv = styled.div`

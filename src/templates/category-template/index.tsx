@@ -1,11 +1,10 @@
-import { Link, PageProps, graphql } from "gatsby";
-import React, { useEffect } from "react";
-import { MDXProvider } from "@mdx-js/react";
+import { PageProps, graphql } from "gatsby";
+import React from "react";
 import { SEOComponent } from "@_components";
-import DesignSystem from "@_components/design-system";
 import styled from "styled-components";
-import { TemplateDiv } from "./style";
 import _ from "lodash";
+import PostListTemplate from "@_templates/post-list-template";
+import { PostCardProps } from "@_components/post-card";
 
 export const PageMain = styled.main``;
 
@@ -15,67 +14,23 @@ export default function CategortTemplate({
 }: PageProps<Queries.PostListByCategoryQuery>) {
   const { category } = pageContext as { category: string | null };
   const { edges, totalCount } = data.allMdx;
-  const tagHeader = `${totalCount} post${
-    totalCount === 1 ? "" : "s"
-  } tagged with "${"aaaa"}"`;
-
-  useEffect(() => {
-    console.log("category: ", category);
-    console.log("data: ", data);
-  }, []);
 
   return (
-    <TemplateDiv data-page="category-page">
-      <h1>{tagHeader}</h1>
-
-      <div>
-        {edges.map(({ node }) => {
-          const { excerpt } = node;
-          const { slug, title, date, tags, category } = node.frontmatter ?? {};
-
-          return (
-            <div key={slug}>
-              <Link
-                to={`/${process.env.GATSBY_POSTS_PATH}/${_.kebabCase(
-                  slug ?? ""
-                )}`}
-              >
-                <h3>{title}</h3>
-              </Link>
-
-              <p>
-                {category}
-                {date}
-                <span> ● Tag: </span>
-                {tags?.map((tag) => (
-                  <Link
-                    key={_.kebabCase(tag ?? "")}
-                    to={`/${process.env.GATSBY_TAGS_PATH}/${_.kebabCase(
-                      tag ?? ""
-                    )}`}
-                  >
-                    {tag}
-                  </Link>
-                ))}
-              </p>
-
-              <p>{excerpt}</p>
-            </div>
-          );
-        })}
-      </div>
-    </TemplateDiv>
+    <PostListTemplate
+      title={category}
+      list={edges.map((item) => item.node.frontmatter as PostCardProps)}
+      totalCount={totalCount}
+    />
   );
 }
 
-// export function Head({ data }: PageProps<Queries.PostDetailQuery>) {
-//   return (
-//     <SEOComponent
-//       title={data.mdx?.frontmatter?.title ?? ""}
-//       description={data.mdx?.frontmatter?.description ?? ""}
-//     />
-//   );
-// }
+export function Head({
+  pageContext,
+}: PageProps<Queries.PostListByCategoryQuery>) {
+  const { category } = pageContext as { category: string | null };
+
+  return <SEOComponent title={category ?? ""} />;
+}
 
 export const query = graphql`
   query PostListByCategory($category: String) {

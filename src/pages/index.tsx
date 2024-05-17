@@ -19,10 +19,6 @@ const IndexRoute = ({ data: { site } }: PageProps<DataProps>) => {
   );
 };
 
-export function Head() {
-  return <SEOComponent />;
-}
-
 export default IndexRoute;
 
 export const query = graphql`

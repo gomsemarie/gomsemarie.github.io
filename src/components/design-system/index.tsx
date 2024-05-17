@@ -1,6 +1,7 @@
 import { ReactNode } from "@mdx-js/react/lib";
 import React, { DetailedHTMLProps, HTMLAttributes } from "react";
 import {
+  StyledBlockquote,
   StyledEm,
   StyledH1,
   StyledH2,
@@ -22,7 +23,14 @@ const DesignSystem = {
     >
   ): ReactNode {
     const { children } = props;
-    return <StyledH1 {...props}>{children}</StyledH1>;
+    return (
+      <StyledH1 {...props}>
+        {children}
+        <span />
+        <hr className="highlight" />
+        <hr />
+      </StyledH1>
+    );
   },
   H2: function (
     props: DetailedHTMLProps<
@@ -31,7 +39,12 @@ const DesignSystem = {
     >
   ): ReactNode {
     const { children } = props;
-    return <StyledH2 {...props}>{children}</StyledH2>;
+    return (
+      <StyledH2 {...props}>
+        <span className="line" />
+        {children}
+      </StyledH2>
+    );
   },
   H3: function (
     props: DetailedHTMLProps<
@@ -62,6 +75,13 @@ const DesignSystem = {
   ): ReactNode {
     return <StyledHr {...props} />;
   },
+  Blockquote: function (
+    props: DetailedHTMLProps<HTMLAttributes<HTMLQuoteElement>, HTMLQuoteElement>
+  ): ReactNode {
+    const { children } = props;
+    return <StyledBlockquote {...props}>{children}</StyledBlockquote>;
+  },
+  // Custom
   Tip: function ({
     title = "",
     children,
