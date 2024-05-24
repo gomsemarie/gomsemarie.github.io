@@ -8,6 +8,7 @@ import {
   StyledH3,
   StyledH4,
   StyledHr,
+  StyledImg,
   StyledTip,
 } from "./style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

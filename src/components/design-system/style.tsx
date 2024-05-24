@@ -130,6 +130,14 @@ export const StyledTip = styled.div`
 export const StyledBlockquote = styled.blockquote`
   /* margin: 0; */
   padding: ${spacing.space[16]};
-  border-left: 4px solid ${myPalette("primary", 6)};
-  background-color: ${myPalette("primary", 0)};
+  border: 1px solid ${myPalette("gray", 3)};
+  border-left: ${spacing.space[4]} solid ${myPalette("primary", 6)};
+  border-radius: ${spacing.space[4]};
+  color: ${myPalette("gray", 8)};
+  font-size: ${typography.fontSizes["sm"]};
+`;
+
+export const StyledImg = styled.img`
+  border-radius: ${spacing.space[8]} !important;
+  border: 3px solid black;
 `;
