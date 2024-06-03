@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkgomsemarie_github_io=self.webpackChunkgomsemarie_github_io||[]).push([[245],{831:function(e,t,a){a.r(t);var i=a(3270);t.default=e=>{let{data:{site:t}}=e;return i.createElement("main",null,i.createElement("h1",null,t.siteMetadata.title))}}}]);
+//# sourceMappingURL=component---src-pages-index-tsx-efb06362f4ee3ecde54b.js.map

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://devbears.github.io/sitemap-index.xml
-Host: https://devbears.github.io
+Sitemap: https://gomsemarie.github.io/sitemap-index.xml
+Host: https://gomsemarie.github.io
