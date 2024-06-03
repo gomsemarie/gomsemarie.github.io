@@ -24,8 +24,8 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `devbears blog`,
-        short_name: `devbears blog`,
+        name: `gomsemarie blog`,
+        short_name: `gomsemarie blog`,
         start_url: `/`,
         background_color: `#f7f0eb`,
         theme_color: `#a2466c`,

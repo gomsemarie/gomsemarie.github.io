@@ -6379,9 +6379,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"devbears.github.io@workspace:.":
+"gomsemarie.github.io@workspace:.":
   version: 0.0.0-use.local
-  resolution: "devbears.github.io@workspace:."
+  resolution: "gomsemarie.github.io@workspace:."
   dependencies:
     "@fortawesome/fontawesome-svg-core": "npm:^6.5.2"
     "@fortawesome/free-brands-svg-icons": "npm:^6.5.2"
