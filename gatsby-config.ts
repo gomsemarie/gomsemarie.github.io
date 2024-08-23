@@ -191,6 +191,13 @@ const config: GatsbyConfig = {
     {
       resolve: `gatsby-source-filesystem`,
       options: {
+        name: `cocktail-posts`,
+        path: `${__dirname}/src/contents/cocktail-posts/`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
         name: `pages`,
         path: `${__dirname}/src/pages/`,
       },

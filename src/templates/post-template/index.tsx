@@ -25,7 +25,12 @@ export default function PostTemplate({
     ? document.getElementsByClassName("anchor-header")
     : undefined;
 
-  const shortcodes = { Tip: DesignSystem.Tip };
+  const shortcodes = {
+    Tip: DesignSystem.Tip,
+    Ingredient: DesignSystem.Ingredient,
+    StarRating: DesignSystem.StarRating,
+    YoutubeEmbed: DesignSystem.YoutubeEmbed,
+  };
 
   const info = data.mdx?.frontmatter;
   const tags = info?.tags ?? [];

@@ -50,6 +50,7 @@ export const query = graphql`
             description
             tags
             category
+            thumbnail
           }
         }
       }

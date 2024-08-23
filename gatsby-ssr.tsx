@@ -10,10 +10,10 @@ export const wrapRootElement: GatsbySSR["wrapRootElement"] = ({ element }) => {
   const queryClient = new QueryClient();
   return (
     <>
-      <script
+      {/* <script
         src="https://kit.fontawesome.com/ddb7bb7cca.js"
         crossOrigin="anonymous"
-      ></script>
+      ></script> */}
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
         <ThemeProvider theme={lightTheme}>{element}</ThemeProvider>

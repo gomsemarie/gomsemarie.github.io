@@ -17,6 +17,7 @@ export interface PostCardProps<T = string | null> {
   description?: T;
   tags?: T[] | null;
   category?: T;
+  thumbnail?: T;
   userInfo?: GithubUserDetailResponse;
 }
 export default function PostCard(props: PostCardProps) {
@@ -30,6 +31,7 @@ export default function PostCard(props: PostCardProps) {
   const description = _.isNil(props.description) ? "" : props.description;
   const tags = _.isNil(props.tags) ? [] : props.tags;
   const category = _.isNil(props.category) ? "" : props.category;
+  const thumbnail = _.isNil(props.thumbnail) ? "" : props.thumbnail;
 
   const handleOnClick = () => {
     navigate(`/${process.env.GATSBY_POSTS_PATH}/${_.kebabCase(slug)}/`);
@@ -40,7 +42,9 @@ export default function PostCard(props: PostCardProps) {
       <div className="thumbnail-area">
         <img
           src={
-            "https://img1.daumcdn.net/thumb/R750x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2WEz%2Fbtr1dlPVeOv%2FmC4Lg9is6KBPqGvm1xTRc1%2Fimg.webp"
+            !_.isEmpty(thumbnail)
+              ? thumbnail
+              : "https://img1.daumcdn.net/thumb/R750x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FE2WEz%2Fbtr1dlPVeOv%2FmC4Lg9is6KBPqGvm1xTRc1%2Fimg.webp"
           }
           alt="thumbnail"
         />
@@ -50,7 +54,7 @@ export default function PostCard(props: PostCardProps) {
           {tags.map((tag, index) => (
             <Tag
               key={`${id}-tag-${index}`}
-              color={myPalette("gray", 0)({ theme })}
+              // color={myPalette("gray", 0)({ theme })}
             >
               {tag}
             </Tag>
@@ -58,7 +62,7 @@ export default function PostCard(props: PostCardProps) {
         </div>
         <div className="title-box">
           <p>
-            <FontAwesomeIcon className="icon" icon={faPoo} size="lg" />
+            {/* <FontAwesomeIcon className="icon" icon={faPoo} size="lg" /> */}
             {title}
           </p>
         </div>

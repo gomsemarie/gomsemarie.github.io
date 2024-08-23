@@ -60,6 +60,7 @@ export const PostCardDiv = styled.div`
           margin-right: ${spacing.space[4]};
         }
         margin: 0;
+        font-family: ${typography.fonts.mapleLight};
         font-size: ${typography.fontSizes.md};
         color: ${myPalette("gray", 7)};
 
