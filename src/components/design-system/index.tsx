@@ -18,8 +18,7 @@ import {
   StyledStarRating,
   StyledTip,
 } from "./style";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLightbulb } from "@fortawesome/free-solid-svg-icons";
+import { Icon } from "@iconify/react";
 import { myPalette } from "@_styles";
 import { useTheme } from "styled-components";
 import classNames from "classnames";
@@ -103,10 +102,10 @@ const DesignSystem = {
     return (
       <StyledTip>
         <div className="title-area">
-          <FontAwesomeIcon
-            icon={faLightbulb}
-            size="xl"
-            color={myPalette("orange", 3)({ theme })}
+          <Icon
+            icon="mdi:lightbulb"
+            width={24}
+            style={{ color: myPalette("orange", 3)({ theme }) }}
           />
           <p>Tip</p>
           <p>{title}</p>

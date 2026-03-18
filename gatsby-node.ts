@@ -1,6 +1,52 @@
 import type { GatsbyNode } from "gatsby";
 import path from "path";
+import fs from "fs";
 import _ from "lodash";
+import crypto from "crypto";
+
+// ─── CategoryConfig schema + nodes ────────────────────────────────────────────
+
+export const createSchemaCustomization: GatsbyNode["createSchemaCustomization"] = ({ actions }) => {
+  actions.createTypes(`
+    type CategoryConfig implements Node {
+      categoryId: String!
+      label: String!
+      labelEn: String!
+      icon: String!
+      colorTheme: String!
+      showInNav: Boolean!
+      navOrder: Int!
+    }
+  `);
+};
+
+export const sourceNodes: GatsbyNode["sourceNodes"] = ({ actions, reporter }) => {
+  const { createNode } = actions;
+  const contentsDir = path.resolve("src/contents");
+  if (!fs.existsSync(contentsDir)) return;
+
+  const folders = fs.readdirSync(contentsDir, { withFileTypes: true }).filter((d) => d.isDirectory());
+  for (const folder of folders) {
+    const jsonPath = path.join(contentsDir, folder.name, "category.json");
+    if (!fs.existsSync(jsonPath)) continue;
+    try {
+      const raw = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+      const node = {
+        ...raw,
+        id: `CategoryConfig-${raw.categoryId}`,
+        parent: null,
+        children: [],
+        internal: {
+          type: "CategoryConfig",
+          contentDigest: crypto.createHash("md5").update(JSON.stringify(raw)).digest("hex"),
+        },
+      };
+      createNode(node);
+    } catch {
+      reporter.warn(`Failed to parse category.json in ${folder.name}`);
+    }
+  }
+};
 
 export const createPages: GatsbyNode["createPages"] = async ({
   actions,
@@ -45,6 +91,58 @@ export const createPages: GatsbyNode["createPages"] = async ({
         },
       });
   });
+
+  // 상위 카테고리 페이지 생성 — frontmatter 기반 (기존 방식)
+  const parentCategoryTemplate = path.resolve(
+    "src/templates/parent-category-template/index.tsx"
+  );
+  const seenParents = new Set<string>();
+  categories?.forEach((category) => {
+    const fieldValue = category.fieldValue;
+    if (!fieldValue) return;
+    const parts = fieldValue.split("/");
+    if (parts.length > 1) {
+      const parent = parts[0].trim();
+      if (!seenParents.has(parent)) {
+        seenParents.add(parent);
+        createPage({
+          path: `/${process.env.GATSBY_CATEGORIES_PATH}/${_.kebabCase(parent)}/`,
+          component: parentCategoryTemplate,
+          context: {
+            parentCategory: parent,
+            categoryRegex: `/^${parent}/i`,
+          },
+        });
+      }
+    }
+  });
+
+  // 상위 카테고리 페이지 생성 — category.json 기반 (자동 추가)
+  // 새 폴더 + category.json 만들면 코드 변경 없이 카테고리 페이지가 생성됨
+  const contentsDir = path.resolve("src/contents");
+  if (fs.existsSync(contentsDir)) {
+    const folders = fs.readdirSync(contentsDir, { withFileTypes: true }).filter((d) => d.isDirectory());
+    for (const folder of folders) {
+      const jsonPath = path.join(contentsDir, folder.name, "category.json");
+      if (!fs.existsSync(jsonPath)) continue;
+      try {
+        const config = JSON.parse(fs.readFileSync(jsonPath, "utf-8"));
+        const categoryId: string = config.categoryId;
+        if (!categoryId || seenParents.has(categoryId)) continue;
+        seenParents.add(categoryId);
+        createPage({
+          path: `/${process.env.GATSBY_CATEGORIES_PATH}/${_.kebabCase(categoryId)}/`,
+          component: parentCategoryTemplate,
+          context: {
+            parentCategory: categoryId,
+            categoryRegex: `/^${categoryId}/i`,
+          },
+        });
+      } catch {
+        reporter.warn(`category.json parse error in ${folder.name}`);
+      }
+    }
+  }
 
   /**-----------------------------------------------------------------------------------------------------------------------------------------
    * /tags/:tag

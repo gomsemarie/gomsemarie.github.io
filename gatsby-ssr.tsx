@@ -1,6 +1,7 @@
 import React from "react";
 import type { GatsbySSR } from "gatsby";
 import { GlobalLayout } from "@_layouts";
+import "./src/styles/globals.css";
 import { ThemeProvider } from "styled-components";
 import { lightTheme } from "@_styles";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";

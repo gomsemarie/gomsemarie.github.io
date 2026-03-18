@@ -1,4 +1,5 @@
 import { Link } from "gatsby";
+import { Icon } from "@iconify/react";
 import React, {
   useEffect,
   useId,
@@ -7,6 +8,7 @@ import React, {
   useState,
 } from "react";
 import { TocDiv, TocElementUl, TocIconDiv } from "./style";
+import { ScrollArea } from "@_components/ui/scroll-area";
 import classNames from "classnames";
 import { useLocation } from "@reach/router";
 import { isBrowser } from "@_utils";
@@ -71,7 +73,9 @@ export default function Toc(props: TocProps) {
 
   return (
     <TocDiv data-component="toc" ref={tocRef}>
-      <Toc.TocElement {...props} toc={toc} />
+      <ScrollArea className="max-h-[70vh]">
+        <Toc.TocElement {...props} toc={toc} />
+      </ScrollArea>
     </TocDiv>
   );
 }
@@ -103,13 +107,13 @@ Toc.Icon = function TocIcon({ ref, ...props }: TocIconProps) {
       {openState ? (
         <div className={classNames("toc-box")}>
           <button className="close-button" onClick={close}>
-            <i className="fa-solid fa-xmark"></i>
+            <Icon icon="mdi:close" width={16} />
           </button>
           <Toc {...props} />
         </div>
       ) : (
         <button className="open-button" onClick={open}>
-          <i className="fa-solid fa-bars-staggered"></i>
+          <Icon icon="mdi:format-list-bulleted" width={18} />
         </button>
       )}
     </TocIconDiv>

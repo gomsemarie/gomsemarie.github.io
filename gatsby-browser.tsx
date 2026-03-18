@@ -2,6 +2,7 @@ import React from "react";
 import { GlobalLayout } from "@_layouts";
 import type { GatsbyBrowser } from "gatsby";
 
+import "./src/styles/globals.css";
 import "sanitize.css";
 import "sanitize.css/forms.css";
 import "sanitize.css/typography.css";

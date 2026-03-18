@@ -1,0 +1,9 @@
+{
+  "categoryId": "Tech",
+  "label": "개발",
+  "labelEn": "Development",
+  "icon": "mdi:code-braces",
+  "colorTheme": "indigo",
+  "showInNav": true,
+  "navOrder": 1
+}

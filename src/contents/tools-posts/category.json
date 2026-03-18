@@ -1,0 +1,9 @@
+{
+  "categoryId": "Tools",
+  "label": "도구",
+  "labelEn": "Tools",
+  "icon": "mdi:wrench-outline",
+  "colorTheme": "teal",
+  "showInNav": true,
+  "navOrder": 5
+}

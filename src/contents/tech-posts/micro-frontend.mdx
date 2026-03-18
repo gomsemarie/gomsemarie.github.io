@@ -1,0 +1,199 @@
+---
+slug: micro-frontend
+date: 2025-02-20
+title: "마이크로 프론트엔드 — 거대한 프론트엔드를 쪼개는 법"
+description: "단일 React 앱이 너무 커져서 팀 간 충돌이 잦아졌다면? 마이크로 프론트엔드 아키텍처로 독립적인 배포와 팀 자율성을 동시에 얻는 방법을 정리했습니다."
+tags: ["micro-frontend", "react", "webpack", "module-federation", "architecture"]
+category: "Tech/Architecture"
+thumbnail: ""
+---
+
+# 마이크로 프론트엔드 — 거대한 프론트엔드를 쪼개는 법
+
+프론트엔드 개발자로 일하다 보면 어느 순간 이런 상황이 온다. 팀은 세 개인데 레포는 하나, PR 리뷰는 쌓이고, 누군가의 실수가 전체 배포를 막아버린다. 나도 한 번 겪었는데 정말 고통스러웠다. 마이크로 프론트엔드가 이 문제를 완전히 해결해주진 않지만, 구조적으로 팀을 분리하고 독립적으로 배포할 수 있게 해준다.
+
+## 마이크로 프론트엔드란?
+
+백엔드의 마이크로서비스를 프론트엔드로 가져온 개념이다. 하나의 거대한 SPA 대신, 기능 단위로 독립된 애플리케이션을 만들고 이를 런타임에 조립한다.
+
+```
+┌─────────────────────────────────────┐
+│            Shell App (Host)          │
+│  ┌──────────┐  ┌──────────────────┐ │
+│  │ MFE: Cart│  │  MFE: Product    │ │
+│  │ (Team A) │  │  (Team B)        │ │
+│  └──────────┘  └──────────────────┘ │
+│  ┌──────────────────────────────┐   │
+│  │      MFE: Checkout (Team C)  │   │
+│  └──────────────────────────────┘   │
+└─────────────────────────────────────┘
+```
+
+핵심은 **각 MFE가 독립적으로 개발, 테스트, 배포**된다는 것이다.
+
+## 구현 방식 비교
+
+### 1. iframe 방식
+
+가장 단순하다. 각 MFE를 iframe에 넣으면 완벽한 격리가 된다. 하지만 UX가 최악이다. 스크롤, 포커스 트랩, 라우팅 동기화 등이 다 골치다. 요즘은 잘 쓰지 않는다.
+
+### 2. Web Components
+
+Custom Elements + Shadow DOM으로 격리된 컴포넌트를 만든다. 프레임워크에 종속되지 않는 장점이 있다.
+
+```html
+<!-- Shell에서 MFE 등록 후 사용 -->
+<product-detail-app product-id="123"></product-detail-app>
+```
+
+프레임워크 버전이 다른 팀이 섞여 있을 때 유용하다. 다만 SSR 지원이 약하고 리액트 생태계와 궁합이 좋진 않다.
+
+### 3. Module Federation (Webpack 5)
+
+내가 실무에서 가장 많이 사용하는 방식이다. Webpack 5에서 도입됐고, 빌드 시점이 아닌 **런타임에 원격 모듈을 로드**한다.
+
+```js
+// product 앱의 webpack.config.js (Remote)
+new ModuleFederationPlugin({
+  name: "productApp",
+  filename: "remoteEntry.js",
+  exposes: {
+    "./ProductDetail": "./src/components/ProductDetail",
+  },
+  shared: {
+    react: { singleton: true, requiredVersion: "^18.0.0" },
+    "react-dom": { singleton: true },
+  },
+});
+```
+
+```js
+// shell 앱의 webpack.config.js (Host)
+new ModuleFederationPlugin({
+  name: "shell",
+  remotes: {
+    productApp: "productApp@https://product.example.com/remoteEntry.js",
+  },
+  shared: {
+    react: { singleton: true },
+    "react-dom": { singleton: true },
+  },
+});
+```
+
+Shell에서 Product 컴포넌트를 불러오는 쪽은 이렇게 쓴다.
+
+```tsx
+// Shell App
+const ProductDetail = React.lazy(() => import("productApp/ProductDetail"));
+
+function App() {
+  return (
+    <Suspense fallback={<div>로딩 중...</div>}>
+      <ProductDetail productId="123" />
+    </Suspense>
+  );
+}
+```
+
+`shared`에 `react`를 `singleton: true`로 설정하는 게 중요하다. 그렇지 않으면 React 인스턴스가 여러 개 생겨서 Hooks 에러가 난다. 나도 한 번 이걸 빼먹고 반나절을 날렸다.
+
+### 4. Single-SPA
+
+프레임워크를 섞어 써야 하는 레거시 마이그레이션 상황에 적합하다. Angular, Vue, React를 한 페이지에 올릴 수 있다. 다만 설정이 꽤 복잡하다.
+
+## 팀 구조와 MFE 경계 나누기
+
+기술보다 이게 더 어렵다. 내 경험상 **도메인 기준**으로 자르는 게 가장 낫다.
+
+```
+❌ 레이어 기준
+  - UI 팀 / API 팀 / DB 팀  →  매번 협업 필요, MFE의 의미 없음
+
+✅ 도메인 기준
+  - 상품 팀 / 장바구니 팀 / 결제 팀  →  독립 배포 가능
+```
+
+콘웨이 법칙을 거꾸로 이용하는 거다. 조직 구조가 소프트웨어 구조를 닮아가도록 의도적으로 설계한다.
+
+## 공유 상태 관리
+
+MFE 간 통신이 필요할 때가 있다. 로그인 상태, 장바구니 개수 같은 것들. 방법은 여러 가지다.
+
+**1. Custom Events (가장 단순)**
+
+```ts
+// MFE A에서 이벤트 발생
+window.dispatchEvent(new CustomEvent("cart:updated", { detail: { count: 3 } }));
+
+// MFE B에서 구독
+window.addEventListener("cart:updated", (e) => {
+  setCartCount((e as CustomEvent).detail.count);
+});
+```
+
+**2. 공유 상태 라이브러리 (Module Federation shared)**
+
+Zustand나 Redux를 shared 모듈로 등록해서 싱글톤으로 공유할 수 있다.
+
+```js
+shared: {
+  "shared-store": { singleton: true, version: "1.0.0" },
+}
+```
+
+**3. URL / Query String**
+
+가장 심플하고 북마크도 되지만, 복잡한 상태는 표현하기 어렵다.
+
+## 배포 전략
+
+Module Federation을 쓰면 각 MFE를 별도 CDN에 배포하고 Shell이 URL로 참조한다.
+
+```js
+// 환경별 분기
+const remoteURL =
+  process.env.NODE_ENV === "production"
+    ? "https://cdn.example.com/product/remoteEntry.js"
+    : "http://localhost:3001/remoteEntry.js";
+```
+
+이 방식의 장점은 **Shell을 재배포하지 않고도 MFE를 업데이트**할 수 있다는 점이다. 하지만 반대로 의도치 않은 변경이 런타임에 반영될 수도 있으니 버전 관리를 신경 써야 한다.
+
+## 내가 마주쳤던 문제들
+
+**1. CSS 충돌**
+두 MFE가 같은 클래스명을 쓰면 스타일이 덮어씌워진다. CSS Modules, Shadow DOM, 또는 BEM + prefix 규칙으로 해결한다. 우리 팀은 `[앱이름]__컴포넌트명` 규칙을 강제했다.
+
+**2. 공유 라이브러리 버전 충돌**
+MFE A는 react-query v4, MFE B는 v5를 쓴다면? singleton이 아닌 경우 두 인스턴스가 모두 로드된다. 번들 사이즈가 커지고 예상치 못한 버그가 생긴다. 팀 간 버전을 맞추는 거버넌스가 필요하다.
+
+**3. 타입 공유**
+TypeScript를 쓸 때 인터페이스를 어떻게 공유할지 정해야 한다. 별도 npm 패키지(`@company/shared-types`)로 관리하거나, 런타임 타입 체킹(zod) 도입을 권장한다.
+
+**4. 초기 로딩 성능**
+remoteEntry.js를 여러 개 로드하면 네트워크 요청이 늘어난다. `<link rel="preload">`로 미리 로드하거나, Lazy Loading + Suspense를 잘 조합해야 한다.
+
+## 언제 써야 하고 언제 쓰지 말아야 하는가
+
+```
+✅ 쓰면 좋은 경우
+- 독립적으로 배포해야 하는 팀이 3개 이상
+- 레거시(Vue/Angular)와 신규(React) 코드가 공존해야 할 때
+- 도메인 경계가 명확하고 팀 자율성이 중요할 때
+
+❌ 굳이 안 써도 되는 경우
+- 팀이 1-2개인 소규모 프로젝트
+- 도메인 경계가 불명확한 초기 스타트업
+- 인프라, 빌드 복잡도를 감당할 여유가 없을 때
+```
+
+마이크로 프론트엔드는 은탄환이 아니다. 복잡도를 팀 간 분산시키는 것이지, 없애는 게 아니다. 내가 느끼기엔 팀 규모가 어느 정도 커지고 배포 독립성이 정말 필요해진 시점에 도입하는 게 맞다. 억지로 쪼갰다가 오히려 더 힘들어진 사례를 여럿 봤다.
+
+---
+
+## 참고
+
+- [Webpack Module Federation 공식 문서](https://webpack.js.org/concepts/module-federation/)
+- [micro-frontends.org](https://micro-frontends.org/)
+- [Single-SPA](https://single-spa.js.org/)

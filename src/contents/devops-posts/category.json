@@ -1,0 +1,9 @@
+{
+  "categoryId": "DevOps",
+  "label": "DevOps",
+  "labelEn": "DevOps",
+  "icon": "mdi:pipe",
+  "colorTheme": "green",
+  "showInNav": true,
+  "navOrder": 4
+}

@@ -11,6 +11,7 @@ export const postListQuery = graphql`
           description
           tags
           category
+          thumbnail
         }
       }
     }

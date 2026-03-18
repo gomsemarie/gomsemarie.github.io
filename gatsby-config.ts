@@ -1,10 +1,26 @@
 import type { GatsbyConfig } from "gatsby";
 import dotenv from "dotenv";
+import fs from "fs";
+import path from "path";
 
 dotenv.config({
   debug: true,
-  // path: `.env.${process.env.NODE_ENV}`,
 });
+
+// ─── Auto-discover content folders ────────────────────────────────────────────
+// Any subdirectory of src/contents/ is automatically registered as a content source.
+// Just create a new folder + category.json inside it — no config change needed.
+const contentsDir = path.join(__dirname, "src/contents");
+const contentFolderSources = fs
+  .readdirSync(contentsDir, { withFileTypes: true })
+  .filter((d) => d.isDirectory())
+  .map((d) => ({
+    resolve: `gatsby-source-filesystem`,
+    options: {
+      name: d.name,
+      path: path.join(contentsDir, d.name),
+    },
+  }));
 
 const config: GatsbyConfig = {
   siteMetadata: {
@@ -13,14 +29,15 @@ const config: GatsbyConfig = {
     author: process.env.SITE_AUTHOR,
     siteUrl: process.env.SITE_URL,
   },
-  graphqlTypegen: true, // graphql typegen을 사용하기 위한 설정, "query 명칭"을 부여하면 해당 명칭으로 type 자동 생성(Queries.명칭Query)
+  graphqlTypegen: true,
   plugins: [
-    `gatsby-plugin-robots-txt`, // Robots.txt 자동 생성을 위한 플러그인
-    `gatsby-plugin-advanced-sitemap`, // sitemap 깔끔한 UI로 보여주는 플러그인
-    `gatsby-plugin-sitemap`, // 사이트맵 생성을 위한 플러그인
-    `gatsby-plugin-tsconfig-paths`, // tsconfig.json의 paths를 Gatsby에서 적용되도록 해주는 플러그인
-    `gatsby-plugin-sass`, // SCSS 사용을 위한 플러그인
-    `gatsby-plugin-image`, // gatsby build, serve시 sitemap을 생성해주는 플러그인
+    `gatsby-plugin-postcss`,
+    `gatsby-plugin-robots-txt`,
+    `gatsby-plugin-advanced-sitemap`,
+    `gatsby-plugin-sitemap`,
+    `gatsby-plugin-tsconfig-paths`,
+    `gatsby-plugin-sass`,
+    `gatsby-plugin-image`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
@@ -33,21 +50,15 @@ const config: GatsbyConfig = {
         icon: `src/assets/images/gom-ori.jpeg`,
         cache_busting_mode: `none`,
         icon_options: {
-          // For all the options available,
-          // please see the section "Additional Resources" below.
           purpose: `any maskable`,
         },
       },
     },
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    // "gatsby-transformer-remark",
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
-        // defaultLayouts: {
-        //   default: path.resolve("./src/templates/neat-post-template/index.tsx"),
-        // },
         extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
           `gatsby-remark-gifs`,
@@ -69,7 +80,6 @@ const config: GatsbyConfig = {
               buttonText: ``,
               svgIconClass: `code-copy-icon`,
               svgIcon: `<i class="fa-regular fa-clipboard"></i>`,
-              // tooltipText: `customTooltipText`,
               toasterClass: `code-button-toaster`,
               toasterTextClass: `code-button-toaster-text`,
               toasterText: `copied to clipboard`,
@@ -92,9 +102,6 @@ const config: GatsbyConfig = {
           {
             resolve: `gatsby-remark-images`,
             options: {
-              // It's important to specify the maxWidth (in pixels) of
-              // the content container as this plugin uses this as the
-              // base for generating different widths of each image.
               maxWidth: 1200,
               srcSetBreakpoints: [200, 340, 520, 890, 1200],
             },
@@ -102,41 +109,11 @@ const config: GatsbyConfig = {
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
-              // Class prefix for <pre> tags containing syntax highlighting;
-              // defaults to 'language-' (e.g. <pre class="language-js">).
-              // If your site loads Prism into the browser at runtime,
-              // (e.g. for use with libraries like react-live),
-              // you may use this to prevent Prism from re-processing syntax.
-              // This is an uncommon use-case though;
-              // If you're unsure, it's best to use the default value.
               classPrefix: `language-`,
-              // This is used to allow setting a language for inline code
-              // (i.e. single backticks) by creating a separator.
-              // This separator is a string and will do no white-space
-              // stripping.
-              // A suggested value for English speakers is the non-ascii
-              // character '›'.
               inlineCodeMarker: null,
-              // This lets you set up language aliases.  For example,
-              // setting this to '{ sh: "bash" }' will let you use
-              // the language "sh" which will highlight using the
-              // bash highlighter.
               aliases: {},
-              // This toggles the display of line numbers globally alongside the code.
-              // To use it, add the following line in gatsby-browser.js
-              // right after importing the prism color scheme:
-              //  require("prismjs/plugins/line-numbers/prism-line-numbers.css")
-              // Defaults to false.
-              // If you wish to only show line numbers on certain code blocks,
-              // leave false and use the {numberLines: true} syntax below
               showLineNumbers: true,
-              // If setting this to true, the parser won't handle and highlight inline
-              // code used in markdown i.e. single backtick code like `this`.
               noInlineHighlight: false,
-              // This adds a new language definition to Prism or extend an already
-              // existing language definition. More details on this option can be
-              // found under the header "Add new language definition or extend an
-              // existing language" below.
               languageExtensions: [
                 {
                   language: `superscript`,
@@ -151,16 +128,11 @@ const config: GatsbyConfig = {
                   },
                 },
               ],
-              // Customize the prompt used in shell output
-              // Values below are default
               prompt: {
                 user: `root`,
                 host: `localhost`,
                 global: false,
               },
-              // By default the HTML entities <>&'" are escaped.
-              // Add additional HTML escapes by providing a mapping
-              // of HTML entities and their escape value IE: { '}': '&#123;' }
               escapeEntities: {},
             },
           },
@@ -169,9 +141,7 @@ const config: GatsbyConfig = {
     },
     {
       resolve: `gatsby-plugin-styled-components`,
-      options: {
-        // Add any options here
-      },
+      options: {},
     },
     {
       resolve: `gatsby-source-filesystem`,
@@ -181,20 +151,8 @@ const config: GatsbyConfig = {
       },
       __key: `images`,
     },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `tech-posts`,
-        path: `${__dirname}/src/contents/tech-posts/`,
-      },
-    },
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `cocktail-posts`,
-        path: `${__dirname}/src/contents/cocktail-posts/`,
-      },
-    },
+    // Auto-discovered content folder sources
+    ...contentFolderSources,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -203,10 +161,6 @@ const config: GatsbyConfig = {
       },
       __key: `pages`,
     },
-    // {
-    //   resolve: "gatsby-plugin-page-creator",
-    //   options: { path: `${__dirname}/src/contents/tech-posts/` },
-    // },
   ],
 };
 

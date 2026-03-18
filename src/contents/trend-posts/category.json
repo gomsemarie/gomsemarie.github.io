@@ -1,0 +1,9 @@
+{
+  "categoryId": "Trend",
+  "label": "트렌드",
+  "labelEn": "Trend",
+  "icon": "mdi:trending-up",
+  "colorTheme": "amber",
+  "showInNav": true,
+  "navOrder": 2
+}

@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .section-fade {
+    opacity: 0;
+    animation: fadeUp 0.6s ease-out forwards;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ─── Global scrollbar styling ──────────────────────────────────────────────── */
+/* Webkit (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  transition: background-color 0.2s ease;
+}
+
+/* thumb는 스크롤 중이거나 컨테이너에 hover할 때만 표시 */
+body:hover::-webkit-scrollbar-thumb,
+*:hover::-webkit-scrollbar-thumb {
+  background-color: hsl(240 14% 80% / 0.7);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(240 8% 60% / 0.85) !important;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+*:hover {
+  scrollbar-color: hsl(240 14% 80% / 0.7) rgba(0, 0, 0, 0.04);
+}
+
+@layer base {
+  :root {
+    /* Background - warm near-white */
+    --background: 36 33% 98%;
+    --foreground: 240 18% 10%;
+
+    /* Card */
+    --card: 0 0% 100%;
+    --card-foreground: 240 18% 10%;
+
+    /* Primary - vibrant violet */
+    --primary: 258 88% 62%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - soft violet tint */
+    --secondary: 258 35% 95%;
+    --secondary-foreground: 258 50% 28%;
+
+    /* Muted */
+    --muted: 240 12% 95%;
+    --muted-foreground: 240 8% 48%;
+
+    /* Accent */
+    --accent: 258 40% 95%;
+    --accent-foreground: 258 60% 28%;
+
+    /* Border / Input / Ring */
+    --border: 240 14% 90%;
+    --input: 240 14% 90%;
+    --ring: 258 88% 62%;
+
+    /* Border radius */
+    --radius: 0.5rem;
+  }
+}

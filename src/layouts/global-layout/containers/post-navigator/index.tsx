@@ -5,8 +5,7 @@ import { PostNavigatorLi, PostNavigatorUl } from "./style";
 import { Link } from "gatsby";
 import classNames from "classnames";
 import { useToggle } from "usehooks-ts";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight, faCode } from "@fortawesome/free-solid-svg-icons";
+import { Icon } from "@iconify/react";
 
 export type CategoryInfo = {
   name: string;
@@ -94,14 +93,10 @@ PostNavigator.Item = ({ info, inner = false }: PostNavigatorItemProps) => {
     >
       <div className="title-box">
         {inner ? (
-          <FontAwesomeIcon
-            icon={faAngleRight}
-            className={classNames("mark-icon")}
-            size="xs"
-          />
+          <Icon icon="mdi:chevron-right" width={12} className={classNames("mark-icon")} />
         ) : null}
         <span className="icon-box">
-          <FontAwesomeIcon icon={faCode} bounce={hover} size="xs" />
+          <Icon icon="mdi:code-tags" width={12} className={classNames({ "animate-bounce": hover })} />
         </span>
         <p>
           {info.items !== undefined ? (
@@ -113,10 +108,11 @@ PostNavigator.Item = ({ info, inner = false }: PostNavigatorItemProps) => {
           )}
         </p>
         {inner ? null : (
-          <FontAwesomeIcon
-            icon={faAngleRight}
-            rotation={active ? 90 : undefined}
-            size="xs"
+          <Icon
+            icon="mdi:chevron-right"
+            width={12}
+            className={classNames({ "rotate-90": active })}
+            style={{ transition: "transform 0.2s" }}
           />
         )}
       </div>

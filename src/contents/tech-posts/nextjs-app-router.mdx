@@ -1,0 +1,330 @@
+---
+slug: nextjs-app-router
+date: 2025-01-15
+title: "Next.js App Router 완전 정복 — React 개발자를 위한 가이드"
+description: "Pages Router에 익숙한 React 개발자 관점에서 App Router의 핵심 개념을 정리했습니다. Server Components, Streaming, 새로운 데이터 패칭 패턴까지."
+tags: ["nextjs", "react", "app-router", "server-components", "typescript"]
+category: "Tech/Next.js"
+thumbnail: ""
+---
+
+# Next.js App Router 완전 정복 — React 개발자를 위한 가이드
+
+Next.js 13에서 App Router가 나왔을 때 솔직히 "또 배워야 해?"라는 생각이 먼저 들었다. Pages Router에 익숙해졌는데 갑자기 `app/` 디렉토리에 `layout.tsx`, `loading.tsx`, `error.tsx`… 파일 컨벤션이 완전히 달라졌다. 하지만 14, 15 버전을 거치면서 안정화됐고, 이제는 새 프로젝트에 App Router를 안 쓸 이유가 없다.
+
+## 라우팅 구조 — 폴더가 곧 경로다
+
+App Router에서는 `app/` 아래 폴더 구조가 URL 경로가 된다.
+
+```
+app/
+├── layout.tsx          → 루트 레이아웃 (전체 공통)
+├── page.tsx            → / (홈)
+├── about/
+│   └── page.tsx        → /about
+├── blog/
+│   ├── layout.tsx      → /blog/* 공통 레이아웃
+│   ├── page.tsx        → /blog
+│   └── [slug]/
+│       ├── page.tsx    → /blog/:slug
+│       └── loading.tsx → 이 라우트의 로딩 UI
+└── (auth)/             → 괄호 = URL에 포함 안 되는 그룹
+    ├── login/
+    │   └── page.tsx    → /login
+    └── register/
+        └── page.tsx    → /register
+```
+
+특수 파일들이 각자 역할을 가진다.
+
+| 파일 | 역할 |
+|------|------|
+| `layout.tsx` | 중첩 레이아웃, 리렌더 없이 유지됨 |
+| `page.tsx` | 해당 경로의 UI |
+| `loading.tsx` | Suspense 기반 로딩 UI |
+| `error.tsx` | 에러 바운더리 |
+| `not-found.tsx` | 404 처리 |
+| `template.tsx` | layout과 달리 이동 시 새로 마운트됨 |
+
+## Server Components vs Client Components
+
+이게 App Router의 핵심이자 가장 헷갈리는 부분이다.
+
+**Server Components (기본값)**
+
+```tsx
+// app/blog/[slug]/page.tsx
+// 이 파일은 Server Component — 'use client' 없으면 기본
+
+async function BlogPost({ params }: { params: { slug: string } }) {
+  // 서버에서 직접 DB 조회 가능
+  const post = await db.posts.findUnique({
+    where: { slug: params.slug },
+  });
+
+  if (!post) notFound();
+
+  return (
+    <article>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+    </article>
+  );
+}
+
+export default BlogPost;
+```
+
+서버에서만 실행되기 때문에 번들에 포함되지 않는다. DB 접근, API 키 노출 없이 서버 작업이 가능하다.
+
+**Client Components**
+
+```tsx
+"use client"; // 이 한 줄로 Client Component 선언
+
+import { useState } from "react";
+
+function LikeButton({ postId }: { postId: string }) {
+  const [liked, setLiked] = useState(false);
+  const [count, setCount] = useState(0);
+
+  const handleLike = async () => {
+    setLiked(true);
+    setCount((c) => c + 1);
+    await fetch(`/api/posts/${postId}/like`, { method: "POST" });
+  };
+
+  return (
+    <button onClick={handleLike}>
+      {liked ? "❤️" : "🤍"} {count}
+    </button>
+  );
+}
+```
+
+`useState`, `useEffect`, 이벤트 핸들러가 필요한 건 Client Component여야 한다.
+
+**중요한 규칙:** Server Component에서 Client Component를 import할 수 있지만, **반대는 안 된다**.
+
+```tsx
+// ✅ 가능: Server에서 Client import
+// app/page.tsx (Server Component)
+import LikeButton from "./LikeButton"; // Client Component
+
+export default function Page() {
+  return (
+    <div>
+      <h1>포스트</h1>
+      <LikeButton postId="123" /> {/* 클라이언트 아일랜드 */}
+    </div>
+  );
+}
+```
+
+```tsx
+// ❌ 불가: Client에서 Server import
+"use client";
+import ServerOnlyComponent from "./ServerOnly"; // 에러 발생
+```
+
+## 데이터 패칭 — fetch가 달라졌다
+
+App Router에서는 `getStaticProps`, `getServerSideProps`가 없다. 대신 컴포넌트 안에서 바로 `fetch`를 비동기로 호출한다.
+
+```tsx
+// 서버에서 데이터 패칭 — 빌드 시 캐시됨 (SSG와 유사)
+async function PostList() {
+  const posts = await fetch("https://api.example.com/posts", {
+    cache: "force-cache", // 기본값, 빌드 시 캐시
+  }).then((r) => r.json());
+
+  return <ul>{posts.map((p) => <li key={p.id}>{p.title}</li>)}</ul>;
+}
+```
+
+```tsx
+// 매 요청마다 새로 패칭 (SSR과 유사)
+async function UserProfile() {
+  const user = await fetch("https://api.example.com/me", {
+    cache: "no-store",
+  }).then((r) => r.json());
+
+  return <div>{user.name}</div>;
+}
+```
+
+```tsx
+// 주기적 재검증 (ISR과 유사)
+async function Stats() {
+  const stats = await fetch("https://api.example.com/stats", {
+    next: { revalidate: 3600 }, // 1시간마다 재검증
+  }).then((r) => r.json());
+
+  return <div>{stats.totalPosts}개 포스트</div>;
+}
+```
+
+## Streaming과 Suspense
+
+App Router의 강력한 기능 중 하나다. 느린 데이터를 기다리는 동안 나머지를 먼저 보내준다.
+
+```tsx
+// app/dashboard/page.tsx
+import { Suspense } from "react";
+import UserProfile from "./UserProfile"; // 빠른 컴포넌트
+import ActivityFeed from "./ActivityFeed"; // 느린 컴포넌트
+
+export default function Dashboard() {
+  return (
+    <div>
+      {/* 즉시 렌더링 */}
+      <UserProfile />
+
+      {/* 데이터 로드될 때까지 스켈레톤 표시 */}
+      <Suspense fallback={<ActivitySkeleton />}>
+        <ActivityFeed />
+      </Suspense>
+    </div>
+  );
+}
+```
+
+`loading.tsx`는 라우트 전체에 자동 Suspense를 적용한다.
+
+```tsx
+// app/dashboard/loading.tsx
+export default function Loading() {
+  return (
+    <div className="animate-pulse">
+      <div className="h-8 bg-slate-200 rounded w-48 mb-4" />
+      <div className="h-4 bg-slate-100 rounded w-full mb-2" />
+      <div className="h-4 bg-slate-100 rounded w-3/4" />
+    </div>
+  );
+}
+```
+
+## Server Actions — 폼 제출이 이렇게 간단해도 되나
+
+Server Actions는 서버에서 실행되는 함수를 클라이언트에서 직접 호출할 수 있게 해준다.
+
+```tsx
+// app/contact/page.tsx
+async function submitContact(formData: FormData) {
+  "use server"; // 이 함수는 서버에서 실행
+
+  const email = formData.get("email") as string;
+  const message = formData.get("message") as string;
+
+  await sendEmail({ email, message });
+  // DB 저장, 이메일 발송 등 서버 작업 가능
+}
+
+export default function ContactPage() {
+  return (
+    <form action={submitContact}>
+      <input type="email" name="email" required />
+      <textarea name="message" required />
+      <button type="submit">전송</button>
+    </form>
+  );
+}
+```
+
+`action={submitContact}`만 넣으면 폼 제출 시 서버 함수가 실행된다. API 라우트 만들 필요가 없다. JavaScript가 꺼진 환경에서도 동작한다.
+
+낙관적 업데이트도 쉽다.
+
+```tsx
+"use client";
+import { useOptimistic } from "react";
+import { toggleLike } from "./actions";
+
+function LikeButton({ postId, initialLikes }: { postId: string; initialLikes: number }) {
+  const [optimisticLikes, addOptimisticLike] = useOptimistic(
+    initialLikes,
+    (state, delta: number) => state + delta
+  );
+
+  return (
+    <form
+      action={async () => {
+        addOptimisticLike(1); // 즉시 UI 업데이트
+        await toggleLike(postId); // 서버 반영
+      }}
+    >
+      <button type="submit">❤️ {optimisticLikes}</button>
+    </form>
+  );
+}
+```
+
+## Metadata API
+
+`<head>` 태그 관리가 명료해졌다.
+
+```tsx
+// app/blog/[slug]/page.tsx
+import type { Metadata } from "next";
+
+// 정적 메타데이터
+export const metadata: Metadata = {
+  title: "내 블로그",
+  description: "개발 이야기",
+};
+
+// 동적 메타데이터
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const post = await fetchPost(params.slug);
+
+  return {
+    title: post.title,
+    description: post.description,
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      images: [`/api/og?title=${encodeURIComponent(post.title)}`],
+    },
+    twitter: {
+      card: "summary_large_image",
+    },
+  };
+}
+```
+
+## Parallel Routes와 Intercepting Routes
+
+고급 패턴이지만 알아두면 좋다.
+
+```
+app/
+├── @modal/           → 병렬 라우트 슬롯
+│   └── (.)post/[id]/ → Intercepting route
+│       └── page.tsx  → 모달로 보여질 포스트 상세
+└── post/[id]/
+    └── page.tsx      → 직접 접근 시 전체 페이지
+```
+
+Instagram처럼 피드에서 사진 클릭하면 모달로 뜨고, URL 직접 입력하면 전체 페이지로 뜨는 패턴을 구현할 수 있다.
+
+## Pages Router vs App Router 마이그레이션 전략
+
+기존 Pages Router 프로젝트를 마이그레이션할 때는 점진적으로 해야 한다.
+
+```
+1단계: app/ 폴더 생성, 새 페이지는 App Router로
+2단계: layout.tsx로 공통 레이아웃 이전
+3단계: getStaticProps → fetch + cache
+4단계: getServerSideProps → fetch + no-store
+5단계: API Routes → Server Actions 또는 Route Handlers
+```
+
+두 라우터가 공존할 수 있기 때문에 한 번에 다 바꾸지 않아도 된다.
+
+---
+
+App Router는 처음 진입 장벽이 있지만, 한 번 익숙해지면 Pages Router로 돌아가기 싫어진다. 특히 Server Components + Streaming 조합은 데이터가 많은 페이지에서 체감이 확실하다. 새 프로젝트를 시작한다면 App Router를 쓰자.

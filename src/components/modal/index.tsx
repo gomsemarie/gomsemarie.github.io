@@ -1,9 +1,8 @@
 import React, { useImperativeHandle } from "react";
 import classNames from "classnames";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Icon } from "@iconify/react";
 import { ModalDiv } from "./style";
 import { Portal } from "@_components";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
 interface ModalProps {
   title?: string;
@@ -51,7 +50,7 @@ export default function Modal({ title, children, ref }: ModalProps) {
           >
             <p>{title}</p>
             <button className="close-button" onClick={() => closeModal()}>
-              <FontAwesomeIcon icon={faXmark} />
+              <Icon icon="mdi:close" width={16} />
             </button>
           </div>
           {children}
