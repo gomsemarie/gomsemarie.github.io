@@ -11,8 +11,6 @@
       "**/.pnp.*": true
     },
     "window.title": "Dev Bears Blog",
-    "typescript.tsdk": ".yarn/sdks/typescript/lib",
-    "typescript.enablePromptUseWorkspaceTsdk": true,
     "github.copilot.chat.commitMessageGeneration.instructions": [
       {
         "text": "커밋 메시지를 한글로 작성하고, 다음 형식을 따르세요:\n\n첫 줄: <type>(<scope>): <전체 변경 사항을 아우르는 요약>\n- [type] <변경사항 1: 무엇을 왜 변경했는지>\n- [type] <변경사항 2: 무엇을 왜 변경했는지>\n- [type] <변경사항 N: 무엇을 왜 변경했는지>\n\n첫 줄의 type은 가장 비중이 큰 변경의 type을 사용하세요. 각 bullet point의 type은 반드시 대괄호로 감싸서 [fix], [refactor], [feat] 형태로 작성하세요. 절대 fix:, refactor: 처럼 콜론 형태를 사용하지 마세요. type은 feat/fix/refactor/perf/design/docs/chore 중 하나를 사용하세요. scope는 반드시 root/common/ide/viewer/oms 중 하나만 사용하세요. 이 5개 외의 scope는 절대 사용하지 마세요. 변경된 파일의 경로를 보고 가장 적절한 scope를 선택하세요. 중요: staged된 모든 파일의 변경사항을 빠짐없이 확인하고, 각 변경사항을 별도의 bullet point로 작성하세요. 하나의 변경만 설명하고 나머지를 누락하지 마세요. 변수명, 함수명, 속성명 등 코드 용어는 그대로 사용하세요.",

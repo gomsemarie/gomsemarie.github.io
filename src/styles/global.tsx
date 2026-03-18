@@ -1,6 +1,6 @@
 import { createGlobalStyle, css } from "styled-components";
-import MapleStoryLight from "@_assets/fonts/MapleStoryLight.woff2";
-import MapleStoryBold from "@_assets/fonts/MapleStoryBold.woff2";
+import MapleStoryLight from "@_assets/fonts/MaplestoryLight.woff2";
+import MapleStoryBold from "@_assets/fonts/MaplestoryBold.woff2";
 import NanumGothic from "@_assets/fonts/NanumGothic.woff2";
 import NanumGothicLight from "@_assets/fonts/NanumGothicLight.woff2";
 import NanumGothicBold from "@_assets/fonts/NanumGothicBold.woff2";
