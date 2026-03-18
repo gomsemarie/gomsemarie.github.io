@@ -41,6 +41,7 @@ export default function PostTemplate({
   return (
     <MDXProvider
       disableParentContext
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       components={{
         ...shortcodes,
         h1: DesignSystem.H1,
@@ -50,7 +51,7 @@ export default function PostTemplate({
         em: DesignSystem.Em,
         hr: DesignSystem.Hr,
         blockquote: DesignSystem.Blockquote,
-      }}
+      } as any}
     >
       <PageMain data-page="post">
         <ContentsArticle>

@@ -1,6 +1,5 @@
 import { Link } from "gatsby";
 import React, {
-  forwardRef,
   useEffect,
   useId,
   useImperativeHandle,
@@ -77,13 +76,16 @@ export default function Toc(props: TocProps) {
   );
 }
 
-interface TocIconRef {
+export interface TocIconRef {
   close: () => void;
   open: () => void;
   toggle: () => void;
 }
-interface TocIconProps extends TocProps {}
-Toc.Icon = forwardRef<TocIconRef, TocIconProps>((props, ref) => {
+interface TocIconProps extends TocProps {
+  ref?: React.Ref<TocIconRef>;
+}
+
+Toc.Icon = function TocIcon({ ref, ...props }: TocIconProps) {
   const [openState, setOpenState] = useState(false);
 
   useImperativeHandle(ref, () => ({
@@ -112,9 +114,9 @@ Toc.Icon = forwardRef<TocIconRef, TocIconProps>((props, ref) => {
       )}
     </TocIconDiv>
   );
-});
+};
 
-Toc.TocElement = function (props: TocProps) {
+Toc.TocElement = function TocElement(props: TocProps) {
   const id = useId();
 
   const { toc } = props;
@@ -124,21 +126,6 @@ Toc.TocElement = function (props: TocProps) {
         toc.items.map((item) => (
           <li key={`${id}-${item.title}`}>
             <Link
-              // onClick={(e) => {
-              //   e.preventDefault();
-              //   const target = document.querySelector(item.url);
-              //   if (target) {
-              //     const headerOffset = 100;
-              //     const ePos = target.getBoundingClientRect().top;
-              //     const offsetPos = ePos + window.scrollY - headerOffset;
-              //     console.log("Offset Pos: ", offsetPos);
-
-              //     window.scrollTo({
-              //       top: offsetPos,
-              //       behavior: "smooth",
-              //     });
-              //   }
-              // }}
               to={item.url}
             >
               {item.title}

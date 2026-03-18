@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle } from "react";
+import React, { useImperativeHandle } from "react";
 import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ModalDiv } from "./style";
@@ -8,6 +8,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 interface ModalProps {
   title?: string;
   children?: React.ReactNode;
+  ref?: React.Ref<ModalRef>;
 }
 
 export interface ModalRef {
@@ -16,7 +17,8 @@ export interface ModalRef {
   toggleModal: () => void;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export default forwardRef<ModalRef, ModalProps>(({ title, children }, ref) => {
+
+export default function Modal({ title, children, ref }: ModalProps) {
   const [open, setOpen] = React.useState<boolean>(false);
 
   const openModal = () => setOpen(true);
@@ -57,4 +59,4 @@ export default forwardRef<ModalRef, ModalProps>(({ title, children }, ref) => {
       </ModalDiv>
     </Portal>
   );
-});
+}

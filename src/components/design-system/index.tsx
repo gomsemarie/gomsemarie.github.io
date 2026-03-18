@@ -1,8 +1,8 @@
-import { ReactNode } from "@mdx-js/react/lib";
 import React, {
   DetailedHTMLProps,
   Fragment,
   HTMLAttributes,
+  ReactNode,
   useId,
 } from "react";
 import {

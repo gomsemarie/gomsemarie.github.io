@@ -1,0 +1,26 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(yarn install:*)",
+      "Bash(yarn npm:*)",
+      "Bash(done)",
+      "Bash(yarn typecheck:*)",
+      "Bash(yarn set:*)",
+      "Bash(yarn develop:*)",
+      "Bash(yarn clean:*)",
+      "Bash(node -e \"console.log\\(process.versions\\)\")",
+      "Bash(pnpm --version)",
+      "Bash(corepack enable:*)",
+      "Bash(corepack prepare:*)",
+      "Bash(npm install:*)",
+      "Bash(pnpm import:*)",
+      "Bash(pnpm install:*)",
+      "Bash(pnpm approve-builds:*)",
+      "Bash(pnpm rebuild:*)",
+      "Bash(pnpm clean:*)",
+      "Bash(pnpm develop:*)"
+    ]
+  },
+  "defaultMode": "bypassPermissions"
+}
