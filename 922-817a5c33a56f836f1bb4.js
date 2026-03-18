@@ -1,0 +1,1 @@
+(self.webpackChunkgomsemarie_github_io=self.webpackChunkgomsemarie_github_io||[]).push([[922],{9922:function(){}}]);
