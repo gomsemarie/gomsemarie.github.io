@@ -42,10 +42,19 @@ module.exports = {
         sans: ["NanumGothic", "sans-serif"],
         maple: ["MapleStoryBold", "sans-serif"],
         "maple-light": ["MapleStoryLight", "sans-serif"],
+        mono: ["'JetBrains Mono'", "ui-monospace", "SFMono-Regular", "monospace"],
       },
       animation: {
         "fade-up": "fadeUp 0.5s ease-out forwards",
         "fade-in": "fadeIn 0.4s ease-out forwards",
+        "scale-in": "scaleIn 0.3s ease-out forwards",
+        "slide-in-right": "slideInRight 0.4s ease-out forwards",
+        "shimmer": "shimmer 2.5s ease-in-out infinite",
+        "pulse-soft": "pulseSoft 3s ease-in-out infinite",
+        "skeleton": "skeleton 1.8s ease-in-out infinite",
+        "stagger-fade-up": "fadeUp 0.5s ease-out forwards",
+        "gradient-x": "gradientX 3s ease infinite",
+        "float": "float 6s ease-in-out infinite",
       },
       keyframes: {
         fadeUp: {
@@ -55,6 +64,34 @@ module.exports = {
         fadeIn: {
           "0%": { opacity: "0" },
           "100%": { opacity: "1" },
+        },
+        scaleIn: {
+          "0%": { opacity: "0", transform: "scale(0.95)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
+        },
+        slideInRight: {
+          "0%": { opacity: "0", transform: "translateX(10px)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
+        shimmer: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        pulseSoft: {
+          "0%, 100%": { opacity: "0.4" },
+          "50%": { opacity: "0.8" },
+        },
+        skeleton: {
+          "0%": { backgroundPosition: "-200% 0" },
+          "100%": { backgroundPosition: "200% 0" },
+        },
+        gradientX: {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        float: {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
         },
       },
       boxShadow: {

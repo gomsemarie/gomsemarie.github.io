@@ -51,6 +51,49 @@ function getCategoryGradient(category: string): GradientConfig {
   };
 }
 
+// ─── Skeleton ────────────────────────────────────────────────────────────────
+
+export function PostCardSkeleton() {
+  return (
+    <div className="overflow-hidden rounded-lg border border-border bg-card flex flex-col">
+      {/* Thumbnail skeleton */}
+      <div className="relative h-[200px] overflow-hidden shrink-0">
+        <div
+          className="w-full h-full bg-gradient-to-r from-muted via-muted-foreground/5 to-muted bg-[length:200%_100%] animate-skeleton"
+        />
+      </div>
+      {/* Content skeleton */}
+      <div className="flex flex-col gap-3 p-4 flex-1">
+        {/* Tags */}
+        <div className="flex gap-1.5">
+          <div className="h-5 w-12 rounded-full bg-gradient-to-r from-muted via-muted-foreground/5 to-muted bg-[length:200%_100%] animate-skeleton" />
+          <div className="h-5 w-16 rounded-full bg-gradient-to-r from-muted via-muted-foreground/5 to-muted bg-[length:200%_100%] animate-skeleton" style={{ animationDelay: "0.1s" }} />
+        </div>
+        {/* Title */}
+        <div className="space-y-2">
+          <div className="h-4 w-full rounded bg-gradient-to-r from-muted via-muted-foreground/5 to-muted bg-[length:200%_100%] animate-skeleton" style={{ animationDelay: "0.2s" }} />
+          <div className="h-4 w-3/4 rounded bg-gradient-to-r from-muted via-muted-foreground/5 to-muted bg-[length:200%_100%] animate-skeleton" style={{ animationDelay: "0.25s" }} />
+        </div>
+        {/* Description */}
+        <div className="space-y-2 flex-1">
+          <div className="h-3.5 w-full rounded bg-gradient-to-r from-muted via-muted-foreground/8 to-muted bg-[length:200%_100%] animate-skeleton" style={{ animationDelay: "0.3s" }} />
+          <div className="h-3.5 w-5/6 rounded bg-gradient-to-r from-muted via-muted-foreground/8 to-muted bg-[length:200%_100%] animate-skeleton" style={{ animationDelay: "0.35s" }} />
+        </div>
+        {/* Footer */}
+        <div className="flex items-center justify-between pt-1 mt-auto border-t border-border/50">
+          <div className="h-3 w-20 rounded bg-gradient-to-r from-muted via-muted-foreground/5 to-muted bg-[length:200%_100%] animate-skeleton" style={{ animationDelay: "0.4s" }} />
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-full bg-gradient-to-r from-muted via-muted-foreground/5 to-muted bg-[length:200%_100%] animate-skeleton" style={{ animationDelay: "0.45s" }} />
+            <div className="h-3 w-14 rounded bg-gradient-to-r from-muted via-muted-foreground/5 to-muted bg-[length:200%_100%] animate-skeleton" style={{ animationDelay: "0.5s" }} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── PostCard ────────────────────────────────────────────────────────────────
+
 export default function PostCard(props: PostCardProps) {
   const id = useId();
   const myInfo = useGithubMyInfo();
@@ -74,9 +117,10 @@ export default function PostCard(props: PostCardProps) {
     <Card
       onClick={handleOnClick}
       className={cn(
-        "overflow-hidden cursor-pointer",
+        "group overflow-hidden cursor-pointer",
         "transition-all duration-300 ease-in-out",
-        "hover:-translate-y-1 hover:shadow-lg",
+        "hover:-translate-y-1.5 hover:shadow-xl hover:shadow-primary/5",
+        "hover:border-primary/20",
         "animate-fade-up",
         "flex flex-col"
       )}
@@ -87,18 +131,24 @@ export default function PostCard(props: PostCardProps) {
           <img
             src={thumbnail}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
           />
         ) : (
           <div
             className={cn(
               "w-full h-full flex items-center justify-center",
+              "transition-all duration-500",
+              "group-hover:brightness-105 group-hover:saturate-110",
               gradient
             )}
           >
-            {icon}
+            <span className="transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+              {icon}
+            </span>
           </div>
         )}
+        {/* Subtle overlay on hover */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
       </div>
 
       {/* Content area */}
@@ -124,6 +174,7 @@ export default function PostCard(props: PostCardProps) {
             "font-sans font-semibold text-base text-foreground",
             "leading-snug m-0",
             "overflow-hidden",
+            "group-hover:text-primary transition-colors duration-200",
             "[display:-webkit-box] [-webkit-line-clamp:2] [-webkit-box-orient:vertical]"
           )}
         >

@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { useGithubMyInfo } from "@_hooks";
 import { useCategoryConfig } from "../../hooks/useCategoryConfig";
 import { cn } from "../../lib/utils";
+import { ThemeToggle } from "../theme-toggle";
 
 function isActive(href: string, pathname: string): boolean {
   if (href === "/") return pathname === "/";
@@ -109,7 +110,10 @@ export function SiteHeader() {
         </nav>
 
         {/* Right side */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1">
+          {/* Theme toggle */}
+          <ThemeToggle />
+
           {/* GitHub link (desktop only) */}
           {githubData?.html_url && (
             <a

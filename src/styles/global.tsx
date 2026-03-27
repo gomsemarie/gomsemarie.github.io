@@ -19,12 +19,14 @@ const globalFontCss = css`
     src: local("MapleStoryLight"), local("MapleStoryLight");
     font-style: normal;
     font-weight: lighter;
+    font-display: swap;
     src: url(${MapleStoryLight}) format("woff2");
   }
   @font-face {
     font-family: "MapleStoryBold";
     src: local("MapleStoryBold"), local("MapleStoryBold");
     font-style: normal;
+    font-display: swap;
     src: url(${MapleStoryBold}) format("woff2");
   }
 
@@ -33,24 +35,28 @@ const globalFontCss = css`
     font-family: "NanumGothic";
     src: local("NanumGothic"), local("NanumGothic");
     font-style: normal;
+    font-display: swap;
     src: url(${NanumGothic}) format("font-woff2");
   }
   @font-face {
     font-family: "NanumGothicLight";
     src: local("NanumGothicLight"), local("NanumGothicLight");
     font-style: normal;
+    font-display: swap;
     src: url(${NanumGothicLight}) format("font-woff2");
   }
   @font-face {
     font-family: "NanumGothicBold";
     src: local("NanumGothicBold"), local("NanumGothicBold");
     font-style: normal;
+    font-display: swap;
     src: url(${NanumGothicBold}) format("font-woff2");
   }
   @font-face {
     font-family: "NanumGothicExtraBold";
     src: local("NanumGothicExtraBold"), local("NanumGothicExtraBold");
     font-style: normal;
+    font-display: swap;
     src: url(${NanumGothicExtraBold}) format("font-woff2");
   }
 

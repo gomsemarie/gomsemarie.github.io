@@ -15,6 +15,7 @@ import { ThemeProvider } from "styled-components";
 import { lightTheme } from "@_styles";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ThemeContextProvider } from "./src/contexts/theme-context";
 
 export const onRouteUpdate: GatsbyBrowser["onRouteUpdate"] = ({
   location,
@@ -34,10 +35,12 @@ export const wrapRootElement: GatsbyBrowser["wrapRootElement"] = ({
         src="https://kit.fontawesome.com/ddb7bb7cca.js"
         crossOrigin="anonymous"
       ></script> */}
-      <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
-        <ThemeProvider theme={lightTheme}>{element}</ThemeProvider>
-      </QueryClientProvider>
+      <ThemeContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <ReactQueryDevtools initialIsOpen={false} />
+          <ThemeProvider theme={lightTheme}>{element}</ThemeProvider>
+        </QueryClientProvider>
+      </ThemeContextProvider>
     </>
   );
 };
