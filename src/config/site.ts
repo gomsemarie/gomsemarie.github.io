@@ -13,7 +13,7 @@ export const SITE = {
  * 예: 코드가 "gomsemarie"면 https://gomsemarie.goatcounter.com 대시보드에서 통계를 본다.
  */
 export const ANALYTICS = {
-  goatcounter: "",
+  goatcounter: "gomsemarie",
 } as const;
 
 /**
@@ -22,7 +22,7 @@ export const ANALYTICS = {
  */
 export const GISCUS = {
   repo: "gomsemarie/gomsemarie.github.io",
-  repoId: "",
+  repoId: "R_kgDOMEEz6Q",
   category: "Comments",
-  categoryId: "",
+  categoryId: "DIC_kwDOMEEz6c4DIf6n",
 } as const;

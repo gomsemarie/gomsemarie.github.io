@@ -172,7 +172,7 @@ const editUrl = `${SITE.repo}/edit/develop/${post.filePath}`;
         GISCUS.repoId && GISCUS.categoryId && (
           <section aria-label="댓글" class="mt-16">
             <h2 class="mb-4 text-lg font-bold">댓글</h2>
-            <Comments client:visible />
+            <Comments client:idle />
           </section>
         )
       }
