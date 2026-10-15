@@ -1,0 +1,35 @@
+---
+import type { Post } from "@/lib/posts";
+import { formatDate, formatMonthDay, postHref } from "@/lib/posts";
+import { categoryDisplay } from "@/lib/taxonomy";
+
+interface Props {
+  post: Post;
+  /** 연도별 목록에서는 월.일만, 그 외에는 전체 날짜 */
+  shortDate?: boolean;
+}
+
+const { post, shortDate = false } = Astro.props;
+const { data } = post;
+---
+
+<article class="grid grid-cols-[64px_minmax(0,1fr)] gap-3 border-t border-border py-[22px] sm:grid-cols-[88px_minmax(0,1fr)] sm:gap-4">
+  <time datetime={data.date.toISOString()} class="pt-1 font-mono text-[13px] text-muted-foreground">
+    {shortDate ? formatMonthDay(data.date) : formatDate(data.date)}
+  </time>
+  <div>
+    <p class="mb-1.5 text-[13px] font-medium text-accent">
+      {categoryDisplay(data.category)}
+      {data.draft && <span class="ml-2 rounded bg-muted-strong px-1.5 py-0.5 text-xs text-muted-foreground">초안</span>}
+    </p>
+    <h3 class="text-lg leading-[1.45] font-semibold tracking-[-0.02em] sm:text-xl">
+      <a href={postHref(post)} class="hover:text-accent">{data.title}</a>
+    </h3>
+    <p class="mt-2 text-[15px] leading-[1.7] text-muted-foreground">{data.description}</p>
+    <p class="mt-3 font-mono text-xs text-muted-foreground">
+      {post.minutesRead}분
+      {data.series && <> · 시리즈 {data.seriesOrder ? `${data.seriesOrder}편` : ""}</>}
+      {data.tags.length > 0 && <> · {data.tags.slice(0, 3).map((t) => `#${t.toLowerCase()}`).join(" ")}</>}
+    </p>
+  </div>
+</article>

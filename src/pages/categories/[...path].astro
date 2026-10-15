@@ -1,0 +1,49 @@
+---
+import ListPage from "@/components/ListPage.astro";
+import { getPosts } from "@/lib/posts";
+import { buildCategoryTree, categoryHref, flattenCategories, postsInCategory, type CategoryNode } from "@/lib/taxonomy";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const tree = buildCategoryTree(posts);
+  return flattenCategories(tree).map((node) => {
+    const root = tree.find((n) => n.path[0] === node.path[0])!;
+    return {
+      params: { path: node.path.join("/") },
+      props: { node, root, posts: postsInCategory(posts, node.path) },
+    };
+  });
+}
+
+interface Props {
+  node: CategoryNode;
+  root: CategoryNode;
+  posts: Awaited<ReturnType<typeof getPosts>>;
+}
+
+const { node, root, posts } = Astro.props;
+const title = node === root ? root.label : `${root.label} / ${node.label}`;
+---
+
+<ListPage title={title} eyebrow="CATEGORY" posts={posts}>
+  {
+    root.children.length > 0 && (
+      <nav aria-label="하위 카테고리" class="mt-8 flex flex-wrap gap-2 text-sm">
+        <a
+          href={categoryHref(root.path)}
+          class:list={["rounded-full px-3.5 py-1.5", node === root ? "bg-foreground text-background" : "border border-border hover:border-foreground"]}
+        >
+          전체 <span class="font-mono text-xs opacity-60">{root.count}</span>
+        </a>
+        {root.children.map((c) => (
+          <a
+            href={categoryHref(c.path)}
+            class:list={["rounded-full px-3.5 py-1.5", c.path.join("/") === node.path.join("/") ? "bg-foreground text-background" : "border border-border hover:border-foreground"]}
+          >
+            {c.label} <span class="font-mono text-xs opacity-60">{c.count}</span>
+          </a>
+        ))}
+      </nav>
+    )
+  }
+</ListPage>

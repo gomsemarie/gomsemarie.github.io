@@ -1,0 +1,234 @@
+---
+import { render } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import TocSpy from "@/components/react/TocSpy";
+import Comments from "@/components/react/Comments";
+import { SITE } from "@/config/site";
+import { formatDate, getPosts, postHref, type Post } from "@/lib/posts";
+import {
+  categoryHref,
+  categoryLabel,
+  categorySegments,
+  categoryDisplay,
+  getSeries,
+  prevNext,
+  relatedPosts,
+  slugify,
+} from "@/lib/taxonomy";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+}
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { data } = post;
+const posts = await getPosts();
+const { Content, headings } = await render(post);
+const toc = headings.filter((h) => h.depth === 2 || h.depth === 3);
+const segments = categorySegments(data.category);
+const series = data.series ? getSeries(posts).find((s) => s.name === data.series) : undefined;
+const seriesIndex = series?.posts.findIndex((p) => p.slug === post.slug) ?? -1;
+const { prev, next } = prevNext(post, posts);
+const related = relatedPosts(post, posts, 3);
+const editUrl = `${SITE.repo}/edit/develop/${post.filePath}`;
+---
+
+<BaseLayout
+  title={data.title}
+  description={data.description}
+  image={`/og/${post.slug}.png`}
+  type="article"
+  publishedTime={data.date}
+>
+  <div slot="top" aria-hidden="true" class="fixed inset-x-0 top-0 z-50 h-0.5">
+    <div id="reading-progress" class="h-full origin-left scale-x-0 bg-accent"></div>
+  </div>
+
+  <div class="mx-auto flex max-w-[1120px] flex-wrap gap-[72px] px-5 md:px-8">
+    <article class="min-w-0 max-w-[720px] flex-[999_1_560px] pb-24 pt-10 md:pt-[72px]">
+      <nav aria-label="경로" class="flex flex-wrap gap-2 text-sm text-muted-foreground">
+        {
+          segments.map((seg, i) => (
+            <>
+              {i > 0 && <span aria-hidden="true">/</span>}
+              <a
+                href={categoryHref(segments.slice(0, i + 1))}
+                class:list={[i === segments.length - 1 ? "font-medium text-accent" : "hover:text-foreground"]}
+              >
+                {categoryLabel(seg, i)}
+              </a>
+            </>
+          ))
+        }
+      </nav>
+
+      <div data-pagefind-body>
+        <h1 class="mt-4 text-[30px] leading-[1.3] font-bold tracking-[-0.03em] text-balance md:text-[44px] md:leading-[1.25] md:tracking-[-0.035em]" data-pagefind-meta="title">
+          {data.title}
+        </h1>
+        <p class="mt-5 text-[17px] leading-[1.7] text-muted-foreground md:text-lg">{data.description}</p>
+      </div>
+
+      <div class="mt-6 flex flex-wrap gap-x-4 gap-y-1 border-b border-border pb-8 font-mono text-[13px] text-muted-foreground">
+        <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time>
+        <span aria-hidden="true">·</span>
+        <span>{post.minutesRead}분 읽기</span>
+        {
+          data.updated && (
+            <>
+              <span aria-hidden="true">·</span>
+              <span>수정 {formatDate(data.updated)}</span>
+            </>
+          )
+        }
+      </div>
+
+      {
+        series && (
+          <section aria-label="시리즈" class="mt-8 rounded-xl border border-border bg-surface px-6 py-5">
+            <div class="flex flex-wrap items-baseline justify-between gap-3">
+              <a href={`/series/${series.slug}/`} class="text-[15px] font-semibold hover:text-accent">
+                {series.name}
+              </a>
+              <span class="font-mono text-xs text-accent">
+                {seriesIndex + 1} / {series.posts.length}
+              </span>
+            </div>
+            <ol class="mt-3 list-decimal pl-5 text-sm leading-[1.9] text-muted-foreground">
+              {series.posts.map((p) =>
+                p.slug === post.slug ? (
+                  <li class="font-semibold text-foreground">
+                    {p.data.title} <span class="font-normal text-accent">← 지금 읽는 글</span>
+                  </li>
+                ) : (
+                  <li>
+                    <a href={postHref(p)} class="hover:text-foreground">{p.data.title}</a>
+                  </li>
+                ),
+              )}
+            </ol>
+          </section>
+        )
+      }
+
+      {
+        toc.length > 0 && (
+          <details class="mt-8 rounded-xl border border-border bg-surface lg:hidden">
+            <summary class="cursor-pointer px-4 py-3.5 text-sm font-semibold">목차</summary>
+            <ol class="list-decimal pb-4 pl-[34px] pr-4 text-sm leading-[1.9] text-muted-foreground">
+              {toc.map((h) => (
+                <li class:list={[h.depth === 3 && "ml-4 list-[circle]"]}>
+                  <a href={`#${h.slug}`} class="hover:text-foreground">{h.text}</a>
+                </li>
+              ))}
+            </ol>
+          </details>
+        )
+      }
+
+      <div class="prose-blog mt-10" data-pagefind-body>
+        <Content />
+      </div>
+
+      {
+        data.tags.length > 0 && (
+          <div class="mt-12 flex flex-wrap gap-2 font-mono text-[13px]">
+            {data.tags.map((t) => (
+              <a href={`/tags/${slugify(t)}/`} class="rounded-md bg-muted-strong px-2.5 py-1 text-muted-foreground hover:text-foreground">
+                #{t.toLowerCase()}
+              </a>
+            ))}
+          </div>
+        )
+      }
+
+      <nav aria-label="이전·다음 글" class="mt-12 grid gap-4 sm:grid-cols-2">
+        {
+          prev ? (
+            <a href={postHref(prev)} class="rounded-xl border border-border p-5 hover:border-foreground">
+              <span class="text-[13px] text-muted-foreground">← 이전 글</span>
+              <span class="mt-1.5 block text-[15px] leading-normal font-semibold">{prev.data.title}</span>
+            </a>
+          ) : (
+            <span class="hidden sm:block" />
+          )
+        }
+        {
+          next && (
+            <a href={postHref(next)} class="rounded-xl border border-border p-5 text-right hover:border-foreground">
+              <span class="text-[13px] text-muted-foreground">다음 글 →</span>
+              <span class="mt-1.5 block text-[15px] leading-normal font-semibold">{next.data.title}</span>
+            </a>
+          )
+        }
+      </nav>
+
+      <section aria-label="댓글" class="mt-16">
+        <h2 class="mb-4 text-lg font-bold">댓글</h2>
+        <Comments client:visible />
+      </section>
+    </article>
+
+    <aside aria-label="목차" class="hidden flex-[1_1_220px] pt-[72px] lg:block">
+      <div class="sticky top-24">
+        {
+          toc.length > 0 && (
+            <>
+              <p class="mb-3.5 font-mono text-xs tracking-[0.04em] text-muted-foreground">ON THIS PAGE</p>
+              <TocSpy client:idle headings={toc.map(({ depth, slug, text }) => ({ depth, slug, text }))} />
+            </>
+          )
+        }
+        <div class="mt-7 flex flex-col gap-2.5 border-t border-border pt-5 text-[13px]">
+          <a href="#main" class="text-muted-foreground hover:text-foreground">↑ 맨 위로</a>
+          <a href={editUrl} class="text-muted-foreground hover:text-foreground" target="_blank" rel="noopener noreferrer">GitHub에서 수정 제안</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  {
+    related.length > 0 && (
+      <section class="border-t border-border bg-muted">
+        <div class="mx-auto max-w-[1120px] px-5 pb-[72px] pt-14 md:px-8">
+          <h2 class="mb-6 text-lg font-bold">함께 읽으면 좋은 글</h2>
+          <div class="grid gap-6 md:grid-cols-3">
+            {related.map((p) => (
+              <a href={postHref(p)} class="block rounded-xl border border-border bg-surface p-[22px] hover:border-foreground">
+                <span class="text-[13px] text-accent">{categoryDisplay(p.data.category)}</span>
+                <span class="mt-2 block leading-normal font-semibold">{p.data.title}</span>
+                <span class="mt-3 block font-mono text-xs text-muted-foreground">
+                  {formatDate(p.data.date)} · {p.minutesRead}분
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<script>
+  import mediumZoom from "medium-zoom";
+
+  const bar = document.getElementById("reading-progress");
+  const article = document.querySelector<HTMLElement>(".prose-blog");
+  let frame = 0;
+  const update = () => {
+    frame = 0;
+    if (!bar || !article) return;
+    const { top, height } = article.getBoundingClientRect();
+    const progress = Math.min(1, Math.max(0, -top / Math.max(1, height - window.innerHeight)));
+    bar.style.transform = `scaleX(${progress})`;
+  };
+  window.addEventListener("scroll", () => (frame ||= requestAnimationFrame(update)), { passive: true });
+  update();
+
+  mediumZoom(".prose-blog .md-figure img", { margin: 24, background: "var(--background)" });
+</script>

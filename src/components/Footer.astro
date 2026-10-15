@@ -1,0 +1,15 @@
+---
+import { SITE } from "@/config/site";
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-border">
+  <div class="mx-auto flex max-w-[1120px] flex-wrap justify-between gap-4 px-5 py-8 text-[13px] text-muted-foreground md:px-8">
+    <span>© {year} {SITE.author}</span>
+    <span class="flex gap-5">
+      <a href="/rss.xml" class="hover:text-foreground">RSS</a>
+      <a href={SITE.github} class="hover:text-foreground" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <span>Built with Astro</span>
+    </span>
+  </div>
+</footer>

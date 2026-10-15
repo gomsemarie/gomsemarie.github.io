@@ -1,0 +1,26 @@
+---
+import PostItem from "@/components/PostItem.astro";
+import type { Post } from "@/lib/posts";
+import { groupByYear } from "@/lib/taxonomy";
+
+interface Props {
+  posts: Post[];
+}
+
+const groups = groupByYear(Astro.props.posts);
+---
+
+{
+  groups.length === 0 ? (
+    <p class="border-t border-border py-12 text-center text-muted-foreground">아직 글이 없어요.</p>
+  ) : (
+    groups.map((g, i) => (
+      <section aria-label={`${g.year}년 글`} class:list={[i > 0 && "mt-10"]}>
+        <h2 class="mb-2 font-mono text-[13px] font-medium text-muted-foreground">{g.year}</h2>
+        {g.posts.map((post) => (
+          <PostItem post={post} shortDate />
+        ))}
+      </section>
+    ))
+  )
+}

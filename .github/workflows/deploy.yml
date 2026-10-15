@@ -20,15 +20,18 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
 
+      - run: pnpm test
+
+      # Astro 빌드 후 astro-pagefind가 dist/pagefind에 검색 인덱스를 만든다
       - run: pnpm build
 
       - uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
+          publish_dir: ./dist
           publish_branch: main

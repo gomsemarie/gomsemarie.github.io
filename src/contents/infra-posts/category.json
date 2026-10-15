@@ -1,9 +1,0 @@
-{
-  "categoryId": "Infra",
-  "label": "인프라",
-  "labelEn": "Infrastructure",
-  "icon": "mdi:server-outline",
-  "colorTheme": "slate",
-  "showInNav": true,
-  "navOrder": 3
-}

@@ -1,0 +1,29 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { SITE } from "@/config/site";
+import { getPosts } from "@/lib/posts";
+
+const posts = await getPosts();
+---
+
+<BaseLayout title="소개" description={SITE.description}>
+  <div class="mx-auto max-w-[720px] px-5 pb-24 pt-14 md:px-8 md:pt-[72px]">
+    <img
+      src="https://github.com/gomsemarie.png?size=160"
+      alt="gomsemarie 프로필 사진"
+      width="80"
+      height="80"
+      class="rounded-full border border-border"
+      loading="lazy"
+    />
+    <h1 class="mt-6 text-[32px] font-bold tracking-[-0.03em] md:text-[40px]">안녕하세요, gomsemarie입니다.</h1>
+    <div class="prose-blog mt-6">
+      <p>프론트엔드 엔지니어로 일하면서 배우고 부딪힌 것들을 이곳에 기록합니다. 지금까지 {posts.length}편의 글을 썼어요.</p>
+      <p>React와 웹 플랫폼을 주로 다루고, 배포와 인프라처럼 프론트엔드 바깥으로 이어지는 이야기도 씁니다.</p>
+    </div>
+    <ul class="mt-10 flex flex-wrap gap-3 text-sm">
+      <li><a href={SITE.github} class="block rounded-lg border border-border px-4 py-2.5 hover:border-foreground" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href="/rss.xml" class="block rounded-lg border border-border px-4 py-2.5 hover:border-foreground">RSS</a></li>
+    </ul>
+  </div>
+</BaseLayout>

@@ -1,0 +1,17 @@
+---
+import ListPage from "@/components/ListPage.astro";
+import { getPosts } from "@/lib/posts";
+import { postsWithTag, tagCounts } from "@/lib/taxonomy";
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  return tagCounts(posts).map((t) => ({
+    params: { tag: t.slug },
+    props: { tag: t.tag, posts: postsWithTag(posts, t.slug) },
+  }));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<ListPage title={`#${tag}`} eyebrow="TAG" posts={posts} />

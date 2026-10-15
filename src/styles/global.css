@@ -1,0 +1,85 @@
+@import "tailwindcss";
+@import "pretendard/dist/web/variable/pretendardvariable-dynamic-subset.css";
+@import "@fontsource-variable/jetbrains-mono";
+@import "./prose.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #fbfbfa;
+  --surface: #ffffff;
+  --muted: #f3f2ef;
+  --muted-strong: #f0efec;
+  --foreground: #18181b;
+  --muted-foreground: #63636b;
+  --subtle-foreground: #8a8a92;
+  --border: #e6e5e1;
+  --accent: #a8336a;
+  --accent-soft: rgba(168, 51, 106, 0.08);
+  --ring: #a8336a;
+  --overlay: rgba(24, 24, 27, 0.35);
+  color-scheme: light;
+}
+
+.dark {
+  --background: #0f0f11;
+  --surface: #18181b;
+  --muted: #18181b;
+  --muted-strong: #222226;
+  --foreground: #ededef;
+  --muted-foreground: #9c9ca5;
+  --subtle-foreground: #7a7a84;
+  --border: #27272a;
+  --accent: #f27bae;
+  --accent-soft: rgba(242, 123, 174, 0.1);
+  --ring: #f27bae;
+  --overlay: rgba(5, 5, 7, 0.62);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-muted: var(--muted);
+  --color-muted-strong: var(--muted-strong);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-ring: var(--ring);
+  --color-overlay: var(--overlay);
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 88px;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    line-height: 1.6;
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+  a {
+    @apply transition-colors;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  ::selection {
+    background: var(--accent-soft);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

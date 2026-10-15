@@ -1,0 +1,39 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import CategoryChips from "@/components/CategoryChips.astro";
+import PostList from "@/components/PostList.astro";
+import Sidebar from "@/components/Sidebar.astro";
+import { SITE } from "@/config/site";
+import { getPosts } from "@/lib/posts";
+import { buildCategoryTree } from "@/lib/taxonomy";
+
+const posts = await getPosts();
+const tree = buildCategoryTree(posts);
+---
+
+<BaseLayout>
+  <div class="mx-auto max-w-[1120px] px-5 md:px-8">
+    <section class="border-b border-border pb-14 pt-16 md:pb-16 md:pt-[88px]">
+      <p class="mb-5 font-mono text-[13px] tracking-[0.02em] text-accent">FRONTEND · NOTES</p>
+      <h1 class="max-w-[760px] text-[38px] leading-[1.2] font-bold tracking-[-0.035em] text-balance md:text-[56px]">
+        만들면서 배운 것들을<br />천천히 기록합니다.
+      </h1>
+      <p class="mt-6 max-w-[560px] text-[17px] leading-[1.7] text-muted-foreground md:text-lg">
+        프론트엔드 개발자 gomsemarie의 기술 블로그. React와 웹 플랫폼, 배포와 인프라까지 실무에서 부딪힌 이야기를 씁니다.
+      </p>
+      <div class="mt-7 flex flex-wrap gap-5 text-sm">
+        <a href="/about/" class="font-semibold text-accent">소개 보기 →</a>
+        <a href="/rss.xml" class="text-muted-foreground hover:text-foreground">RSS 구독</a>
+        <a href={SITE.github} class="text-muted-foreground hover:text-foreground" target="_blank" rel="noopener noreferrer">github.com/gomsemarie</a>
+      </div>
+    </section>
+
+    <div class="flex flex-wrap gap-[72px] pb-24 pt-12">
+      <section aria-label="글 목록" class="min-w-0 flex-[999_1_560px]">
+        <CategoryChips tree={tree} total={posts.length} />
+        <PostList posts={posts} />
+      </section>
+      <Sidebar posts={posts} />
+    </div>
+  </div>
+</BaseLayout>

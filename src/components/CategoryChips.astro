@@ -1,0 +1,34 @@
+---
+import type { CategoryNode } from "@/lib/taxonomy";
+import { categoryHref } from "@/lib/taxonomy";
+
+interface Props {
+  tree: CategoryNode[];
+  total: number;
+  /** 현재 선택된 최상위 카테고리 경로 슬러그 (없으면 전체) */
+  active?: string;
+}
+
+const { tree, total, active } = Astro.props;
+const base = "rounded-full px-3.5 py-1.5 text-sm";
+---
+
+<nav aria-label="카테고리" class="mb-10 flex flex-wrap gap-2">
+  <a href="/" aria-current={!active ? "page" : undefined} class:list={[base, !active ? "bg-foreground font-medium text-background" : "border border-border hover:border-foreground"]}>
+    전체 <span class="font-mono text-xs opacity-60">{total}</span>
+  </a>
+  {
+    tree.map((node) => {
+      const on = active === node.path[0];
+      return (
+        <a
+          href={categoryHref(node.path)}
+          aria-current={on ? "page" : undefined}
+          class:list={[base, on ? "bg-foreground font-medium text-background" : "border border-border hover:border-foreground"]}
+        >
+          {node.label} <span class:list={["font-mono text-xs", on ? "opacity-60" : "text-muted-foreground"]}>{node.count}</span>
+        </a>
+      );
+    })
+  }
+</nav>
