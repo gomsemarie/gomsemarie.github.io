@@ -1,9 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { SITE } from "@/config/site";
-import { getPosts } from "@/lib/posts";
-
-const posts = await getPosts();
+// 소개 본문은 src/content/about.md에서 수정한다
+import { Content as About } from "@/content/about.md";
 ---
 
 <BaseLayout title="소개" description={SITE.description}>
@@ -16,10 +15,9 @@ const posts = await getPosts();
       class="rounded-full border border-border"
       loading="lazy"
     />
-    <h1 class="mt-6 text-[32px] font-bold tracking-[-0.03em] md:text-[40px]">안녕하세요, gomsemarie입니다.</h1>
+    <h1 class="mt-6 text-[32px] font-bold tracking-[-0.03em] md:text-[40px]">gomsemarie</h1>
     <div class="prose-blog mt-6">
-      <p>프론트엔드 엔지니어로 일하면서 배우고 부딪힌 것들을 이곳에 기록합니다. 지금까지 {posts.length}편의 글을 썼어요.</p>
-      <p>React와 웹 플랫폼을 주로 다루고, 배포와 인프라처럼 프론트엔드 바깥으로 이어지는 이야기도 씁니다.</p>
+      <About />
     </div>
     <ul class="mt-10 flex flex-wrap gap-3 text-sm">
       <li><a href={SITE.github} class="block rounded-lg border border-border px-4 py-2.5 hover:border-foreground" target="_blank" rel="noopener noreferrer">GitHub</a></li>

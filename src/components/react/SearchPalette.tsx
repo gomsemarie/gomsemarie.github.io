@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { navigate } from "astro:transitions/client";
 import { Search } from "lucide-react";
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
@@ -12,6 +13,7 @@ interface PagefindResult {
 interface Pagefind {
   options?: (o: Record<string, unknown>) => Promise<void>;
   init?: () => void;
+  preload: (q: string) => Promise<void>;
   debouncedSearch: (q: string) => Promise<{ results: { data: () => Promise<PagefindResult> }[] } | null>;
 }
 
@@ -71,6 +73,8 @@ export default function SearchPalette({ tags }: Props) {
     let cancelled = false;
     setSearching(true);
     loadPagefind().then(async (pf) => {
+      // 입력하는 동안 해당 단어의 인덱스 조각을 미리 받아 둔다
+      pf?.preload(q);
       const search = await pf?.debouncedSearch(q);
       if (!search || cancelled) return;
       const data = await Promise.all(search.results.slice(0, 8).map((r) => r.data()));
@@ -87,9 +91,12 @@ export default function SearchPalette({ tags }: Props) {
   const tagQuery = q.replace(/\s+/g, "-");
   const matchedTags = q ? tags.filter((t) => t.tag.includes(tagQuery)).slice(0, 5) : [];
 
+  // 검색 버튼에 마우스를 올리거나 포커스하면 인덱스를 미리 불러온다
+  const warmUp = () => void loadPagefind();
+
   const go = (url: string) => {
     setOpen(false);
-    window.location.href = url;
+    navigate(url);
   };
 
   return (
@@ -97,6 +104,8 @@ export default function SearchPalette({ tags }: Props) {
       <button
         type="button"
         onClick={() => setOpen(true)}
+        onPointerEnter={warmUp}
+        onFocus={warmUp}
         className="hidden h-9 min-w-[200px] items-center justify-between gap-3 rounded-lg border border-border bg-surface pl-3 pr-2.5 text-sm text-muted-foreground hover:text-foreground md:flex"
       >
         <span className="flex items-center gap-2">
@@ -107,6 +116,8 @@ export default function SearchPalette({ tags }: Props) {
       <button
         type="button"
         onClick={() => setOpen(true)}
+        onPointerEnter={warmUp}
+        onFocus={warmUp}
         aria-label="글 검색"
         className="grid size-10 place-items-center rounded-lg text-foreground hover:bg-muted-strong md:hidden"
       >

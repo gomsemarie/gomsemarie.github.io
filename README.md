@@ -11,6 +11,7 @@ pnpm build      # dist/ 생성 + Pagefind 검색 인덱스
 pnpm preview    # 빌드 결과 미리보기 (검색은 빌드 후에만 동작)
 pnpm test       # Vitest
 pnpm check      # 타입 검사
+pnpm new <slug> "제목" [카테고리]   # 새 글 파일 생성 (draft: true 상태)
 ```
 
 ## 글 쓰기
@@ -42,6 +43,8 @@ slug: "custom-slug"           # 선택 — 없으면 파일명
 
 ## 설정
 
-- 사이트 정보·Giscus: `src/config/site.ts` — [giscus.app](https://giscus.app)에서 저장소 Discussions를 연결한 뒤 `repoId`, `categoryId`를 채우면 댓글이 켜집니다.
+- 소개 페이지 본문: `src/content/about.md`
+- 사이트 정보·댓글(Giscus)·방문자 분석(GoatCounter): `src/config/site.ts` — 값이 비어 있으면 해당 기능은 꺼진 상태로 빌드됩니다.
+- 코드블록 테마·문구: `ec.config.mjs` (바꾼 뒤 결과가 그대로면 `.astro`, `node_modules/.astro` 캐시를 지우고 다시 빌드)
 - 디자인 토큰: `src/styles/global.css`, 본문 스타일: `src/styles/prose.css`
 - 설계 문서: `docs/superpowers/specs/2026-10-15-astro-blog-rebuild-design.md`

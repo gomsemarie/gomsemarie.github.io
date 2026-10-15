@@ -5,6 +5,7 @@ title: "Gatsby로 나만의 블로그를 만들어보자"
 description: "Gatsby로 GitHub Page 블로그 만드는 방법."
 tags: ["gatsby", "typescript", "react", "mdx"]
 category: "Tech/Gatsby"
+draft: true
 ---
 
 # 타이틀 테스트

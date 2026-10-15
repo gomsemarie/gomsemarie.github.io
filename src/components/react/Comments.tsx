@@ -2,17 +2,9 @@ import Giscus from "@giscus/react";
 import { useThemeStore } from "@/stores/theme";
 import { GISCUS } from "@/config/site";
 
-/** Giscus 댓글. 사이트 테마를 구독해 라이트/다크를 따라간다. */
+/** Giscus 댓글. 사이트 테마를 구독해 라이트/다크를 따라간다. 설정값이 없으면 페이지에서 렌더하지 않는다. */
 export default function Comments() {
   const theme = useThemeStore((s) => s.theme);
-
-  if (!GISCUS.repoId || !GISCUS.categoryId) {
-    return (
-      <div className="rounded-xl border border-dashed border-border p-7 text-sm leading-relaxed text-muted-foreground">
-        댓글은 Giscus 설정 후 표시됩니다. <code className="font-mono">src/config/site.ts</code>의 repoId·categoryId를 채워주세요.
-      </div>
-    );
-  }
 
   return (
     <Giscus

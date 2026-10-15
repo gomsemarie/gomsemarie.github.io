@@ -9,6 +9,14 @@ export const SITE = {
 } as const;
 
 /**
+ * 방문자 분석 (GoatCounter). https://www.goatcounter.com 에서 만든 사이트 코드를 넣으면 켜진다.
+ * 예: 코드가 "gomsemarie"면 https://gomsemarie.goatcounter.com 대시보드에서 통계를 본다.
+ */
+export const ANALYTICS = {
+  goatcounter: "",
+} as const;
+
+/**
  * Giscus 설정 — https://giscus.app 에서 저장소를 선택하면 repoId / categoryId를 확인할 수 있다.
  * 값이 비어 있으면 댓글 영역 대신 안내 문구를 보여준다.
  */

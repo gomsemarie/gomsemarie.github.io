@@ -16,29 +16,11 @@ export default defineConfig({
   site: "https://gomsemarie.github.io",
   output: "static",
   trailingSlash: "always",
+  // 공용 CSS를 HTML에 넣어 렌더링을 막는 추가 요청을 없앤다
+  build: { inlineStylesheets: "always" },
   integrations: [
     // Expressive Code는 mdx보다 먼저 등록해야 한다
-    expressiveCode({
-      themes: ["github-light", "github-dark"],
-      themeCssSelector: (theme) =>
-        theme.type === "dark" ? ".dark" : ":root:not(.dark)",
-      useDarkModeMediaQuery: false,
-      styleOverrides: {
-        borderRadius: "12px",
-        borderColor: "var(--border)",
-        codeFontFamily: "'JetBrains Mono Variable', ui-monospace, monospace",
-        codeFontSize: "14px",
-        codeLineHeight: "1.75",
-        uiFontFamily: "'Pretendard Variable', Pretendard, sans-serif",
-        frames: {
-          editorActiveTabBackground: "var(--muted)",
-          editorTabBarBackground: "var(--muted)",
-          terminalTitlebarBackground: "var(--muted)",
-          frameBoxShadowCssValue: "none",
-        },
-      },
-      defaultProps: { wrap: false },
-    }),
+    expressiveCode(), // 설정은 ec.config.mjs
     mdx(),
     react(),
     sitemap(),

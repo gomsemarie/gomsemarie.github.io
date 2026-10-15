@@ -1,0 +1,54 @@
+---
+import type { GetStaticPaths, Page } from "astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import CategoryChips from "@/components/CategoryChips.astro";
+import Pagination from "@/components/Pagination.astro";
+import PostList from "@/components/PostList.astro";
+import Sidebar from "@/components/Sidebar.astro";
+import { SITE } from "@/config/site";
+import { getPosts, type Post } from "@/lib/posts";
+import { buildCategoryTree } from "@/lib/taxonomy";
+
+/** 홈(/) 과 /2/, /3/ … 페이지 */
+export const getStaticPaths = (async ({ paginate }) => {
+  return paginate(await getPosts(), { pageSize: 15 });
+}) satisfies GetStaticPaths;
+
+interface Props {
+  page: Page<Post>;
+}
+
+const { page } = Astro.props;
+const posts = await getPosts();
+const tree = buildCategoryTree(posts);
+const isFirst = page.currentPage === 1;
+---
+
+<BaseLayout title={isFirst ? undefined : `글 목록 ${page.currentPage}페이지`}>
+  <div class="mx-auto max-w-[1120px] px-5 md:px-8">
+    {
+      isFirst && (
+        <section class="border-b border-border pb-14 pt-16 md:pb-16 md:pt-[88px]">
+          <h1 class="text-[38px] leading-[1.2] font-bold tracking-[-0.035em] md:text-[56px]">프론트엔드 개발 노트</h1>
+          <p class="mt-6 max-w-[560px] text-[17px] leading-[1.7] text-muted-foreground md:text-lg">
+            React, Next.js, 배포 같은 걸 다루다가 정리해 둘 만한 게 생기면 올린다.
+          </p>
+          <div class="mt-7 flex flex-wrap gap-5 text-sm">
+            <a href="/about/" class="font-semibold text-accent">소개</a>
+            <a href="/rss.xml" class="text-muted-foreground hover:text-foreground">RSS</a>
+            <a href={SITE.github} class="text-muted-foreground hover:text-foreground" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </section>
+      )
+    }
+
+    <div class:list={["flex flex-wrap gap-[72px] pb-24", isFirst ? "pt-12" : "pt-14 md:pt-[72px]"]}>
+      <section aria-label="글 목록" class="min-w-0 flex-[999_1_560px]">
+        <CategoryChips tree={tree} total={posts.length} />
+        <PostList posts={page.data} />
+        <Pagination page={page} />
+      </section>
+      <Sidebar posts={posts} />
+    </div>
+  </div>
+</BaseLayout>

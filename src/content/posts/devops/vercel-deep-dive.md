@@ -5,7 +5,7 @@ title: "Vercel 제대로 활용하기 — 프론트엔드 배포의 정석"
 description: "단순 정적 호스팅부터 Edge Functions, Preview Deployments, Analytics까지. 프론트엔드 개발자 관점에서 Vercel을 깊게 파헤쳐봤습니다."
 tags: ["vercel", "deployment", "edge-functions", "nextjs", "ci-cd", "devops"]
 category: "DevOps/Vercel"
-series: "프론트엔드 개발자의 배포와 인프라"
+series: "프론트엔드 배포와 인프라"
 seriesOrder: 1
 ---
 

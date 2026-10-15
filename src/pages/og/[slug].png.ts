@@ -7,7 +7,7 @@ import { categoryDisplay } from "@/lib/taxonomy";
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getPosts();
   return [
-    { params: { slug: "default" }, props: { title: "만들면서 배운 것들을 천천히 기록합니다.", eyebrow: SITE.description } },
+    { params: { slug: "default" }, props: { title: "프론트엔드 개발 노트", eyebrow: SITE.description } },
     ...posts.map((p) => ({
       params: { slug: p.slug },
       props: { title: p.data.title, eyebrow: categoryDisplay(p.data.category) },

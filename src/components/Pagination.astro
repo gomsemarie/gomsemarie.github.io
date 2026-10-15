@@ -1,0 +1,38 @@
+---
+import type { Page } from "astro";
+
+interface Props {
+  page: Page<unknown>;
+}
+
+const { page } = Astro.props;
+const href = (n: number) => (n === 1 ? "/" : `/${n}/`);
+const pages = Array.from({ length: page.lastPage }, (_, i) => i + 1);
+const base = "grid h-10 min-w-10 place-items-center rounded-lg px-3 text-sm";
+---
+
+{
+  page.lastPage > 1 && (
+    <nav aria-label="페이지" class="mt-10 flex flex-wrap items-center gap-1 border-t border-border pt-8">
+      {page.url.prev ? (
+        <a href={page.url.prev} class:list={[base, "text-muted-foreground hover:text-foreground"]}>← 이전</a>
+      ) : (
+        <span class:list={[base, "text-subtle-foreground"]} aria-hidden="true">← 이전</span>
+      )}
+      {pages.map((n) => (
+        <a
+          href={href(n)}
+          aria-current={n === page.currentPage ? "page" : undefined}
+          class:list={[base, "font-mono", n === page.currentPage ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"]}
+        >
+          {n}
+        </a>
+      ))}
+      {page.url.next ? (
+        <a href={page.url.next} class:list={[base, "text-muted-foreground hover:text-foreground"]}>다음 →</a>
+      ) : (
+        <span class:list={[base, "text-subtle-foreground"]} aria-hidden="true">다음 →</span>
+      )}
+    </nav>
+  )
+}

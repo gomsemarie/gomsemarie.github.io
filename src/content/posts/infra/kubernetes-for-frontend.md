@@ -5,7 +5,7 @@ title: "프론트엔드 개발자가 쿠버네티스를 이해해야 하는 이�
 description: "백엔드 영역처럼 느껴지던 Kubernetes. 프론트엔드 앱을 직접 배포하고 운영하면서 알게 된 핵심 개념과 실무에서 꼭 알아야 할 것들을 정리했습니다."
 tags: ["kubernetes", "k8s", "docker", "devops", "infra", "nginx", "deployment"]
 category: "Infra/Kubernetes"
-series: "프론트엔드 개발자의 배포와 인프라"
+series: "프론트엔드 배포와 인프라"
 seriesOrder: 2
 ---
 

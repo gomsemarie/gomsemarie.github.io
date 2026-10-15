@@ -6,16 +6,16 @@ import { getSeries } from "@/lib/taxonomy";
 const series = getSeries(await getPosts());
 ---
 
-<BaseLayout title="시리즈" description="주제별로 이어지는 연재 글 모음">
+<BaseLayout title="시리즈" description="연재 글 모음">
   <div class="mx-auto max-w-[1120px] px-5 pb-24 pt-14 md:px-8 md:pt-[72px]">
     <p class="font-mono text-[13px] tracking-[0.04em] text-accent">SERIES</p>
     <h1 class="mt-3 text-[32px] font-bold tracking-[-0.03em] md:text-[40px]">시리즈</h1>
-    <p class="mt-3 text-[17px] text-muted-foreground">주제별로 이어지는 연재 글 {series.length}개</p>
+    <p class="mt-3 text-[17px] text-muted-foreground">연재 {series.length}개</p>
 
     <div class="mt-12 flex max-w-[760px] flex-col gap-4">
       {
         series.length === 0 ? (
-          <p class="text-muted-foreground">아직 시리즈가 없어요.</p>
+          <p class="text-muted-foreground">시리즈가 없습니다.</p>
         ) : (
           series.map((s) => (
             <a href={`/series/${s.slug}/`} class="block rounded-xl border border-border bg-surface p-6 hover:border-foreground">
