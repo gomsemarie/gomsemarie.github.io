@@ -2,6 +2,7 @@
 import type { Post } from "@/lib/posts";
 import { formatDate, formatMonthDay, postHref } from "@/lib/posts";
 import { categoryDisplay } from "@/lib/taxonomy";
+import { categoryRole } from "@/config/categories";
 
 interface Props {
   post: Post;
@@ -11,21 +12,30 @@ interface Props {
 
 const { post, shortDate = false } = Astro.props;
 const { data } = post;
+const role = categoryRole(data.category);
 ---
 
-<article class="group relative rounded-[var(--radius-lg)] px-4 py-5 transition-colors hover:bg-surface sm:px-5">
-  <div class="flex flex-wrap items-center gap-2">
-    <span class="pd-tag pd-tag--primary">{categoryDisplay(data.category)}</span>
-    {data.series && <span class="pd-tag">시리즈 {data.seriesOrder ? `${data.seriesOrder}편` : ""}</span>}
-    {data.draft && <span class="pd-tag">초안</span>}
+<article
+  class:list={[
+    "grid gap-x-4 gap-y-1 border-t border-line py-[18px]",
+    shortDate ? "grid-cols-[56px_minmax(0,1fr)]" : "grid-cols-[88px_minmax(0,1fr)]",
+  ]}
+>
+  <time datetime={data.date.toISOString()} class="pt-[3px] text-[13px] tabular-nums text-ink-muted">
+    {shortDate ? formatMonthDay(data.date) : formatDate(data.date)}
+  </time>
+  <div class="min-w-0">
+    <h3 class="font-display text-[19px] leading-[1.45] text-ink">
+      <a href={postHref(post)} class="hover:text-primary-ink">{data.title}</a>
+    </h3>
+    <p class="mt-1 text-[14.5px] leading-[1.7] text-ink-muted">{data.description}</p>
+    <div class="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1.5">
+      <span class:list={["pd-tag", role.tag]}>{categoryDisplay(data.category).replace(" / ", " · ")}</span>
+      {data.series && <span class="pd-tag">시리즈 {data.seriesOrder ? `${data.seriesOrder}편` : ""}</span>}
+      {data.draft && <span class="pd-tag">초안</span>}
+      <span class="text-xs text-ink-muted">
+        {data.tags.slice(0, 2).map((t) => `#${t.toLowerCase()}`).join(" ")}
+      </span>
+    </div>
   </div>
-  <h3 class="mt-3 font-display text-[20px] leading-[1.4] text-ink">
-    <a href={postHref(post)} class="after:absolute after:inset-0 after:rounded-[var(--radius-lg)] group-hover:text-primary-ink">{data.title}</a>
-  </h3>
-  <p class="mt-1.5 text-[15px] leading-[1.7] text-ink-muted">{data.description}</p>
-  <p class="mt-3 flex flex-wrap gap-x-3 text-[13px] text-ink-muted">
-    <time datetime={data.date.toISOString()} class="tabular-nums">{shortDate ? formatMonthDay(data.date) : formatDate(data.date)}</time>
-    <span>{post.minutesRead}분</span>
-    {data.tags.slice(0, 3).map((t) => <span>#{t.toLowerCase()}</span>)}
-  </p>
 </article>

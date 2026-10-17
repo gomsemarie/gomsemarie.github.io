@@ -15,16 +15,14 @@ const groups = groupByYear(Astro.props.posts);
     <p class="py-12 text-center text-ink-muted">글이 없습니다.</p>
   ) : (
     groups.map((g, i) => (
-      <section aria-label={`${g.year}년 글`} class:list={[i > 0 && "mt-8 border-t-[1.5px] border-dashed border-line-strong pt-8"]}>
-        <h2 class="mb-1 flex items-center gap-2 font-display text-[18px] text-primary-ink">
+      <section aria-label={`${g.year}년 글`} class:list={[i > 0 && "mt-10"]}>
+        <h2 class="mb-1.5 flex items-center gap-2 font-display text-[17px] text-primary-ink">
           <span class="size-2 rounded-full bg-primary" aria-hidden="true" />
           {g.year}
         </h2>
-        <div class="-mx-4 sm:-mx-5">
-          {g.posts.map((post) => (
-            <PostItem post={post} shortDate />
-          ))}
-        </div>
+        {g.posts.map((post) => (
+          <PostItem post={post} shortDate />
+        ))}
       </section>
     ))
   )
