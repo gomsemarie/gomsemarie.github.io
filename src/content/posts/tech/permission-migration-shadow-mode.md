@@ -4,6 +4,8 @@ description: "마지막에 맞은 URL 패턴이 이기는 레거시 권한을 '�
 date: 2026-10-17
 category: "Tech/Architecture"
 tags: ["authorization", "migration", "nextjs", "typescript", "architecture"]
+series: "레거시 ERP 이관기"
+seriesOrder: 4
 ---
 
 회사 ERP를 새 스택(Next.js + PostgreSQL)으로 옮기는 중이다. 원칙은 "기존 기능을 그대로 재현하고, 개선은 그다음"이었다. 그런데 권한은 그대로 옮기기 어려웠다. 기존 규칙을 똑같이 재현하면 기존 보안 구멍도 같이 옮겨지기 때문이다.
