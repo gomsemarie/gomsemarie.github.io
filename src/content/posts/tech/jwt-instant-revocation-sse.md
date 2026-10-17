@@ -4,7 +4,6 @@ description: "관리자가 계정을 정지해도 access 토큰이 만료될 때
 date: 2026-10-17
 category: "Tech/Auth"
 tags: ["jwt", "sse", "auth", "typescript", "node"]
-draft: true
 ---
 
 ## 정지했는데 계속 쓴다

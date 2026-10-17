@@ -4,7 +4,6 @@ description: "노코드 UI 빌더 캔버스에 정렬선, 등간격, 거리 표�
 date: 2026-10-17
 category: "Tech/Editor"
 tags: ["react", "editor", "algorithm", "typescript"]
-draft: true
 ---
 
 회사에서 노코드 UI 빌더를 만들고 있다. 캔버스에 위젯을 끌어다 놓아 화면을 조립하는 도구다. 끌어다 놓는 것까지는 됐는데 줄을 맞추기가 어려웠다. 버튼 세 개를 나란히 놓으면 1~2px씩 어긋났고, 간격도 눈으로 맞춰야 했다.
