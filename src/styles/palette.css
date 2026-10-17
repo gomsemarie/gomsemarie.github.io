@@ -1,0 +1,314 @@
+/* Pastel Docs 디자인 시스템 색 토큰 (6개 테마 × 라이트·다크). 다크는 기본(blue) 다크의 명도·채도에 각 테마 색상(hue)을 입혀 만들었고, 모든 글자 조합이 4.5:1 이상이다 */
+:root,
+:root[data-palette="blue"] {
+  --canvas: #fcfdff;
+  --surface: #ffffff;
+  --surface-sunken: #f6faff;
+  --line: #f0f6ff;
+  --line-strong: #e5efff;
+  --ink: #25304a;
+  --ink-muted: #586178;
+  --on-primary: #25304a;
+  --primary: #cfe2ff;
+  --primary-soft: #edf4ff;
+  --primary-ink: #3b5d91;
+  --tip: #e6f7e9;
+  --tip-soft: #f4fbf5;
+  --tip-ink: #347f41;
+  --note: #e6e0ff;
+  --note-soft: #f4f1ff;
+  --note-ink: #4c3b91;
+  --caution: #fff1c9;
+  --caution-soft: #fff9e7;
+  --caution-ink: #826e35;
+  --danger: #f7ddf0;
+  --danger-soft: #fbf0f8;
+  --danger-ink: #913b7a;
+}
+
+:root[data-palette="lavender"] {
+  --canvas: #fcfbfe;
+  --surface: #ffffff;
+  --surface-sunken: #f8f4fc;
+  --line: #f3ebfa;
+  --line-strong: #eaddf7;
+  --ink: #2e2a3d;
+  --ink-muted: #645e75;
+  --on-primary: #2e2a3d;
+  --primary: #d9c2f0;
+  --primary-soft: #f1e8f9;
+  --primary-ink: #663b91;
+  --tip: #d6f5d6;
+  --tip-soft: #edfbed;
+  --tip-ink: #347f34;
+  --note: #cfe3ff;
+  --note-soft: #e9f2ff;
+  --note-ink: #3b5f91;
+  --caution: #ffe9b8;
+  --caution-soft: #fff5df;
+  --caution-ink: #826a35;
+  --danger: #ffd6e0;
+  --danger-soft: #ffedf1;
+  --danger-ink: #913b50;
+}
+
+:root[data-palette="cotton"] {
+  --canvas: #fefbfc;
+  --surface: #ffffff;
+  --surface-sunken: #fef5f8;
+  --line: #fcedf3;
+  --line-strong: #fbe1ea;
+  --ink: #3a2a33;
+  --ink-muted: #6e5a65;
+  --on-primary: #3a2a33;
+  --primary: #f7c8d8;
+  --primary-soft: #fceaf0;
+  --primary-ink: #913b58;
+  --tip: #d7f7f0;
+  --tip-soft: #edfbf8;
+  --tip-ink: #327b6b;
+  --note: #cfe6ff;
+  --note-soft: #e9f4ff;
+  --note-ink: #3b6491;
+  --caution: #fff1c9;
+  --caution-soft: #fff9e7;
+  --caution-ink: #826e35;
+  --danger: #ffd9cc;
+  --danger-soft: #ffeee8;
+  --danger-ink: #91513b;
+}
+
+:root[data-palette="mint"] {
+  --canvas: #fafefc;
+  --surface: #ffffff;
+  --surface-sunken: #f3fbf7;
+  --line: #eaf8f2;
+  --line-strong: #daf3e8;
+  --ink: #24342e;
+  --ink-muted: #56675f;
+  --on-primary: #24342e;
+  --primary: #bcead5;
+  --primary-soft: #e6f7ef;
+  --primary-ink: #317757;
+  --tip: #e6e0ff;
+  --tip-soft: #f4f1ff;
+  --tip-ink: #4c3b91;
+  --note: #cfe3ff;
+  --note-soft: #e9f2ff;
+  --note-ink: #3b5f91;
+  --caution: #fdf6bd;
+  --caution-soft: #fefbe1;
+  --caution-ink: #7b7332;
+  --danger: #ffd6a5;
+  --danger-soft: #ffedd6;
+  --danger-ink: #866237;
+}
+
+:root[data-palette="peach"] {
+  --canvas: #fafafc;
+  --surface: #ffffff;
+  --surface-sunken: #fff7f3;
+  --line: #fff0e9;
+  --line-strong: #ffe6d9;
+  --ink: #3b2c26;
+  --ink-muted: #6d5c55;
+  --on-primary: #3b2c26;
+  --primary: #ffd1ba;
+  --primary-soft: #ffeee5;
+  --primary-ink: #91583b;
+  --tip: #d7f7e8;
+  --tip-soft: #edfbf5;
+  --tip-ink: #327b59;
+  --note: #cfe8ff;
+  --note-soft: #e9f5ff;
+  --note-ink: #3b6891;
+  --caution: #fff1d6;
+  --caution-soft: #fff9ed;
+  --caution-ink: #866b37;
+  --danger: #fad7f0;
+  --danger-soft: #fdedf8;
+  --danger-ink: #913b78;
+}
+
+:root[data-palette="rose"] {
+  --canvas: #fefbfc;
+  --surface: #ffffff;
+  --surface-sunken: #fdf4f7;
+  --line: #fcebf0;
+  --line-strong: #fadde5;
+  --ink: #3a2a31;
+  --ink-muted: #6c5a62;
+  --on-primary: #3a2a31;
+  --primary: #f6c2d0;
+  --primary-soft: #fce8ed;
+  --primary-ink: #913b52;
+  --tip: #d6f2ff;
+  --tip-soft: #edf9ff;
+  --tip-ink: #3b7691;
+  --note: #e7d7ff;
+  --note-soft: #f4edff;
+  --note-ink: #5d3b91;
+  --caution: #fff1d6;
+  --caution-soft: #fff9ed;
+  --caution-ink: #866b37;
+  --danger: #ffdccc;
+  --danger-soft: #ffefe8;
+  --danger-ink: #91563b;
+}
+
+.dark,
+.dark[data-palette="blue"] {
+  --canvas: #161a1f;
+  --surface: #1d2128;
+  --surface-sunken: #1a1e23;
+  --line: #303640;
+  --line-strong: #424a57;
+  --ink: #eef1f7;
+  --ink-muted: #b9c0ca;
+  --on-primary: #161a1f;
+  --primary: #a8c0e6;
+  --primary-soft: #273245;
+  --primary-ink: #9abaea;
+  --tip: #a3e0ae;
+  --tip-soft: #223f27;
+  --tip-ink: #9aeaa8;
+  --note: #afa3e0;
+  --note-soft: #28223f;
+  --note-ink: #a99aea;
+  --caution: #e0d1a3;
+  --caution-soft: #3f3722;
+  --caution-ink: #ead59a;
+  --danger: #e0a3d0;
+  --danger-soft: #3f2237;
+  --danger-ink: #ea9ad4;
+}
+
+.dark[data-palette="lavender"] {
+  --canvas: #1a161f;
+  --surface: #221d28;
+  --surface-sunken: #1e1a23;
+  --line: #383040;
+  --line-strong: #4c4257;
+  --ink: #f2eef7;
+  --ink-muted: #c2b9ca;
+  --on-primary: #1a161f;
+  --primary: #c7a8e6;
+  --primary-soft: #362745;
+  --primary-ink: #c29aea;
+  --tip: #a3e0a3;
+  --tip-soft: #223f22;
+  --tip-ink: #9aea9a;
+  --note: #a3bde0;
+  --note-soft: #222e3f;
+  --note-ink: #9abbea;
+  --caution: #e0cda3;
+  --caution-soft: #3f3622;
+  --caution-ink: #ead19a;
+  --danger: #e0a3b2;
+  --danger-soft: #3f2229;
+  --danger-ink: #ea9aae;
+}
+
+.dark[data-palette="cotton"] {
+  --canvas: #1f1619;
+  --surface: #281d21;
+  --surface-sunken: #231a1d;
+  --line: #403035;
+  --line-strong: #574249;
+  --ink: #f7eef1;
+  --ink-muted: #cab9bf;
+  --on-primary: #1f1619;
+  --primary: #e6a8bd;
+  --primary-soft: #452731;
+  --primary-ink: #ea9ab5;
+  --tip: #a3e0d3;
+  --tip-soft: #223f39;
+  --tip-ink: #9aead8;
+  --note: #a3c0e0;
+  --note-soft: #22303f;
+  --note-ink: #9ac0ea;
+  --caution: #e0d0a3;
+  --caution-soft: #3f3722;
+  --caution-ink: #ead59a;
+  --danger: #e0b3a3;
+  --danger-soft: #3f2922;
+  --danger-ink: #eaae9a;
+}
+
+.dark[data-palette="mint"] {
+  --canvas: #161f1b;
+  --surface: #1d2823;
+  --surface-sunken: #1a231f;
+  --line: #304039;
+  --line-strong: #42574d;
+  --ink: #eef7f3;
+  --ink-muted: #b9cac2;
+  --on-primary: #161f1b;
+  --primary: #a8e6ca;
+  --primary-soft: #274537;
+  --primary-ink: #9aeac5;
+  --tip: #afa3e0;
+  --tip-soft: #28223f;
+  --tip-ink: #aa9aea;
+  --note: #a3bde0;
+  --note-soft: #222e3f;
+  --note-ink: #9abbea;
+  --caution: #e0d9a3;
+  --caution-soft: #3f3c22;
+  --caution-ink: #eae19a;
+  --danger: #e0c4a3;
+  --danger-soft: #3f3222;
+  --danger-ink: #eac69a;
+}
+
+.dark[data-palette="peach"] {
+  --canvas: #1f1916;
+  --surface: #28211d;
+  --surface-sunken: #231d1a;
+  --line: #403530;
+  --line-strong: #574942;
+  --ink: #f7f1ee;
+  --ink-muted: #cabfb9;
+  --on-primary: #1f1916;
+  --primary: #e6bda8;
+  --primary-soft: #453127;
+  --primary-ink: #eab59a;
+  --tip: #a3e0c4;
+  --tip-soft: #223f31;
+  --tip-ink: #9aeac5;
+  --note: #a3c3e0;
+  --note-soft: #22313f;
+  --note-ink: #9ac4ea;
+  --caution: #e0cba3;
+  --caution-soft: #3f3522;
+  --caution-ink: #eacf9a;
+  --danger: #e0a3ce;
+  --danger-soft: #3f2237;
+  --danger-ink: #ea9ad3;
+}
+
+.dark[data-palette="rose"] {
+  --canvas: #1f1618;
+  --surface: #281d20;
+  --surface-sunken: #231a1c;
+  --line: #403034;
+  --line-strong: #574248;
+  --ink: #f7eef0;
+  --ink-muted: #cab9be;
+  --on-primary: #1f1618;
+  --primary: #e6a8b9;
+  --primary-soft: #45272f;
+  --primary-ink: #ea9aaf;
+  --tip: #a3cde0;
+  --tip-soft: #22363f;
+  --tip-ink: #9ad1ea;
+  --note: #bba3e0;
+  --note-soft: #2d223f;
+  --note-ink: #ba9aea;
+  --caution: #e0cba3;
+  --caution-soft: #3f3522;
+  --caution-ink: #eacf9a;
+  --danger: #e0b6a3;
+  --danger-soft: #3f2b22;
+  --danger-ink: #eab39a;
+}

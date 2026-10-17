@@ -1,56 +1,80 @@
-/* 글 본문 (.md 렌더 결과) 스타일 */
+/* 글 본문(.md 렌더 결과) — Pastel Docs 문서 스타일 */
 .prose-blog {
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.8;
-  color: var(--foreground);
+  color: var(--ink);
   text-wrap: pretty;
   line-break: strict;
 }
 
 .prose-blog > * + * {
-  margin-top: 1.4em;
+  margin-top: 1.25em;
 }
 
+/* 제목: 둥근 글꼴 Jua. 섹션(h2) 사이는 점선, h3 앞에는 작은 primary 점 */
 .prose-blog h1,
 .prose-blog h2,
 .prose-blog h3,
 .prose-blog h4 {
   position: relative;
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 400;
+  color: var(--ink);
   text-wrap: balance;
 }
 .prose-blog h1,
 .prose-blog h2 {
-  margin-top: 3.2em;
-  font-size: 1.65rem;
-  line-height: 1.35;
-  letter-spacing: -0.025em;
+  margin-top: 2.4em;
+  padding-top: 1.6em;
+  border-top: 1.5px dashed var(--line-strong);
+  font-size: 24px;
+  line-height: 32px;
+}
+.prose-blog > h2:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
 }
 .prose-blog h3 {
-  margin-top: 2.4em;
-  font-size: 1.3rem;
-  line-height: 1.4;
-  letter-spacing: -0.02em;
+  margin-top: 2em;
+  font-size: 19px;
+  line-height: 27px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.prose-blog h3::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--primary);
+  flex: none;
+  order: -1;
 }
 .prose-blog h4 {
-  margin-top: 2em;
-  font-size: 1.1rem;
+  margin-top: 1.8em;
+  font-size: 17px;
 }
 .prose-blog h2 + *,
 .prose-blog h3 + *,
 .prose-blog h4 + * {
-  margin-top: 0.9em;
+  margin-top: 0.8em;
 }
 
 .prose-blog .heading-anchor {
   position: absolute;
   left: -1.1em;
   width: 1em;
-  color: var(--subtle-foreground);
-  font-weight: 500;
+  color: var(--primary-ink);
+  font-family: var(--font-sans);
   text-decoration: none;
   opacity: 0;
   transition: opacity 0.15s;
+}
+.prose-blog h3 .heading-anchor {
+  left: -1.5em;
 }
 .prose-blog :is(h2, h3, h4):hover .heading-anchor,
 .prose-blog .heading-anchor:focus-visible {
@@ -58,31 +82,29 @@
 }
 
 .prose-blog a:not(.heading-anchor) {
-  color: var(--accent);
+  color: var(--primary-ink);
   text-decoration: underline;
-  text-decoration-thickness: 1px;
+  text-decoration-thickness: 1.5px;
   text-underline-offset: 3px;
-}
-.prose-blog a:not(.heading-anchor):hover {
-  text-decoration-thickness: 2px;
 }
 
 .prose-blog strong {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .prose-blog :not(pre) > code {
   font-family: var(--font-mono);
-  font-size: 0.86em;
-  padding: 0.15em 0.4em;
-  border-radius: 5px;
-  background: var(--muted-strong);
+  font-size: 0.84em;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-sunken);
+  border: 1px solid var(--line);
   word-break: break-word;
 }
 
 .prose-blog ul,
 .prose-blog ol {
-  padding-left: 1.4em;
+  padding-left: 1.3em;
 }
 .prose-blog ul {
   list-style: disc;
@@ -91,60 +113,84 @@
   list-style: decimal;
 }
 .prose-blog li + li {
-  margin-top: 0.4em;
+  margin-top: 0.35em;
 }
 .prose-blog li::marker {
-  color: var(--subtle-foreground);
+  color: var(--primary-ink);
 }
 .prose-blog li > ul,
 .prose-blog li > ol {
-  margin-top: 0.4em;
+  margin-top: 0.35em;
 }
 .prose-blog .contains-task-list {
   list-style: none;
   padding-left: 0.2em;
 }
 
+/* 인용: 둥근 우물 + 네 변 같은 선 (한쪽 막대 없음) */
 .prose-blog blockquote {
-  padding: 2px 0 2px 1.2em;
-  border-left: 2px solid var(--foreground);
-  color: var(--muted-foreground);
+  padding: 14px 18px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface-sunken);
+  color: var(--ink-muted);
+}
+.prose-blog blockquote > * + * {
+  margin-top: 0.6em;
 }
 
 .prose-blog hr {
   border: 0;
-  border-top: 1px solid var(--border);
-  margin: 3em 0;
+  border-top: 1.5px dashed var(--line-strong);
+  margin: 2.5em 0;
 }
 
+/* 표: 둥근 테두리 상자, 머리글은 primary-soft */
 .prose-blog table {
   display: block;
   width: 100%;
   overflow-x: auto;
-  border-collapse: collapse;
-  font-size: 15px;
-  line-height: 1.6;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  font-size: 14px;
+  line-height: 22px;
+  font-variant-numeric: tabular-nums;
 }
 .prose-blog th,
 .prose-blog td {
   padding: 10px 14px;
-  border-bottom: 1px solid var(--border);
   text-align: left;
-  white-space: nowrap;
+  vertical-align: top;
 }
 .prose-blog th {
   font-weight: 600;
-  border-bottom-color: var(--foreground);
+  font-size: 13px;
+  color: var(--primary-ink);
+  background: var(--primary-soft);
+  white-space: nowrap;
+}
+.prose-blog td {
+  border-top: 1px solid var(--line);
+}
+.prose-blog tbody tr:first-child td {
+  border-top: 0;
 }
 
+/* 그림 */
 .prose-blog img {
   max-width: 100%;
   height: auto;
-  border-radius: 12px;
-  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
 }
 .prose-blog .md-figure {
   margin-inline: 0;
+  padding: 14px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
 }
 .prose-blog .md-figure img {
   margin-inline: auto;
@@ -152,102 +198,68 @@
 }
 .prose-blog figcaption {
   margin-top: 10px;
-  font-size: 14px;
-  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 20px;
+  color: var(--ink-muted);
   text-align: center;
 }
 
-/* 콜아웃: remark-callouts가 만든 <aside class="callout" data-kind> */
+/* 콜아웃: 틴트 배경 + 네 변 같은 선 + 알약 라벨. 측면 막대 없음 */
 .prose-blog .callout {
-  --callout-bg: #eef2fb;
-  --callout-fg: #1e3a72;
-  padding: 16px 20px 16px 52px;
-  position: relative;
-  border-radius: 12px;
-  background: var(--callout-bg);
-  color: var(--callout-fg);
+  --callout-soft: var(--note-soft);
+  --callout-ink: var(--note-ink);
+  display: grid;
+  gap: 8px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--callout-soft);
+  color: var(--ink);
   font-size: 15px;
   line-height: 1.75;
 }
 .prose-blog .callout > * + * {
-  margin-top: 0.6em;
+  margin-top: 0;
 }
 .prose-blog .callout .callout-title {
-  font-size: 14px;
-  font-weight: 700;
-}
-.prose-blog .callout .callout-title + * {
-  margin-top: 2px;
-}
-.prose-blog .callout::before {
-  content: "";
-  position: absolute;
-  left: 20px;
-  top: 19px;
-  width: 20px;
-  height: 20px;
-  background: currentColor;
-  -webkit-mask: var(--callout-icon) center / contain no-repeat;
-  mask: var(--callout-icon) center / contain no-repeat;
-}
-.prose-blog .callout a:not(.heading-anchor),
-.prose-blog .callout code {
-  color: inherit;
+  justify-self: start;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--callout-ink);
 }
 .prose-blog .callout :not(pre) > code {
-  background: rgba(0, 0, 0, 0.06);
-}
-
-.prose-blog .callout[data-kind="note"] {
-  --callout-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9'/%3E%3Cpath d='M12 16v-4M12 8h.01'/%3E%3C/svg%3E");
+  background: var(--surface);
 }
 .prose-blog .callout[data-kind="tip"] {
-  --callout-bg: #eaf5ef;
-  --callout-fg: #1d4d35;
-  --callout-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z'/%3E%3C/svg%3E");
+  --callout-soft: var(--tip-soft);
+  --callout-ink: var(--tip-ink);
 }
 .prose-blog .callout[data-kind="important"] {
-  --callout-bg: #f6e7ee;
-  --callout-fg: #6e1f45;
-  --callout-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z'/%3E%3Cpath d='M12 7v4M12 14h.01'/%3E%3C/svg%3E");
+  --callout-soft: var(--primary-soft);
+  --callout-ink: var(--primary-ink);
 }
 .prose-blog .callout[data-kind="warning"] {
-  --callout-bg: #fbf1e4;
-  --callout-fg: #6b3d0b;
-  --callout-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z'/%3E%3Cpath d='M12 9v4M12 17h.01'/%3E%3C/svg%3E");
+  --callout-soft: var(--caution-soft);
+  --callout-ink: var(--caution-ink);
 }
 .prose-blog .callout[data-kind="caution"] {
-  --callout-bg: #fbeaea;
-  --callout-fg: #7a1f1f;
-  --callout-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7.9 2h8.2L22 7.9v8.2L16.1 22H7.9L2 16.1V7.9z'/%3E%3Cpath d='M12 8v4M12 16h.01'/%3E%3C/svg%3E");
+  --callout-soft: var(--danger-soft);
+  --callout-ink: var(--danger-ink);
 }
-.dark .prose-blog .callout[data-kind="note"] { --callout-bg: #172238; --callout-fg: #c9d8f8; }
-.dark .prose-blog .callout[data-kind="tip"] { --callout-bg: #13281d; --callout-fg: #bfe5cf; }
-.dark .prose-blog .callout[data-kind="important"] { --callout-bg: #2c1622; --callout-fg: #f6c6db; }
-.dark .prose-blog .callout[data-kind="warning"] { --callout-bg: #2e2213; --callout-fg: #f4d6a8; }
-.dark .prose-blog .callout[data-kind="caution"] { --callout-bg: #2e1616; --callout-fg: #f5c2c2; }
-.dark .prose-blog .callout :not(pre) > code { background: rgba(255, 255, 255, 0.08); }
 
 /* Expressive Code 블록 간격 */
 .prose-blog .expressive-code {
-  margin-top: 1.6em;
-  margin-bottom: 1.6em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
 }
 
 @media (max-width: 640px) {
-  .prose-blog {
-    font-size: 16.5px;
-  }
-  .prose-blog h2 {
-    font-size: 1.45rem;
-  }
   .prose-blog .heading-anchor {
     display: none;
-  }
-  .prose-blog .expressive-code {
-    margin-inline: -20px;
-  }
-  .prose-blog .expressive-code .frame {
-    border-radius: 0;
   }
 }

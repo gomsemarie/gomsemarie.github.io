@@ -10,25 +10,23 @@ interface Props {
 }
 
 const { tree, total, active } = Astro.props;
-const base = "rounded-full px-3.5 py-1.5 text-sm";
+const items = [{ href: "/", label: "전체", count: total, on: !active }, ...tree.map((n) => ({ href: categoryHref(n.path), label: n.label, count: n.count, on: active === n.path[0] }))];
 ---
 
-<nav aria-label="카테고리" class="mb-10 flex flex-wrap gap-2">
-  <a href="/" aria-current={!active ? "page" : undefined} class:list={[base, !active ? "bg-foreground font-medium text-background" : "border border-border hover:border-foreground"]}>
-    전체 <span class="font-mono text-xs opacity-60">{total}</span>
-  </a>
+<nav aria-label="카테고리" class="mb-8 flex flex-wrap gap-2">
   {
-    tree.map((node) => {
-      const on = active === node.path[0];
-      return (
-        <a
-          href={categoryHref(node.path)}
-          aria-current={on ? "page" : undefined}
-          class:list={[base, on ? "bg-foreground font-medium text-background" : "border border-border hover:border-foreground"]}
-        >
-          {node.label} <span class:list={["font-mono text-xs", on ? "opacity-60" : "text-muted-foreground"]}>{node.count}</span>
-        </a>
-      );
-    })
+    items.map((item) => (
+      <a
+        href={item.href}
+        aria-current={item.on ? "page" : undefined}
+        class:list={[
+          "inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm",
+          item.on ? "bg-primary font-semibold text-on-primary" : "border-[1.5px] border-line bg-surface text-ink-muted hover:bg-primary-soft hover:text-primary-ink",
+        ]}
+      >
+        {item.label}
+        <span class="font-mono text-xs tabular-nums opacity-70">{item.count}</span>
+      </a>
+    ))
   }
 </nav>

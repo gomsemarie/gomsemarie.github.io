@@ -106,12 +106,12 @@ export default function SearchPalette({ tags }: Props) {
         onClick={() => setOpen(true)}
         onPointerEnter={warmUp}
         onFocus={warmUp}
-        className="hidden h-9 min-w-[200px] items-center justify-between gap-3 rounded-lg border border-border bg-surface pl-3 pr-2.5 text-sm text-muted-foreground hover:text-foreground md:flex"
+        className="hidden h-10 min-w-[190px] items-center justify-between gap-3 rounded-full border-[1.5px] border-line bg-surface pl-4 pr-2 text-sm text-ink-muted hover:bg-primary-soft hover:text-primary-ink md:flex"
       >
         <span className="flex items-center gap-2">
           <Search className="size-4" aria-hidden="true" />글 검색
         </span>
-        <kbd className="rounded border border-border px-1.5 font-mono text-xs">⌘K</kbd>
+        <kbd className="rounded-full bg-sunken px-2 py-0.5 font-mono text-[11px]">⌘K</kbd>
       </button>
       <button
         type="button"
@@ -119,7 +119,7 @@ export default function SearchPalette({ tags }: Props) {
         onPointerEnter={warmUp}
         onFocus={warmUp}
         aria-label="글 검색"
-        className="grid size-10 place-items-center rounded-lg text-foreground hover:bg-muted-strong md:hidden"
+        className="grid size-10 place-items-center rounded-full text-ink hover:bg-primary-soft md:hidden"
       >
         <Search className="size-5" aria-hidden="true" />
       </button>
@@ -140,26 +140,26 @@ export default function SearchPalette({ tags }: Props) {
             <CommandInput value={query} onValueChange={setQuery} placeholder="제목, 내용, 태그로 검색" autoFocus />
             <CommandList>
               {status === "unavailable" && (
-                <p className="px-3 py-10 text-center text-sm text-muted-foreground">
+                <p className="px-3 py-10 text-center text-sm text-ink-muted">
                   검색 인덱스가 없어요. <code className="font-mono">pnpm build</code> 후 미리보기에서 사용할 수 있습니다.
                 </p>
               )}
               {(status === "loading" || searching) && q && results.length === 0 && (
-                <p className="px-3 py-10 text-center text-sm text-muted-foreground">검색 중…</p>
+                <p className="px-3 py-10 text-center text-sm text-ink-muted">검색 중…</p>
               )}
               {status === "ready" && !searching && q && results.length === 0 && matchedTags.length === 0 && (
                 <CommandEmpty>“{query}”에 대한 결과가 없어요.</CommandEmpty>
               )}
               {!q && status !== "unavailable" && (
-                <p className="px-3 py-10 text-center text-sm text-muted-foreground">검색어를 입력하세요.</p>
+                <p className="px-3 py-10 text-center text-sm text-ink-muted">검색어를 입력하세요.</p>
               )}
               {results.length > 0 && (
                 <CommandGroup heading={`글 · ${results.length}`}>
                   {results.map((r) => (
                     <CommandItem key={r.url} value={r.url} onSelect={() => go(r.url)}>
-                      <span className="text-[15px] font-semibold">{r.meta.title}</span>
+                      <span className="font-display text-[16px]">{r.meta.title}</span>
                       <span
-                        className="text-[13px] leading-relaxed text-muted-foreground [&_mark]:rounded-[3px] [&_mark]:bg-accent-soft [&_mark]:px-0.5 [&_mark]:text-accent"
+                        className="text-[13px] leading-relaxed text-ink-muted [&_mark]:rounded-full [&_mark]:bg-primary [&_mark]:px-1 [&_mark]:text-on-primary"
                         dangerouslySetInnerHTML={{ __html: r.excerpt }}
                       />
                     </CommandItem>
@@ -170,8 +170,8 @@ export default function SearchPalette({ tags }: Props) {
                 <CommandGroup heading={`태그 · ${matchedTags.length}`}>
                   {matchedTags.map((t) => (
                     <CommandItem key={t.slug} value={`tag-${t.slug}`} onSelect={() => go(`/tags/${t.slug}/`)} className="flex-row">
-                      <span className="font-mono text-sm">
-                        #{t.tag} <span className="text-muted-foreground">{t.count}</span>
+                      <span className="pd-tag pd-tag--primary">
+                        #{t.tag} <span className="text-ink-muted">{t.count}</span>
                       </span>
                     </CommandItem>
                   ))}
@@ -179,7 +179,7 @@ export default function SearchPalette({ tags }: Props) {
               )}
             </CommandList>
           </Command>
-          <div className="flex gap-5 border-t border-border px-5 py-3 text-xs text-muted-foreground">
+          <div className="flex gap-5 border-t-[1.5px] border-line px-5 py-3 text-xs text-ink-muted">
             <span><kbd className="font-mono">↑↓</kbd> 이동</span>
             <span><kbd className="font-mono">↵</kbd> 열기</span>
             <span><kbd className="font-mono">esc</kbd> 닫기</span>

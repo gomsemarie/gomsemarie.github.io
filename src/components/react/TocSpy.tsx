@@ -37,16 +37,15 @@ export default function TocSpy({ headings }: { headings: Heading[] }) {
   }, [headings]);
 
   return (
-    <ol className="flex flex-col gap-2.5 border-l border-border text-sm leading-normal">
+    <ol className="grid gap-0.5 text-[13px] leading-5">
       {headings.map((h) => (
-        <li key={h.slug} className={cn("-ml-px border-l-2 border-transparent", active === h.slug && "border-accent")}>
+        <li key={h.slug} className={cn(h.depth === 3 && "pl-3")}>
           <a
             href={`#${h.slug}`}
             aria-current={active === h.slug ? "location" : undefined}
             className={cn(
-              "block",
-              h.depth === 3 ? "pl-[26px]" : "pl-3.5",
-              active === h.slug ? "font-semibold text-foreground" : "text-muted-foreground hover:text-foreground",
+              "block rounded-full px-3.5 py-[7px]",
+              active === h.slug ? "bg-primary-soft font-semibold text-primary-ink" : "text-ink-muted hover:bg-sunken hover:text-ink",
             )}
           >
             {h.text}

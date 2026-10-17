@@ -30,7 +30,7 @@ function DialogContent({ className, children, ...props }: React.ComponentProps<t
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "fixed left-1/2 top-[12vh] z-50 w-[calc(100%-32px)] max-w-[640px] -translate-x-1/2 overflow-hidden rounded-2xl border border-border bg-surface text-foreground shadow-[0_24px_80px_rgba(0,0,0,0.25)] outline-none",
+          "fixed left-1/2 top-[12vh] z-50 w-[calc(100%-32px)] max-w-[640px] -translate-x-1/2 overflow-hidden rounded-[var(--radius-lg)] border-[1.5px] border-line bg-surface text-ink shadow-panel outline-none",
           className,
         )}
         {...props}
@@ -49,7 +49,7 @@ function DialogDescription({ className, ...props }: React.ComponentProps<typeof 
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
-      className={cn("text-sm text-muted-foreground", className)}
+      className={cn("text-sm text-ink-muted", className)}
       {...props}
     />
   );

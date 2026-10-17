@@ -1,38 +1,40 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import { getPosts } from "@/lib/posts";
-import { formatMonthDay } from "@/lib/posts";
+import { getPosts, formatMonthDay } from "@/lib/posts";
 import { buildCategoryTree, categoryHref, getSeries, tagCounts } from "@/lib/taxonomy";
 
 const posts = await getPosts();
 const tree = buildCategoryTree(posts);
 const tags = tagCounts(posts);
 const series = getSeries(posts);
+const heading = "mb-4 font-display text-[18px] text-primary-ink";
 ---
 
 <BaseLayout title="카테고리와 태그" description="모든 카테고리, 태그, 시리즈 모아보기">
-  <div class="mx-auto max-w-[1120px] px-5 pb-24 pt-14 md:px-8 md:pt-[72px]">
-    <h1 class="text-[32px] font-bold tracking-[-0.03em] md:text-[40px]">카테고리와 태그</h1>
-    <p class="mt-3 text-[17px] text-muted-foreground">
+  <div class="mx-auto max-w-[1180px] px-4 pb-24 pt-14 md:px-8 md:pt-[72px]">
+    <div class="pd-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+    <h1 class="mt-4 font-display text-[32px] text-ink md:text-[40px]">카테고리와 태그</h1>
+    <p class="mt-2 text-[16px] text-ink-muted">
       글 {posts.length}편 · 카테고리 {tree.length}개 · 태그 {tags.length}개 · 시리즈 {series.length}개
     </p>
 
-    <div class="mt-14 flex flex-wrap gap-[72px]">
+    <div class="mt-12 flex flex-wrap gap-10 lg:gap-14">
       <section aria-label="카테고리" class="flex-[1_1_280px]">
-        <h2 class="mb-4 font-mono text-[13px] font-medium tracking-[0.04em] text-muted-foreground">CATEGORIES</h2>
-        <ul class="border-b border-border text-[15px]">
+        <h2 class={heading}>카테고리</h2>
+        <ul class="grid gap-2">
           {
             tree.map((node) => (
-              <li class="border-t border-border py-3">
-                <a href={categoryHref(node.path)} class="flex justify-between font-semibold hover:text-accent">
-                  {node.label} <span class="font-mono text-[13px] font-normal text-muted-foreground">{node.count}</span>
+              <li class="rounded-[var(--radius-md)] border-[1.5px] border-line bg-surface p-2">
+                <a href={categoryHref(node.path)} class="flex items-center justify-between rounded-full px-3 py-1.5 font-semibold hover:bg-primary-soft hover:text-primary-ink">
+                  {node.label} <span class="pd-tag pd-tag--primary">{node.count}</span>
                 </a>
                 {node.children.length > 0 && (
-                  <ul class="mt-2 flex flex-col gap-1.5 border-l border-border pl-3.5 text-sm">
+                  <ul class="mt-1 grid gap-0.5 pl-3 text-sm">
                     {node.children.map((c) => (
                       <li>
-                        <a href={categoryHref(c.path)} class="flex justify-between text-muted-foreground hover:text-accent">
-                          {c.label} <span class="font-mono text-xs">{c.count}</span>
+                        <a href={categoryHref(c.path)} class="flex items-center justify-between rounded-full px-3 py-1.5 text-ink-muted hover:bg-primary-soft hover:text-primary-ink">
+                          <span class="flex items-center gap-2"><span class="size-1.5 rounded-full bg-primary" aria-hidden="true" />{c.label}</span>
+                          <span class="text-xs tabular-nums">{c.count}</span>
                         </a>
                       </li>
                     ))}
@@ -44,14 +46,14 @@ const series = getSeries(posts);
         </ul>
       </section>
 
-      <div class="flex min-w-0 flex-[999_1_560px] flex-col gap-14">
+      <div class="flex min-w-0 flex-[999_1_560px] flex-col gap-12">
         <section aria-label="태그">
-          <h2 class="mb-4 font-mono text-[13px] font-medium tracking-[0.04em] text-muted-foreground">TAGS</h2>
-          <div class="flex flex-wrap gap-2 font-mono text-[13px]">
+          <h2 class={heading}>태그</h2>
+          <div class="flex flex-wrap gap-2">
             {
               tags.map((t) => (
-                <a href={`/tags/${t.slug}/`} class="rounded-lg border border-border bg-surface px-3 py-1.5 text-muted-foreground hover:border-foreground hover:text-foreground">
-                  #{t.tag} <span class="text-subtle-foreground">{t.count}</span>
+                <a href={`/tags/${t.slug}/`} class="pd-tag">
+                  #{t.tag} <span class="opacity-70">{t.count}</span>
                 </a>
               ))
             }
@@ -61,18 +63,21 @@ const series = getSeries(posts);
         {
           series.length > 0 && (
             <section aria-label="시리즈" id="series">
-              <h2 class="mb-4 font-mono text-[13px] font-medium tracking-[0.04em] text-muted-foreground">SERIES</h2>
+              <h2 class={heading}>시리즈</h2>
               <div class="flex flex-col gap-3">
                 {series.map((s) => (
-                  <a href={`/series/${s.slug}/`} class="flex flex-wrap gap-6 rounded-xl border border-border bg-surface p-6 hover:border-foreground">
-                    <div class="flex-[1_1_260px]">
-                      <p class="text-lg font-bold tracking-[-0.02em]">{s.name}</p>
-                      <p class="mt-1.5 font-mono text-xs text-accent">{s.posts.length}편</p>
+                  <a href={`/series/${s.slug}/`} class="pd-card flex flex-wrap gap-6 p-6">
+                    <div class="flex-[1_1_220px]">
+                      <span class="pd-tag pd-tag--primary">{s.posts.length}편</span>
+                      <p class="mt-3 font-display text-[20px] text-ink">{s.name}</p>
                     </div>
-                    <ol class="flex-[1_1_260px] list-decimal pl-5 text-sm leading-[1.9] text-muted-foreground">
-                      {s.posts.map((p) => (
-                        <li>
-                          {p.data.title.split(" — ")[0]} <span class="font-mono text-xs text-subtle-foreground">{formatMonthDay(p.data.date)}</span>
+                    <ol class="grid flex-[1_1_260px] gap-2 text-sm text-ink-muted">
+                      {s.posts.map((p, i) => (
+                        <li class="grid grid-cols-[22px_minmax(0,1fr)] gap-2">
+                          <span class="grid size-[22px] place-items-center rounded-full bg-primary font-display text-[12px] text-on-primary">{i + 1}</span>
+                          <span class="pt-px">
+                            {p.data.title.split(" — ")[0]} <span class="text-xs tabular-nums">{formatMonthDay(p.data.date)}</span>
+                          </span>
                         </li>
                       ))}
                     </ol>

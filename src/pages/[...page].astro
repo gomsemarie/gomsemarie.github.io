@@ -25,18 +25,19 @@ const isFirst = page.currentPage === 1;
 ---
 
 <BaseLayout title={isFirst ? undefined : `글 목록 ${page.currentPage}페이지`}>
-  <div class="mx-auto max-w-[1120px] px-5 md:px-8">
+  <div class="mx-auto max-w-[1180px] px-4 md:px-8">
     {
       isFirst && (
-        <section class="border-b border-border pb-14 pt-16 md:pb-16 md:pt-[88px]">
-          <h1 class="text-[38px] leading-[1.2] font-bold tracking-[-0.035em] md:text-[56px]">프론트엔드 개발 노트</h1>
-          <p class="mt-6 max-w-[560px] text-[17px] leading-[1.7] text-muted-foreground md:text-lg">
+        <section class="pd-panel mt-8 px-6 py-10 md:mt-12 md:px-12 md:py-14">
+          <div class="pd-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+          <h1 class="mt-5 font-display text-[36px] leading-[1.25] text-ink md:text-[48px]">프론트엔드 개발 노트</h1>
+          <p class="mt-4 max-w-[560px] text-[16px] leading-[1.75] text-ink-muted">
             React, Next.js, 배포 같은 걸 다루다가 정리해 둘 만한 게 생기면 올린다.
           </p>
-          <div class="mt-7 flex flex-wrap gap-5 text-sm">
-            <a href="/about/" class="font-semibold text-accent">소개</a>
-            <a href="/rss.xml" class="text-muted-foreground hover:text-foreground">RSS</a>
-            <a href={SITE.github} class="text-muted-foreground hover:text-foreground" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <div class="mt-6 flex flex-wrap gap-2">
+            <a href="/about/" class="pd-tag pd-tag--primary">소개</a>
+            <a href="/rss.xml" class="pd-tag">RSS</a>
+            <a href={SITE.github} class="pd-tag" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </section>
       )

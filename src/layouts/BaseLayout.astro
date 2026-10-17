@@ -28,20 +28,20 @@ const ogImage = new URL(image, Astro.site);
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/avatar.jpeg" type="image/jpeg" />
-    <!-- Pretendard(동적 서브셋)는 렌더링을 막지 않도록 비동기로 불러온다. 로드 전에는 시스템 폰트로 보인다 -->
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <!-- Pastel Docs 글꼴(제목 Jua, 본문 IBM Plex Sans KR). 렌더링을 막지 않도록 비동기로 불러온다 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
+      href="https://fonts.googleapis.com/css2?family=Jua&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap"
       media="print"
       onload="this.media='all'"
-      crossorigin
     />
     <link rel="alternate" type="application/rss+xml" title={SITE.title} href="/rss.xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0f0f11" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fcfdff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#161a1f" media="(prefers-color-scheme: dark)" />
 
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content={SITE.title} />
@@ -55,18 +55,21 @@ const ogImage = new URL(image, Astro.site);
     {publishedTime && <meta property="article:published_time" content={publishedTime.toISOString()} />}
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- 첫 페인트 전에 테마를 적용해 깜빡임을 막는다. 페이지 전환 뒤에도 다시 적용한다 -->
+    <!-- 첫 페인트 전에 라이트·다크와 색 테마를 적용해 깜빡임을 막는다. 페이지 전환 뒤에도 다시 적용한다 -->
     <script is:inline>
       (() => {
         const apply = () => {
-          let theme;
+          let theme, palette;
           try {
             theme = localStorage.getItem("theme");
+            palette = localStorage.getItem("palette");
           } catch {}
           if (theme !== "light" && theme !== "dark") {
             theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
           }
-          document.documentElement.classList.toggle("dark", theme === "dark");
+          const root = document.documentElement;
+          root.classList.toggle("dark", theme === "dark");
+          if (["blue", "lavender", "cotton", "mint", "peach", "rose"].includes(palette)) root.dataset.palette = palette;
         };
         apply();
         if (!window.__themeListener) {

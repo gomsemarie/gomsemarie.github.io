@@ -8,30 +8,30 @@ interface Props {
 const { page } = Astro.props;
 const href = (n: number) => (n === 1 ? "/" : `/${n}/`);
 const pages = Array.from({ length: page.lastPage }, (_, i) => i + 1);
-const base = "grid h-10 min-w-10 place-items-center rounded-lg px-3 text-sm";
+const base = "grid h-10 min-w-10 place-items-center rounded-full px-3 text-sm";
 ---
 
 {
   page.lastPage > 1 && (
-    <nav aria-label="페이지" class="mt-10 flex flex-wrap items-center gap-1 border-t border-border pt-8">
+    <nav aria-label="페이지" class="mt-10 flex flex-wrap items-center gap-1 border-t-[1.5px] border-dashed border-line-strong pt-8">
       {page.url.prev ? (
-        <a href={page.url.prev} class:list={[base, "text-muted-foreground hover:text-foreground"]}>← 이전</a>
+        <a href={page.url.prev} class:list={[base, "text-ink-muted hover:bg-primary-soft hover:text-primary-ink"]}>← 이전</a>
       ) : (
-        <span class:list={[base, "text-subtle-foreground"]} aria-hidden="true">← 이전</span>
+        <span class:list={[base, "text-ink-muted opacity-50"]} aria-hidden="true">← 이전</span>
       )}
       {pages.map((n) => (
         <a
           href={href(n)}
           aria-current={n === page.currentPage ? "page" : undefined}
-          class:list={[base, "font-mono", n === page.currentPage ? "bg-foreground text-background" : "text-muted-foreground hover:text-foreground"]}
+          class:list={[base, "font-display tabular-nums", n === page.currentPage ? "bg-primary text-on-primary" : "text-ink-muted hover:bg-primary-soft hover:text-primary-ink"]}
         >
           {n}
         </a>
       ))}
       {page.url.next ? (
-        <a href={page.url.next} class:list={[base, "text-muted-foreground hover:text-foreground"]}>다음 →</a>
+        <a href={page.url.next} class:list={[base, "text-ink-muted hover:bg-primary-soft hover:text-primary-ink"]}>다음 →</a>
       ) : (
-        <span class:list={[base, "text-subtle-foreground"]} aria-hidden="true">다음 →</span>
+        <span class:list={[base, "text-ink-muted opacity-50"]} aria-hidden="true">다음 →</span>
       )}
     </nav>
   )

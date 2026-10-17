@@ -7,7 +7,7 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
   return (
     <CommandPrimitive
       data-slot="command"
-      className={cn("flex h-full w-full flex-col overflow-hidden bg-surface text-foreground", className)}
+      className={cn("flex h-full w-full flex-col overflow-hidden bg-surface text-ink", className)}
       {...props}
     />
   );
@@ -15,12 +15,12 @@ function Command({ className, ...props }: React.ComponentProps<typeof CommandPri
 
 function CommandInput({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.Input>) {
   return (
-    <div data-slot="command-input-wrapper" className="flex h-15 items-center gap-3 border-b border-border px-5">
-      <SearchIcon className="size-[18px] shrink-0 text-muted-foreground" aria-hidden="true" />
+    <div data-slot="command-input-wrapper" className="flex h-15 items-center gap-3 border-b-[1.5px] border-line px-5">
+      <SearchIcon className="size-[18px] shrink-0 text-ink-muted" aria-hidden="true" />
       <CommandPrimitive.Input
         data-slot="command-input"
         className={cn(
-          "h-10 w-full bg-transparent text-[17px] outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed",
+          "h-10 w-full bg-transparent text-[17px] outline-none placeholder:text-ink-muted disabled:cursor-not-allowed",
           className,
         )}
         {...props}
@@ -40,7 +40,7 @@ function CommandList({ className, ...props }: React.ComponentProps<typeof Comman
 }
 
 function CommandEmpty(props: React.ComponentProps<typeof CommandPrimitive.Empty>) {
-  return <CommandPrimitive.Empty data-slot="command-empty" className="py-10 text-center text-sm text-muted-foreground" {...props} />;
+  return <CommandPrimitive.Empty data-slot="command-empty" className="py-10 text-center text-sm text-ink-muted" {...props} />;
 }
 
 function CommandGroup({ className, ...props }: React.ComponentProps<typeof CommandPrimitive.Group>) {
@@ -48,7 +48,7 @@ function CommandGroup({ className, ...props }: React.ComponentProps<typeof Comma
     <CommandPrimitive.Group
       data-slot="command-group"
       className={cn(
-        "[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pb-2 [&_[cmdk-group-heading]]:pt-3 [&_[cmdk-group-heading]]:font-mono [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:text-muted-foreground",
+        "[&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:pb-2 [&_[cmdk-group-heading]]:pt-3 [&_[cmdk-group-heading]]:font-display [&_[cmdk-group-heading]]:text-[14px] [&_[cmdk-group-heading]]:text-primary-ink",
         className,
       )}
       {...props}
@@ -61,7 +61,7 @@ function CommandItem({ className, ...props }: React.ComponentProps<typeof Comman
     <CommandPrimitive.Item
       data-slot="command-item"
       className={cn(
-        "relative flex cursor-pointer select-none flex-col gap-1 rounded-[10px] px-3.5 py-3 outline-none data-[selected=true]:bg-muted-strong data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50",
+        "relative flex cursor-pointer select-none flex-col gap-1 rounded-[var(--radius-md)] px-3.5 py-3 outline-none data-[selected=true]:bg-primary-soft data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50",
         className,
       )}
       {...props}

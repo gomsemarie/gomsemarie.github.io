@@ -45,44 +45,55 @@ const editUrl = `${SITE.repo}/edit/develop/${post.filePath}`;
   type="article"
   publishedTime={data.date}
 >
-  <div slot="top" aria-hidden="true" class="fixed inset-x-0 top-0 z-50 h-0.5">
-    <div id="reading-progress" class="h-full origin-left scale-x-0 bg-accent"></div>
+  <div slot="top" aria-hidden="true" class="fixed inset-x-0 top-0 z-50 h-[3px]">
+    <div id="reading-progress" class="h-full origin-left scale-x-0 rounded-r-full bg-primary-ink"></div>
   </div>
 
-  <div class="mx-auto flex max-w-[1120px] flex-wrap gap-[72px] px-5 md:px-8">
-    <article class="min-w-0 max-w-[720px] flex-[999_1_560px] pb-24 pt-10 md:pt-[72px]">
-      <nav aria-label="경로" class="flex flex-wrap gap-2 text-sm text-muted-foreground">
+  <!-- DocShell: 왼쪽 목차 + 오른쪽 읽기 패널 -->
+  <div class="mx-auto grid max-w-[1180px] items-start gap-8 px-4 pb-20 pt-8 md:px-8 md:pt-10 lg:grid-cols-[240px_minmax(0,1fr)]">
+    <aside aria-label="목차" class="sticky top-24 hidden max-h-[calc(100vh-7rem)] overflow-y-auto lg:block">
+      {
+        toc.length > 0 && (
+          <>
+            <p class="px-3.5 pb-2 font-display text-[15px] text-primary-ink">목차</p>
+            <TocSpy client:idle headings={toc.map(({ depth, slug, text }) => ({ depth, slug, text }))} />
+          </>
+        )
+      }
+      <div class="mt-6 grid gap-0.5 border-t-[1.5px] border-dashed border-line-strong pt-4 text-[13px]">
+        <a href="#main" class="rounded-full px-3.5 py-1.5 text-ink-muted hover:bg-sunken hover:text-ink">↑ 맨 위로</a>
+        <a href={editUrl} class="rounded-full px-3.5 py-1.5 text-ink-muted hover:bg-sunken hover:text-ink" target="_blank" rel="noopener noreferrer">GitHub에서 수정하기</a>
+      </div>
+    </aside>
+
+    <article class="pd-panel min-w-0 px-5 py-8 sm:px-8 md:px-12 md:py-10">
+      <nav aria-label="경로" class="flex flex-wrap gap-2">
         {
           segments.map((seg, i) => (
-            <>
-              {i > 0 && <span aria-hidden="true">/</span>}
-              <a
-                href={categoryHref(segments.slice(0, i + 1))}
-                class:list={[i === segments.length - 1 ? "font-medium text-accent" : "hover:text-foreground"]}
-              >
-                {categoryLabel(seg, i)}
-              </a>
-            </>
+            <a href={categoryHref(segments.slice(0, i + 1))} class:list={["pd-tag", i === segments.length - 1 && "pd-tag--primary"]}>
+              {categoryLabel(seg, i)}
+            </a>
           ))
         }
       </nav>
 
       <div data-pagefind-body>
-        <h1 class="mt-4 text-[30px] leading-[1.3] font-bold tracking-[-0.03em] text-balance md:text-[44px] md:leading-[1.25] md:tracking-[-0.035em]" data-pagefind-meta="title">
+        <div class="pd-dots mt-6" aria-hidden="true"><i></i><i></i><i></i></div>
+        <h1 class="mt-4 font-display text-[28px] leading-[1.35] text-ink md:text-[36px] md:leading-[1.3]" data-pagefind-meta="title">
           {data.title}
         </h1>
-        <p class="mt-5 text-[17px] leading-[1.7] text-muted-foreground md:text-lg">{data.description}</p>
+        <p class="mt-4 max-w-[72ch] text-[16px] leading-[1.75] text-ink-muted">{data.description}</p>
       </div>
 
-      <div class="mt-6 flex flex-wrap gap-x-4 gap-y-1 border-b border-border pb-8 font-mono text-[13px] text-muted-foreground">
-        <time datetime={data.date.toISOString()}>{formatDate(data.date)}</time>
+      <div class="mt-5 flex flex-wrap gap-x-3 gap-y-1 border-b-[1.5px] border-dashed border-line-strong pb-7 text-[13px] text-ink-muted">
+        <time datetime={data.date.toISOString()} class="tabular-nums">{formatDate(data.date)}</time>
         <span aria-hidden="true">·</span>
         <span>{post.minutesRead}분 읽기</span>
         {
           data.updated && (
             <>
               <span aria-hidden="true">·</span>
-              <span>수정 {formatDate(data.updated)}</span>
+              <span class="tabular-nums">수정 {formatDate(data.updated)}</span>
             </>
           )
         }
@@ -90,27 +101,24 @@ const editUrl = `${SITE.repo}/edit/develop/${post.filePath}`;
 
       {
         series && (
-          <section aria-label="시리즈" class="mt-8 rounded-xl border border-border bg-surface px-6 py-5">
-            <div class="flex flex-wrap items-baseline justify-between gap-3">
-              <a href={`/series/${series.slug}/`} class="text-[15px] font-semibold hover:text-accent">
+          <section aria-label="시리즈" class="mt-7 grid gap-3 rounded-[var(--radius-md)] border-[1.5px] border-line bg-primary-soft px-5 py-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <span class="rounded-full bg-surface px-2.5 py-1 text-xs font-semibold text-primary-ink">시리즈 {seriesIndex + 1} / {series.posts.length}</span>
+              <a href={`/series/${series.slug}/`} class="font-display text-[16px] text-ink hover:text-primary-ink">
                 {series.name}
               </a>
-              <span class="font-mono text-xs text-accent">
-                {seriesIndex + 1} / {series.posts.length}
-              </span>
             </div>
-            <ol class="mt-3 list-decimal pl-5 text-sm leading-[1.9] text-muted-foreground">
-              {series.posts.map((p) =>
-                p.slug === post.slug ? (
-                  <li class="font-semibold text-foreground">
-                    {p.data.title} <span class="font-normal text-accent">← 지금 읽는 글</span>
-                  </li>
-                ) : (
-                  <li>
-                    <a href={postHref(p)} class="hover:text-foreground">{p.data.title}</a>
-                  </li>
-                ),
-              )}
+            <ol class="grid gap-2 text-sm">
+              {series.posts.map((p, i) => (
+                <li class="grid grid-cols-[24px_minmax(0,1fr)] items-start gap-2.5">
+                  <span class="grid size-6 place-items-center rounded-full bg-primary font-display text-[12px] text-on-primary">{i + 1}</span>
+                  {p.slug === post.slug ? (
+                    <span class="pt-0.5 font-semibold text-ink">{p.data.title} <span class="font-normal text-primary-ink">· 지금 읽는 글</span></span>
+                  ) : (
+                    <a href={postHref(p)} class="pt-0.5 text-ink-muted hover:text-primary-ink">{p.data.title}</a>
+                  )}
+                </li>
+              ))}
             </ol>
           </section>
         )
@@ -118,12 +126,12 @@ const editUrl = `${SITE.repo}/edit/develop/${post.filePath}`;
 
       {
         toc.length > 0 && (
-          <details class="mt-8 rounded-xl border border-border bg-surface lg:hidden">
-            <summary class="cursor-pointer px-4 py-3.5 text-sm font-semibold">목차</summary>
-            <ol class="list-decimal pb-4 pl-[34px] pr-4 text-sm leading-[1.9] text-muted-foreground">
+          <details class="mt-7 rounded-[var(--radius-md)] border-[1.5px] border-line bg-sunken lg:hidden">
+            <summary class="cursor-pointer px-4 py-3 font-display text-[15px] text-primary-ink">목차</summary>
+            <ol class="grid gap-1 px-4 pb-4 text-sm">
               {toc.map((h) => (
-                <li class:list={[h.depth === 3 && "ml-4 list-[circle]"]}>
-                  <a href={`#${h.slug}`} class="hover:text-foreground">{h.text}</a>
+                <li class:list={[h.depth === 3 && "pl-4"]}>
+                  <a href={`#${h.slug}`} class="text-ink-muted hover:text-primary-ink">{h.text}</a>
                 </li>
               ))}
             </ol>
@@ -131,28 +139,26 @@ const editUrl = `${SITE.repo}/edit/develop/${post.filePath}`;
         )
       }
 
-      <div class="prose-blog mt-10" data-pagefind-body>
+      <div class="prose-blog mt-9" data-pagefind-body>
         <Content />
       </div>
 
       {
         data.tags.length > 0 && (
-          <div class="mt-12 flex flex-wrap gap-2 font-mono text-[13px]">
+          <div class="mt-12 flex flex-wrap gap-2">
             {data.tags.map((t) => (
-              <a href={`/tags/${slugify(t)}/`} class="rounded-md bg-muted-strong px-2.5 py-1 text-muted-foreground hover:text-foreground">
-                #{t.toLowerCase()}
-              </a>
+              <a href={`/tags/${slugify(t)}/`} class="pd-tag">#{t.toLowerCase()}</a>
             ))}
           </div>
         )
       }
 
-      <nav aria-label="이전·다음 글" class="mt-12 grid gap-4 sm:grid-cols-2">
+      <nav aria-label="이전·다음 글" class="mt-10 grid gap-3 sm:grid-cols-2">
         {
           prev ? (
-            <a href={postHref(prev)} class="rounded-xl border border-border p-5 hover:border-foreground">
-              <span class="text-[13px] text-muted-foreground">← 이전 글</span>
-              <span class="mt-1.5 block text-[15px] leading-normal font-semibold">{prev.data.title}</span>
+            <a href={postHref(prev)} class="pd-card rounded-[var(--radius-md)] p-5">
+              <span class="text-[13px] text-ink-muted">← 이전 글</span>
+              <span class="mt-1.5 block font-display text-[16px] leading-[1.45] text-ink">{prev.data.title}</span>
             </a>
           ) : (
             <span class="hidden sm:block" />
@@ -160,9 +166,9 @@ const editUrl = `${SITE.repo}/edit/develop/${post.filePath}`;
         }
         {
           next && (
-            <a href={postHref(next)} class="rounded-xl border border-border p-5 text-right hover:border-foreground">
-              <span class="text-[13px] text-muted-foreground">다음 글 →</span>
-              <span class="mt-1.5 block text-[15px] leading-normal font-semibold">{next.data.title}</span>
+            <a href={postHref(next)} class="pd-card rounded-[var(--radius-md)] p-5 text-right">
+              <span class="text-[13px] text-ink-muted">다음 글 →</span>
+              <span class="mt-1.5 block font-display text-[16px] leading-[1.45] text-ink">{next.data.title}</span>
             </a>
           )
         }
@@ -170,48 +176,31 @@ const editUrl = `${SITE.repo}/edit/develop/${post.filePath}`;
 
       {
         GISCUS.repoId && GISCUS.categoryId && (
-          <section aria-label="댓글" class="mt-16">
-            <h2 class="mb-4 text-lg font-bold">댓글</h2>
+          <section aria-label="댓글" class="mt-12 border-t-[1.5px] border-dashed border-line-strong pt-10">
+            <h2 class="mb-4 font-display text-[22px] text-ink">댓글</h2>
             <Comments client:idle />
           </section>
         )
       }
     </article>
-
-    <aside aria-label="목차" class="hidden flex-[1_1_220px] pt-[72px] lg:block">
-      <div class="sticky top-24">
-        {
-          toc.length > 0 && (
-            <>
-              <p class="mb-3.5 font-mono text-xs tracking-[0.04em] text-muted-foreground">목차</p>
-              <TocSpy client:idle headings={toc.map(({ depth, slug, text }) => ({ depth, slug, text }))} />
-            </>
-          )
-        }
-        <div class="mt-7 flex flex-col gap-2.5 border-t border-border pt-5 text-[13px]">
-          <a href="#main" class="text-muted-foreground hover:text-foreground">↑ 맨 위로</a>
-          <a href={editUrl} class="text-muted-foreground hover:text-foreground" target="_blank" rel="noopener noreferrer">GitHub에서 수정하기</a>
-        </div>
-      </div>
-    </aside>
   </div>
 
   {
     related.length > 0 && (
-      <section class="border-t border-border bg-muted">
-        <div class="mx-auto max-w-[1120px] px-5 pb-[72px] pt-14 md:px-8">
-          <h2 class="mb-6 text-lg font-bold">관련 글</h2>
-          <div class="grid gap-6 md:grid-cols-3">
-            {related.map((p) => (
-              <a href={postHref(p)} class="block rounded-xl border border-border bg-surface p-[22px] hover:border-foreground">
-                <span class="text-[13px] text-accent">{categoryDisplay(p.data.category)}</span>
-                <span class="mt-2 block leading-normal font-semibold">{p.data.title}</span>
-                <span class="mt-3 block font-mono text-xs text-muted-foreground">
-                  {formatDate(p.data.date)} · {p.minutesRead}분
-                </span>
-              </a>
-            ))}
-          </div>
+      <section class="mx-auto max-w-[1180px] px-4 pb-20 md:px-8">
+        <h2 class="mb-4 flex items-center gap-2 font-display text-[20px] text-ink">
+          <span class="size-2 rounded-full bg-primary" aria-hidden="true" />관련 글
+        </h2>
+        <div class="grid gap-4 md:grid-cols-3">
+          {related.map((p) => (
+            <a href={postHref(p)} class="pd-card p-5">
+              <span class="pd-tag pd-tag--primary">{categoryDisplay(p.data.category)}</span>
+              <span class="mt-3 block font-display text-[17px] leading-[1.45] text-ink">{p.data.title}</span>
+              <span class="mt-3 block text-[13px] tabular-nums text-ink-muted">
+                {formatDate(p.data.date)} · {p.minutesRead}분
+              </span>
+            </a>
+          ))}
         </div>
       </section>
     )
@@ -239,7 +228,7 @@ const editUrl = `${SITE.repo}/edit/develop/${post.filePath}`;
 
   document.addEventListener("astro:page-load", () => {
     zoom?.detach();
-    zoom = mediumZoom(".prose-blog .md-figure img", { margin: 24, background: "var(--background)" });
+    zoom = mediumZoom(".prose-blog .md-figure img", { margin: 24, background: "var(--canvas)" });
     update();
   });
 </script>

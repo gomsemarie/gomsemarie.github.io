@@ -46,5 +46,5 @@ slug: "custom-slug"           # 선택 — 없으면 파일명
 - 소개 페이지 본문: `src/content/about.md`
 - 사이트 정보·댓글(Giscus)·방문자 분석(GoatCounter): `src/config/site.ts` — 값이 비어 있으면 해당 기능은 꺼진 상태로 빌드됩니다.
 - 코드블록 테마·문구: `ec.config.mjs` (바꾼 뒤 결과가 그대로면 `.astro`, `node_modules/.astro` 캐시를 지우고 다시 빌드)
-- 디자인 토큰: `src/styles/global.css`, 본문 스타일: `src/styles/prose.css`
+- 디자인: Pastel Docs 디자인 시스템 — 색 토큰 `src/styles/palette.css`(6개 테마 × 라이트·다크), 모양·컴포넌트 `src/styles/global.css`, 본문 `src/styles/prose.css`. 둥근 상자에 한쪽 테두리(측면 막대)는 쓰지 않는다.
 - 설계 문서: `docs/superpowers/specs/2026-10-15-astro-blog-rebuild-design.md`

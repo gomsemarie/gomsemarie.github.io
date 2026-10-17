@@ -31,14 +31,14 @@ const title = node === root ? root.label : `${root.label} / ${node.label}`;
       <nav aria-label="하위 카테고리" class="mt-8 flex flex-wrap gap-2 text-sm">
         <a
           href={categoryHref(root.path)}
-          class:list={["rounded-full px-3.5 py-1.5", node === root ? "bg-foreground text-background" : "border border-border hover:border-foreground"]}
+          class:list={["rounded-full px-3.5 py-1.5", node === root ? "bg-primary-soft text-primary-ink" : "border border-line hover:border-line-strong"]}
         >
           전체 <span class="font-mono text-xs opacity-60">{root.count}</span>
         </a>
         {root.children.map((c) => (
           <a
             href={categoryHref(c.path)}
-            class:list={["rounded-full px-3.5 py-1.5", c.path.join("/") === node.path.join("/") ? "bg-foreground text-background" : "border border-border hover:border-foreground"]}
+            class:list={["rounded-full px-3.5 py-1.5", c.path.join("/") === node.path.join("/") ? "bg-primary-soft text-primary-ink" : "border border-line hover:border-line-strong"]}
           >
             {c.label} <span class="font-mono text-xs opacity-60">{c.count}</span>
           </a>
