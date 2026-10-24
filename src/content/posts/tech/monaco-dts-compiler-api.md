@@ -1,22 +1,22 @@
 ---
 title: "Monaco 자동완성용 d.ts를 TypeScript Compiler API로 만들기"
-description: "노코드 UI 빌더의 스크립트 에디터에 위젯 자동완성을 붙인 과정을 정리했다. 위젯 타입에서 정적 d.ts를 생성하고, 화면 요소별 선언을 동적으로 주입하고, 패널끼리 자동완성이 섞이지 않게 격리하고, mapped type 속성이 any로 나오던 문제를 고쳤다."
-date: 2026-10-17
+description: "손으로 쓴 위젯 d.ts가 위젯 정의와 자꾸 어긋나서 Compiler API로 import 없는 선언 파일을 생성하게 했다. 화면 요소 id마다 선언을 따로 주입하고, 패널끼리 자동완성이 섞이는 문제는 scope가 붙은 extra lib와 moduleDetection: 'force'로 막았다. mapped type 속성이 any로 나오던 원인도 찾았다."
+date: 2026-05-08
 category: "Tech/TypeScript"
 tags: ["typescript", "monaco-editor", "compiler-api", "intellisense", "editor"]
 series: "노코드 UI 빌더 개발기"
 seriesOrder: 9
 ---
 
-노코드 UI 빌더에는 스크립트 탭이 있다. 화면에 놓은 위젯을 코드로 다루는 곳이다. 사용자는 여기서 `Button_save.setDisabled(true)` 같은 코드를 쓴다. 에디터는 Monaco를 쓴다.
+노코드 UI 빌더에는 스크립트 탭이 있다. 화면에 놓은 위젯을 코드로 다루는 곳이다. 사용자는 여기서 `Button_save.setDisabled(true)` 같은 코드를 쓴다. 에디터는 Monaco다.
 
-자동완성이 없으면 이 탭은 쓰기 어렵다. 어떤 위젯에 어떤 메서드가 있는지 외워야 하고, 오타를 내도 실행하기 전까지 모른다. 이 글은 그 자동완성을 만든 과정이다.
+자동완성이 없으면 이 탭은 쓰기 어렵다. 어떤 위젯에 어떤 메서드가 있는지 외워야 하고, 오타를 내도 실행하기 전까지 모른다. 그래서 위젯 자동완성을 붙였다.
 
 ## 손으로 쓴 d.ts의 한계
 
 처음에는 위젯 타입 선언을 손으로 썼다. `declare global` 안에 `interface Button { getText(): string; setText(text: string): void; ... }`를 JSDoc과 함께 적어 두고 Monaco에 extra lib로 넣었다.
 
-금방 어긋났다. 위젯 정의에 속성을 추가해도 d.ts는 그대로였다. 위젯이 늘수록 손으로 맞추는 일이 늘었다. 위젯 정의에는 이미 TypeScript 타입이 있으니, 거기서 선언을 뽑아내기로 했다.
+금방 어긋났다. 위젯 정의에 속성을 추가해도 d.ts는 그대로였다. 위젯이 늘수록 손으로 맞출 일도 늘었다. 위젯 정의에는 이미 TypeScript 타입이 있으니 거기서 선언을 뽑아내기로 했다.
 
 ## 위젯 타입에서 정적 d.ts를 뽑는다
 
@@ -26,7 +26,7 @@ Monaco의 extra lib는 import를 따라가지 못한다. 위젯 타입은 React 
 
 ### 위젯 타입을 하나로 합치는 유틸리티
 
-스크립트에서 위젯 하나로 할 수 있는 일은 세 가지다. 속성을 읽고, 메서드를 부르고, 공통 속성(id, 위치, 크기)을 다룬다. 이것을 하나의 타입으로 합쳤다.
+스크립트에서 위젯 하나로 할 수 있는 일은 속성 읽기, 메서드 호출, 공통 속성(id, 위치, 크기) 다루기다. 이것을 타입 하나로 합쳤다.
 
 ```ts title="intellisense.types.ts"
 import type { ComponentProps, ComponentType } from 'react';
@@ -46,7 +46,7 @@ export type ScriptApiOf<W extends ComponentType<any> & { __methods?: unknown }> 
 
 원래 빌더에는 속성과 메서드를 conditional type으로 꺼내는 유틸리티가 있었다. 그런데 위젯 컴포넌트 타입이 intersection이라 Compiler API에서 그 추론이 풀리지 않았다. 그래서 `ComponentProps`와 phantom 필드에서 직접 꺼내는 방식으로 바꿨다.
 
-입력 파일은 위젯마다 한 줄씩 적는다. 생성 스크립트는 이름이 `Intellisense`로 끝나는 export만 읽는다.
+입력 파일에는 위젯마다 한 줄씩 적는다. 생성 스크립트는 이름이 `Intellisense`로 끝나는 export만 읽는다.
 
 ```ts title="widget-intellisense.types.ts"
 export type ButtonIntellisense = ScriptApiOf<typeof Button>;
@@ -113,7 +113,7 @@ export function buildElementDts(map: Record<string, string>): string {
 }
 ```
 
-id가 식별자 규칙에 맞지 않으면 `declare const`를 만들 수 없다. 하이픈이나 점이 들어간 id는 자동완성에서 빠진다. 그래서 속성 패널과 아우트라이너에서 id를 바꿀 때 같은 정규식으로 미리 막았다.
+id가 식별자 규칙에 맞지 않으면 `declare const`를 만들 수 없다. 하이픈이나 점이 들어간 id는 자동완성에서 빠진다. 그래서 속성 패널과 아웃라이너에서 id를 바꿀 때 같은 정규식으로 미리 막았다.
 
 언제 다시 만들지도 정해야 했다. 스키마가 바뀔 때마다 만들면 드래그나 타이핑 도중에도 d.ts가 계속 바뀌고, Monaco의 TypeScript worker가 매번 다시 처리한다. 저장하지 않은 요소가 자동완성에 바로 뜨는 것도 어색했다. 그래서 저장할 때와 파일을 처음 열 때만 만들었다. 저장 기록 id가 바뀌면 그때 스키마를 한 번 읽는다.
 
@@ -144,13 +144,13 @@ function applyAll() {
 }
 ```
 
-scope가 없는 lib(위젯 interface)는 항상 보인다. scope가 있는 lib(요소 선언)는 그 scope가 활성일 때만 Monaco에 들어간다. 패널이 활성화되면 dockview의 활성 변경 이벤트에서 `setActiveScope(패널경로)`를 부르고, `setExtraLibs`로 한 번에 바꾼다. Monaco에는 extra lib 하나를 지우는 API가 없어서 일괄 교체가 오히려 단순했다.
+scope가 없는 lib(위젯 interface)는 항상 보인다. scope가 있는 lib(요소 선언)는 그 scope가 활성일 때만 Monaco에 들어간다. 패널이 활성화되면 dockview의 활성 변경 이벤트에서 `setActiveScope(패널경로)`를 부르고, `setExtraLibs`로 한 번에 바꾼다. Monaco에는 extra lib 하나만 지우는 API가 없어서 일괄 교체가 오히려 단순했다.
 
 ### 2층: 사용자가 만든 함수도 섞인다
 
-요소 id를 나눠도 사용자가 스크립트에 직접 쓴 함수와 변수가 다른 패널에서 보였다. TypeScript language service는 import, export가 없는 파일을 스크립트로 보고, 스크립트의 최상위 선언은 전역에 올라간다. 모든 모델이 한 프로젝트처럼 묶이니 서로 보인다.
+요소 id를 나눠도, 사용자가 스크립트에 직접 쓴 함수와 변수가 다른 패널에서 보였다. TypeScript language service는 import, export가 없는 파일을 스크립트로 보고, 스크립트의 최상위 선언은 전역에 올라간다. 모든 모델이 한 프로젝트처럼 묶이니 서로 보인다.
 
-해결은 `moduleDetection: 'force'`였다. 이 옵션을 켜면 import, export가 없어도 모든 파일을 모듈로 본다. 모듈의 최상위 선언은 그 파일 안에서만 보인다.
+`moduleDetection: 'force'`로 해결했다. 이 옵션을 켜면 import, export가 없어도 모든 파일을 모듈로 본다. 모듈의 최상위 선언은 그 파일 안에서만 보인다.
 
 ```ts title="use-force-module-detection.ts"
 const FORCE = 3; // ModuleDetectionKind.Force, enum이 노출되지 않을 때 대비
@@ -192,7 +192,7 @@ declare global {
 }
 ```
 
-`id`는 제대로 나오는데 `label`, `disabled`는 `any`였다. 차이는 속성이 어디서 왔는가였다. `id`는 interface에 직접 선언된 속성이다. `label`과 `disabled`는 위젯 속성 정의에서 키를 골라 내는 mapped type으로 만들어진 속성이다.
+`id`는 제대로 나오는데 `label`, `disabled`는 `any`였다. 속성이 어디서 왔는지가 달랐다. `id`는 interface에 직접 선언된 속성이다. `label`과 `disabled`는 위젯 속성 정의에서 키를 골라 내는 mapped type으로 만들어진 속성이다.
 
 기존 코드는 속성 타입을 이렇게 얻었다.
 
@@ -202,7 +202,7 @@ checker.getTypeOfSymbolAtLocation(prop, prop.valueDeclaration || prop.declaratio
 
 mapped type이 만든 속성 symbol에는 `valueDeclaration`도 `declarations`도 없다. 그러면 위치 인자에 `undefined`가 들어가고, checker는 오류 타입인 `any`를 돌려준다. 오류를 던지지 않으니 생성은 성공한 것처럼 보였다.
 
-위치가 필요 없는 `checker.getTypeOfSymbol(symbol)`로 바꿨다. 선언이 있으면 기존 방식을 쓰고, 없을 때만 이쪽으로 간다.
+위치가 필요 없는 `checker.getTypeOfSymbol(symbol)`을 쓰게 바꿨다. 선언이 있으면 기존 방식을 쓰고, 없을 때만 이쪽으로 간다.
 
 ```ts title="gen-intellisense.ts"
 function getSymbolType(checker: ts.TypeChecker, sym: ts.Symbol): ts.Type {
@@ -218,12 +218,10 @@ function getSymbolType(checker: ts.TypeChecker, sym: ts.Symbol): ts.Type {
 }
 ```
 
-함수 매개변수 타입을 얻던 곳도 같은 문제가 있어서 모두 이 헬퍼로 바꿨다. 그 뒤 `label`은 `string`, `disabled`는 `boolean`, `tabIndex`는 `number`, `style`은 `Record<string, unknown>`으로 나왔다. 이벤트 속성(`onClick` 등)은 그대로 `any`다. 이벤트 키를 고르는 타입이 일부러 `any`로 매핑하도록 정의돼 있어서다.
+함수 매개변수 타입을 얻던 곳도 같은 문제가 있어서 모두 이 헬퍼로 바꿨다. 그 뒤 `label`은 `string`, `disabled`는 `boolean`, `tabIndex`는 `number`, `style`은 `Record<string, unknown>`으로 나왔다. 이벤트 속성(`onClick` 등)은 그대로 `any`다. 이벤트 키를 고르는 타입이 일부러 `any`로 매핑하도록 정의돼 있다.
 
 > [!NOTE]
-> 생성기가 오류 없이 끝났다고 결과가 맞는 것은 아니다. 생성 결과 파일을 저장소에 커밋해 두면 이번처럼 `any`가 몰린 곳이나 고친 뒤 바뀐 타입을 diff로 확인할 수 있다.
-
-이 기능은 AI 코딩 에이전트와 함께 작업했다.
+> 생성기가 오류 없이 끝나도 결과가 맞는지는 따로 봐야 한다. 생성 결과 파일을 저장소에 커밋해 두면 이번처럼 `any`가 몰린 곳이나 고친 뒤 바뀐 타입을 diff로 확인할 수 있다.
 
 ## 정리
 
