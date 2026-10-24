@@ -6,7 +6,6 @@ category: "Tech/Security"
 tags: ["license", "ed25519", "security", "ux", "typescript"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 12
-draft: true
 ---
 
 ## 리버싱은 못 막는다

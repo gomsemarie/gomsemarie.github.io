@@ -6,7 +6,6 @@ category: "Tech/TypeScript"
 tags: ["typescript", "discriminated-union", "monaco-editor", "jscodeshift", "type-safety"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 8
-draft: true
 ---
 
 ## "타입 추론이 안 된다"

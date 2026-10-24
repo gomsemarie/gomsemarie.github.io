@@ -6,7 +6,6 @@ category: "Tech/Astro"
 tags: ["astro", "design", "prototyping", "vercel", "ai-agent"]
 series: "회사 홈페이지 리뉴얼"
 seriesOrder: 1
-draft: true
 ---
 
 회사 홈페이지를 새로 만들었다. 기존 사이트는 웹 서버, 관리자 서버, API 서버, DB까지 갖춘 구조였는데, 실제로 하는 일은 회사 소개와 공지 몇 건을 보여 주는 정도였다. 이것을 Astro 7 정적 사이트로 바꾸고 Vercel에 올렸다.

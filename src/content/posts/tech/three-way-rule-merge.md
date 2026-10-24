@@ -6,7 +6,6 @@ category: "Tech/Node"
 tags: ["node", "typescript", "merge", "airgap", "file-system"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 7
-draft: true
 ---
 
 ## 배포 한 번에 현장 작업이 날아간다

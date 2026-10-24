@@ -6,7 +6,6 @@ category: "Tech/Electron"
 tags: ["electron", "ipc", "zustand", "error-handling", "typescript"]
 series: "Electron IDE 개발기"
 seriesOrder: 3
-draft: true
 ---
 
 Electron 앱은 main process와 renderer가 IPC로 이야기한다. IDE가 커지면서 파일 읽기, 감시, 검색, Git, 터미널까지 채널이 계속 늘었다. 이 글은 그 IPC를 어떤 모양으로 묶었는지, 그리고 에러가 경계를 넘을 때 무엇을 잃었는지 정리한 것이다.

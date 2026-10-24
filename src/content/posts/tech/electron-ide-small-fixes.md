@@ -6,7 +6,6 @@ category: "Tech/Electron"
 tags: ["electron", "file-watcher", "node-pty", "canvas", "react"]
 series: "Electron IDE 개발기"
 seriesOrder: 5
-draft: true
 ---
 
 큰 기능을 만들다 보면 중간에 작은 문제가 계속 나온다. 하나씩 보면 글 한 편이 되기엔 짧고, 그냥 넘기기엔 다음에 또 만날 것 같은 것들이다. 이번 글은 그런 것 다섯 개를 모았다. 순서는 문제, 원인, 해결이다.

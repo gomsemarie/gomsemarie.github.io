@@ -6,7 +6,6 @@ category: "Tech/React"
 tags: ["react", "monaco-editor", "typescript", "ux", "jscodeshift"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 5
-draft: true
 ---
 
 ## diff는 바뀐 곳만 말한다

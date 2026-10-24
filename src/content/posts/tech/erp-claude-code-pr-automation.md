@@ -6,7 +6,6 @@ category: "Tech/AI"
 tags: ["claude-code", "github-actions", "oidc", "automation", "security"]
 series: "레거시 ERP 이관기"
 seriesOrder: 10
-draft: true
 ---
 
 회사 ERP에는 화면 안에서 바로 버그나 수정 요청을 남기는 요청 창구가 있다. 지금 보던 화면, 필터, 최근 API 오류 같은 맥락이 자동으로 붙는다. 요청이 쌓이자 다음 질문이 생겼다. 작은 요청은 사람이 코드를 열기 전에 AI 코딩 에이전트가 먼저 작업해 두면 어떨까.

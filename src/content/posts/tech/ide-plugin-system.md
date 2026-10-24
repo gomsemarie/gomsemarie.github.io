@@ -6,7 +6,6 @@ category: "Tech/Electron"
 tags: ["electron", "plugin", "zod", "architecture", "typescript"]
 series: "Electron IDE 개발기"
 seriesOrder: 4
-draft: true
 ---
 
 IDE에 기능을 넣을 때마다 IDE를 다시 빌드해야 했다. 할 일 목록 같은 작은 도구도 그랬다. 그래서 VSCode 확장처럼 플러그인을 붙이기로 했다. 목표는 하나였다. 패키징된 앱에서도 사용자가 플러그인을 추가하고 지울 수 있어야 한다.

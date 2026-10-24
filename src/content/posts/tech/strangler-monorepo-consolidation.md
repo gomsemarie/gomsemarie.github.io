@@ -6,7 +6,6 @@ category: "Tech/Architecture"
 tags: ["monorepo", "migration", "refactoring", "architecture", "electron"]
 series: "Electron IDE 개발기"
 seriesOrder: 1
-draft: true
 ---
 
 ## 어떤 IDE인가

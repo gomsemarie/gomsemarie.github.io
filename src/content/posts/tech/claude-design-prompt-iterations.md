@@ -6,7 +6,6 @@ category: "Tech/AI"
 tags: ["claude-design", "prompt", "design-system", "workflow", "ui"]
 series: "레거시 ERP 이관기"
 seriesOrder: 12
-draft: true
 ---
 
 회사 ERP를 새 스택으로 옮기면서 화면도 새로 그렸다. 시안은 AI 디자인 도구인 Claude Design과 주고받으며 만들었다. 첫 요청에서 시작해 18차까지 갔다. 중간에 "15-1차"처럼 바로잡는 짧은 회차도 끼었다.

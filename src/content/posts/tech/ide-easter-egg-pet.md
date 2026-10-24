@@ -6,7 +6,6 @@ category: "Tech/React"
 tags: ["react", "phaser", "easter-egg", "game-physics", "electron"]
 series: "Electron IDE 개발기"
 seriesOrder: 6
-draft: true
 ---
 
 IDE에 쓸모없는 것을 하나 넣었다. 화면 아래쪽을 걸어 다니는 펫이다. 이름은 Dev Friend로 붙였다. 밥을 주고, 놀아 주고, 재울 수 있다. 일에는 도움이 안 된다. 작업은 AI 코딩 에이전트와 함께 했다.

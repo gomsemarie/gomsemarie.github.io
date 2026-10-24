@@ -6,7 +6,6 @@ category: "Tech/Node"
 tags: ["node", "websocket", "electron", "dependency", "airgap"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 13
-draft: true
 ---
 
 ## 하나 늘면 심사가 하나 는다

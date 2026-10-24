@@ -6,7 +6,6 @@ category: "Tech/Editor"
 tags: ["react", "editor", "architecture", "typescript", "vscode"]
 series: "노코드 UI 빌더 개발기"
 seriesOrder: 8
-draft: true
 ---
 
 노코드 UI 빌더에는 자기만의 편집 화면이 필요한 위젯이 있다. 탭 위젯이 대표적이다. 탭 이름을 바꾸거나 순서를 바꾸려면 속성 패널의 입력칸 몇 개로는 부족해서, 별도 편집 창을 띄웠다.

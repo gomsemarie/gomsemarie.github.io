@@ -6,7 +6,6 @@ category: "Tech/React"
 tags: ["react", "glide-data-grid", "ime", "korean", "canvas", "typescript"]
 series: "레거시 ERP 이관기"
 seriesOrder: 6
-draft: true
 ---
 
 회사 ERP를 새 스택으로 옮기면서 그리드도 바꿨다. 업무 화면 대부분이 표에 값을 넣고 저장하는 구조라서, 그리드는 ERP에서 가장 많이 쓰는 부품이다. 이 글은 새 그리드에서 한글 첫 글자가 사라지던 문제와, 그 해결책이 만든 부작용을 고친 기록이다.

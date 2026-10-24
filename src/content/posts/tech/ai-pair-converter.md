@@ -6,7 +6,6 @@ category: "Tech/AI"
 tags: ["ai", "claude", "workflow", "git", "design"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 15
-draft: true
 ---
 
 ## 숫자부터

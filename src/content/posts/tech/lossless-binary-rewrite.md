@@ -6,7 +6,6 @@ category: "Tech/Node"
 tags: ["typescript", "node", "file-format", "xml", "testing"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 6
-draft: true
 ---
 
 ## 고칠 것은 셀 몇 칸이었다

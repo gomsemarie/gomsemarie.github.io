@@ -6,7 +6,6 @@ category: "Tech/Testing"
 tags: ["parity-testing", "migration", "postgresql", "nodejs", "testing"]
 series: "레거시 ERP 이관기"
 seriesOrder: 2
-draft: true
 ---
 
 [1편](/posts/erp-ten-days-ai-migration/)에서 이관 원칙을 "기존 기능 100% 재현"으로 정했다고 썼다. 재현했다는 말은 확인할 수 있어야 의미가 있다. API가 수백 개라 사람이 하나씩 눌러 볼 수는 없었다. 그래서 기존 API를 정답지로 두고, 같은 요청을 두 API에 보내 결과를 기계로 비교했다.

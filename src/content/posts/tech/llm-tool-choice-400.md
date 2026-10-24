@@ -6,7 +6,6 @@ category: "Tech/AI"
 tags: ["llm", "tool-use", "claude-api", "debugging"]
 series: "레거시 ERP 이관기"
 seriesOrder: 11
-draft: true
 ---
 
 ERP 요청 창구에 "AI로 다듬기" 버튼을 넣었다. 현업이 대충 쓴 요청 글을 유형별 칸(재현 단계, 기대 결과 등)에 맞게 정리해 주는 기능이다. 그런데 넣은 날부터 결과가 늘 같았다. "AI 가 답하지 못했습니다." 이 기능과 수정은 AI 코딩 에이전트와 함께 작업했다.

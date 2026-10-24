@@ -6,7 +6,6 @@ category: "Tech/TypeScript"
 tags: ["pdf", "pdfjs", "tabula", "typescript", "migration"]
 series: "레거시 ERP 이관기"
 seriesOrder: 5
-draft: true
 ---
 
 회사 ERP에는 PDF를 올리면 표를 읽어 사람별 값 목록을 돌려주는 API가 있다. 외부에서 받는 급여 관련 PDF를 화면에 옮겨 적는 수고를 줄이는 기능이다. 기존 Java API는 이 일을 Tabula와 PDFBox로 했다. 새 API는 Node에서 돈다. 표 추출도 TypeScript로 옮겨야 했다.

@@ -6,7 +6,6 @@ category: "Tech/Astro"
 tags: ["astro", "vercel", "serverless", "oauth", "docx"]
 series: "회사 홈페이지 리뉴얼"
 seriesOrder: 2
-draft: true
 ---
 
 [지난 글](/posts/homepage-lab-redesign/)에서 회사 홈페이지를 Astro 정적 사이트로 다시 만든 이야기를 했다. 설계 문서의 원칙은 "런타임 의존성 0"이었다. 서버를 없애려고 정적 사이트로 바꿨으니 서버 코드를 다시 들이고 싶지 않았다.

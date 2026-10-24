@@ -6,7 +6,6 @@ category: "Tech/TypeScript"
 tags: ["typescript", "zod", "node-test", "testing", "monorepo"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 14
-draft: true
 ---
 
 ## 서버와 클라이언트가 같은 말을 해야 한다

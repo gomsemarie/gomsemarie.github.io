@@ -6,7 +6,6 @@ category: "Tech/Editor"
 tags: ["react", "editor", "architecture", "no-code", "retrospective"]
 series: "노코드 UI 빌더 개발기"
 seriesOrder: 1
-draft: true
 ---
 
 회사에서 노코드 UI 빌더를 만들고 있다. 업무 화면을 코드 대신 끌어다 놓기로 조립하는 도구다. 처음부터 지금 모양이었던 것은 아니다. 오픈소스 라이브러리를 붙여 봤고, 직접 하나를 만들었고, 그것을 버리고 코어부터 다시 만들었다. 이 글은 그 세 번의 과정과 각 단계에서 무엇을 보고 다음으로 넘어갔는지를 정리한 시리즈 첫 글이다.

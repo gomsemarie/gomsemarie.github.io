@@ -6,7 +6,6 @@ category: "Tech/AI"
 tags: ["ai-agent", "migration", "legacy", "nextjs", "postgresql"]
 series: "레거시 ERP 이관기"
 seriesOrder: 1
-draft: true
 ---
 
 회사 ERP를 새 스택으로 옮기고 있다. 인력, 급여, 계약, 매출·매입을 관리하는 사내 시스템이다. 기존은 Spring Boot + MyBatis API와 별도 웹 화면, 클라우드 VM과 관리형 DB, 오브젝트 스토리지로 돌았다. 새 쪽은 Next.js 한 프로젝트에 화면과 API를 같이 두고, DB는 관리형 PostgreSQL을 쓴다. 폐쇄망에도 그대로 설치할 수 있어야 한다는 조건이 붙었다.

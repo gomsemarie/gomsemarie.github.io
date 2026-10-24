@@ -6,7 +6,6 @@ category: "Tech/Node"
 tags: ["node", "worker-threads", "performance", "concurrency", "typescript"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 3
-draft: true
 ---
 
 ## 올리는 값이 돌리는 값을 압도했다

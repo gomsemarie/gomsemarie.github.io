@@ -6,7 +6,6 @@ category: "Tech/Node"
 tags: ["electron", "fastify", "monorepo", "jscodeshift", "node"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 1
-draft: true
 ---
 
 ## 무엇을 하는 도구인가

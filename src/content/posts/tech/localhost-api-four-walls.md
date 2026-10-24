@@ -6,7 +6,6 @@ category: "Tech/Security"
 tags: ["security", "websocket", "electron", "localhost", "json-rpc"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 11
-draft: true
 ---
 
 ## 무엇을 붙이려 했나

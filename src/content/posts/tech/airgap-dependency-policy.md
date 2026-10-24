@@ -6,7 +6,6 @@ category: "Tech/Architecture"
 tags: ["architecture", "airgap", "self-hosted", "license", "nextjs"]
 series: "레거시 ERP 이관기"
 seriesOrder: 9
-draft: true
 ---
 
 회사 ERP의 새 버전은 클라우드에서 운영한다. 화면과 API는 Vercel, DB·인증·파일은 Supabase를 쓴다. 그런데 처음부터 조건이 하나 붙어 있었다. **인터넷이 없는 폐쇄망에도 그대로 설치할 수 있어야 한다.** 다른 회사에 설치해 줄 수도 있고, 사내 서버로 옮길 수도 있다. 그때 "이 기능은 클라우드에서만 됩니다"가 나오면 안 된다.

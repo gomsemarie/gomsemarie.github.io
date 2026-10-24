@@ -6,7 +6,6 @@ category: "Tech/TypeScript"
 tags: ["mybatis", "typescript", "postgresql", "migration", "sql"]
 series: "레거시 ERP 이관기"
 seriesOrder: 3
-draft: true
 ---
 
 회사 ERP의 Java API를 TypeScript로 옮기면서 가장 먼저 정한 것이 "SQL은 손대지 않는다"였다. 기존 API는 Spring Boot + MyBatis였고, 매퍼 XML 안에 SQL 문장이 429개 있었다. 이걸 사람이든 AI든 손으로 옮기면 어딘가에서 조건 하나, 형 변환 하나가 어긋난다. 그 차이를 찾는 데 드는 시간이 옮기는 시간보다 길다.

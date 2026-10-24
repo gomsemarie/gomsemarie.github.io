@@ -6,7 +6,6 @@ category: "Tech/Node"
 tags: ["node", "sqlite", "xlsx", "performance", "typescript"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 9
-draft: true
 ---
 
 ## 같은 데이터가 두 군데서 무거웠다

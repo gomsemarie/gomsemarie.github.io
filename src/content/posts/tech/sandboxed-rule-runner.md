@@ -6,7 +6,6 @@ category: "Tech/Node"
 tags: ["node", "worker-threads", "vm", "sandbox", "typescript"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 2
-draft: true
 ---
 
 ## 룰은 남이 쓴 코드다

@@ -6,7 +6,6 @@ category: "Tech/TypeScript"
 tags: ["typescript", "monaco-editor", "compiler-api", "intellisense", "editor"]
 series: "노코드 UI 빌더 개발기"
 seriesOrder: 9
-draft: true
 ---
 
 노코드 UI 빌더에는 스크립트 탭이 있다. 화면에 놓은 위젯을 코드로 다루는 곳이다. 사용자는 여기서 `Button_save.setDisabled(true)` 같은 코드를 쓴다. 에디터는 Monaco를 쓴다.

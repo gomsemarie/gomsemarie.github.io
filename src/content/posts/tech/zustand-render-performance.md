@@ -6,7 +6,6 @@ category: "Tech/Editor"
 tags: ["react", "zustand", "performance", "konva", "typescript"]
 series: "노코드 UI 빌더 개발기"
 seriesOrder: 4
-draft: true
 ---
 
 [앞 글](/posts/define-widget-micro-store/)에서 위젯마다 작은 Zustand store를 둔 구조를 정리했다. 구조가 구독을 좁힐 수 있게 해 줘도, 실제로 좁게 구독하는지는 코드 한 줄에 달려 있다. 이 글은 빌더와 그것을 담은 IDE에서 리렌더를 줄인 작업 네 가지를 모은 것이다.

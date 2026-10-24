@@ -6,7 +6,6 @@ category: "Tech/Editor"
 tags: ["codegen", "vite", "build", "monorepo", "editor"]
 series: "노코드 UI 빌더 개발기"
 seriesOrder: 7
-draft: true
 ---
 
 노코드 UI 빌더에서 저장한 화면은 두 형태로 존재한다. 하나는 화면 구조를 담은 JSON이다. 위젯 트리, 스크립트, 데이터셋 정의가 들어 있다. 다른 하나는 이 JSON을 React 컴포넌트로 바꾼 TSX다. 화면을 실제로 띄우는 뷰어는 TSX를 번들해서 쓴다. 변환은 팀이 같이 쓰는 사내 변환 스크립트가 맡는다.

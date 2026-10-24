@@ -6,7 +6,6 @@ category: "Tech/Editor"
 tags: ["react", "zustand", "state-management", "editor", "typescript"]
 series: "노코드 UI 빌더 개발기"
 seriesOrder: 3
-draft: true
 ---
 
 노코드 UI 빌더의 위젯은 두 곳에서 돈다. 편집기 캔버스와 실제 화면을 띄우는 뷰어다. 둘은 같은 React 컴포넌트를 쓴다. 위젯 작성자는 컴포넌트를 한 번만 쓰고, 빌더가 편집용과 실행용을 만들어 준다. 이 일을 하는 함수를 `defineWidget`이라고 불렀다.

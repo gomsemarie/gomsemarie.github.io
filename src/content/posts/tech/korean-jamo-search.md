@@ -6,7 +6,6 @@ category: "Tech/JavaScript"
 tags: ["javascript", "typescript", "korean", "unicode", "search"]
 series: "레거시 ERP 이관기"
 seriesOrder: 7
-draft: true
 ---
 
 회사 ERP의 표시 열 목록에서 "생년월일"을 찾으려고 한 글자씩 치면, "생"까지는 목록에 남아 있다가 "생ㄴ"이 되는 순간 사라졌다. "생녀"에서도 없고, "생년"이 완성돼야 다시 나타났다. 치는 동안 결과가 깜빡이는 것이다. 이 글은 이 문제를 고친 작은 함수 이야기다. 코드는 AI 코딩 에이전트와 함께 작업했다.

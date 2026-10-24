@@ -6,7 +6,6 @@ category: "Tech/React"
 tags: ["react", "zustand", "electron", "state-management", "ui"]
 series: "Electron IDE 개발기"
 seriesOrder: 2
-draft: true
 ---
 
 1편에서 IDE 모노레포를 정리한 이야기를 했다. 이번에는 화면 쪽이다. IDE 가운데의 에디터 탭은 dockview로 붙였다 떼었다 한다. 그런데 좌우와 하단의 사이드 패널(탐색기, 검색, Git, 콘솔 같은 것)은 dockview를 쓰지 않고 도킹 시스템을 따로 만들었다. 이 글은 그 시스템을 어떻게 나눴고 어디서 상태가 꼬였는지 정리한 것이다.

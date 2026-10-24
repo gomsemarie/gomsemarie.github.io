@@ -6,7 +6,6 @@ category: "Tech/Node"
 tags: ["node", "hot-reload", "canary", "testing", "idempotency"]
 series: "사내 변환 도구 개발기"
 seriesOrder: 4
-draft: true
 ---
 
 ## 서버 하나가 팀 전체의 결과를 바꾼다

@@ -6,7 +6,6 @@ category: "Tech/Editor"
 tags: ["react", "editor", "data-model", "drag-and-drop", "typescript"]
 series: "노코드 UI 빌더 개발기"
 seriesOrder: 5
-draft: true
 ---
 
 회사에서 만드는 노코드 UI 빌더에는 자식을 가질 수 있는 위젯이 있다. Frame이나 Form 같은 컨테이너다. 처음에는 단순했다. 빌더가 위젯 본체를 그리고, 그 옆에 자식들을 자동으로 붙였다. 자식은 언제나 위젯 박스 바로 안쪽에 들어갔다.

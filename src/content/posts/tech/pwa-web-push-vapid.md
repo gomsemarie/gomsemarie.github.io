@@ -6,7 +6,6 @@ category: "Tech/Web"
 tags: ["pwa", "service-worker", "web-push", "vapid", "nextjs"]
 series: "레거시 ERP 이관기"
 seriesOrder: 8
-draft: true
 ---
 
 회사 ERP에는 화면 오른쪽 위에 종 아이콘 알림이 있다. 결재 요청이 오거나, 내가 올린 결재가 끝나거나, 경비가 지급되면 여기에 쌓인다. 문제는 ERP를 열어 둬야만 보인다는 점이다.

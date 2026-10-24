@@ -6,7 +6,6 @@ category: "Tech/Editor"
 tags: ["migration", "schema", "editor", "typescript"]
 series: "노코드 UI 빌더 개발기"
 seriesOrder: 6
-draft: true
 ---
 
 노코드 UI 빌더는 화면을 JSON 파일로 저장한다. 위젯 트리, 속성, 데이터셋 정의가 들어 있다. 위젯 구조를 바꿀 때마다 이미 저장된 파일이 새 코드와 맞지 않는 문제가 생겼다. 이전 글의 슬롯 재설계 때 파일에 버전 필드를 넣었고, 그 뒤로 이 필드가 계속 쓰였다.

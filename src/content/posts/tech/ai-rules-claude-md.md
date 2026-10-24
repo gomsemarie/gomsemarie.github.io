@@ -6,7 +6,6 @@ category: "Tech/AI"
 tags: ["claude-code", "ai", "git-hooks", "commitlint", "workflow"]
 series: "Electron IDE 개발기"
 seriesOrder: 7
-draft: true
 ---
 
 이 시리즈의 IDE는 상당 부분을 AI 코딩 에이전트와 함께 만들었다. 저장소 기록으로 보면 2026년 4월 22일에 처음으로 Claude 공동 작성 커밋이 들어갔다. 그 뒤 내 커밋 중 385개에 `Co-Authored-By: Claude` 줄이 붙어 있다. 같은 기간 내 커밋의 60% 남짓이다. 5월이 218개로 가장 많았다.
